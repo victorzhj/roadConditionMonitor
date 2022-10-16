@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtCreator 5.0.2, 2022-10-16T20:19:11. -->
+=======
+<!-- Written by QtCreator 5.0.3, 2022-10-16T20:39:13. -->
+>>>>>>> 6baf51595bf75e0cdf75de17d55d59a4c38112a1
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -237,8 +241,14 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">rojekti2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/jonio/Desktop/Koulu/Software Design/joni-victor-tittamari-altti/rojekti/rojekti.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/jonio/Desktop/Koulu/Software Design/joni-victor-tittamari-altti/rojekti/rojekti.pro</value>
+>>>>>>> 6baf51595bf75e0cdf75de17d55d59a4c38112a1
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>

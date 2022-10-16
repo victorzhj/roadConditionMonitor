@@ -1,5 +1,8 @@
 QT       += core gui
-QT += core
+QT       += core
+QT       += charts
+QT       += network
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -10,12 +13,19 @@ CONFIG += c++11
 
 SOURCES += \
     jsonparserchooser.cpp \
+    controller.cpp \
+    jsonnetworker.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    model.cpp
 
 HEADERS += \
     jsonparserchooser.h \
     mainwindow.h
+    controller.h \
+    jsonnetworker.h \
+    mainwindow.h \
+    model.h
 
 FORMS += \
     mainwindow.ui
