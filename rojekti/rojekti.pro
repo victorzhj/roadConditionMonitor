@@ -21,7 +21,7 @@ SOURCES += \
 
 HEADERS += \
     jsonparserchooser.h \
-    mainwindow.h
+    mainwindow.h \
     controller.h \
     jsonnetworker.h \
     mainwindow.h \
