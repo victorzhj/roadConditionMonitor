@@ -8,9 +8,6 @@
 // Widget used to display charts
 #include <QtCharts/QChartView>
 
-// Widget used to display charts
-#include <QtCharts/QChartView>
-
 using namespace std;
 
 class CreateGraph {
