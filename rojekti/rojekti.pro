@@ -17,6 +17,7 @@ SOURCES += \
     jsonnetworker.cpp \
     jsonroadconditionparser.cpp \
     jsonroadmaintenanceparser.cpp \
+    jsontrafficmessageparser.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp
@@ -24,6 +25,7 @@ SOURCES += \
 HEADERS += \
     jsonroadconditionparser.h \
     jsonroadmaintenanceparser.h \
+    jsontrafficmessageparser.h \
     mainwindow.h \
     controller.h \
     jsonnetworker.h \
