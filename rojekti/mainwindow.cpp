@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     CreateGraph *graph = new CreateGraph();
-    graph->drawGraph(xaxis, yaxis, ui->horizontalFrame);
+    //graph->drawGraph(xaxis, yaxis, ui->horizontalFrame);
     graph->drawBarGraph(messages, ui->horizontalFrame);
 }
 
