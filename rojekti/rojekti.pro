@@ -13,17 +13,15 @@ CONFIG += c++11
 
 SOURCES += \
     creategraph.cpp \
-    jsonparserchooser.cpp \
-    jsonparserchooser.cpp \
     controller.cpp \
     jsonnetworker.cpp \
+    jsonroadmaintenanceparser.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp
 
 HEADERS += \
-    jsonparserchooser.h \
-    jsonparserchooser.h \
+    jsonroadmaintenanceparser.h \
     mainwindow.h \
     controller.h \
     jsonnetworker.h \
