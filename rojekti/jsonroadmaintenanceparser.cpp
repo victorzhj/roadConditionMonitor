@@ -1,15 +1,15 @@
 #include "jsonroadmaintenanceparser.h"
 
-jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file, std::string task)
+jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file)
 {
     jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
-    taskName_ = QString::fromStdString(task);
 
     bool isObject = createJsonObject();
     if (isObject == false) {
-        return;
+        taskAmount = -1;
+    } else {
+        getData();
     }
-    getData();
 }
 
 

@@ -15,12 +15,14 @@ SOURCES += \
     creategraph.cpp \
     controller.cpp \
     jsonnetworker.cpp \
+    jsonroadconditionparser.cpp \
     jsonroadmaintenanceparser.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp
 
 HEADERS += \
+    jsonroadconditionparser.h \
     jsonroadmaintenanceparser.h \
     mainwindow.h \
     controller.h \
