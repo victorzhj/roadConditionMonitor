@@ -7,9 +7,6 @@
 #include <iostream>
 #include <map>
 
-using dayInt = int;
-using hour = int;
-using minute = int;
 using maintenanceType = std::string;
 
 class jsonRoadMaintenanceParser
@@ -17,16 +14,16 @@ class jsonRoadMaintenanceParser
 public:
     jsonRoadMaintenanceParser(const QString file, std::string task = "null");
 
-    std::map<dayInt, int> getTaskAmountPerDay();
+    int getTaskAmountPerDay();
 private:
     QString taskName_;
     QJsonDocument jsonFile_;
     QJsonObject jsonObject_;
     QJsonArray features_;
-    std::map<dayInt, int> taskAmountPerDay;
+    int taskAmount;
 
     bool createJsonObject();
-    void getDataPerTask();
+    void getData();
 
 };
 
