@@ -27,7 +27,6 @@ public:
      */
     int getTaskAmountPerDay();
 private:
-    QString taskName_;
     QJsonDocument jsonFile_;
     QJsonObject jsonObject_;
     QJsonArray features_;
