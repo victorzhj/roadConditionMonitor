@@ -1,6 +1,7 @@
 QT       += core gui
 QT       += core
-QT       += core gui charts
+QT       += core gui
+QT       += charts
 QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -17,6 +18,7 @@ SOURCES += \
     jsonnetworker.cpp \
     jsonroadconditionparser.cpp \
     jsonroadmaintenanceparser.cpp \
+    jsontrafficmessageparser.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp
@@ -24,6 +26,7 @@ SOURCES += \
 HEADERS += \
     jsonroadconditionparser.h \
     jsonroadmaintenanceparser.h \
+    jsontrafficmessageparser.h \
     mainwindow.h \
     controller.h \
     jsonnetworker.h \

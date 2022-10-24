@@ -8,7 +8,7 @@ jsonRoadConditionParser::jsonRoadConditionParser(const QString file, const std::
 
     bool isObject = createJsonObject();
     if (isObject == false) {
-        // taskAmount = -1;
+        wantedValue_ = "noValue";
     } else {
         getData();
     }

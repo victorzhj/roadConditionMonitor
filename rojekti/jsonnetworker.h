@@ -12,6 +12,12 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QAuthenticator>
+#include <iostream>
+#include <QDebug>
+
+#include <QJsonValue>
+#include <QJsonObject>
 
 class jsonNetworker : public QObject
 {
