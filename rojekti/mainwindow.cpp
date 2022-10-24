@@ -4,7 +4,6 @@
 //these will be replaced with numbers from the API
 vector<int> xaxis = {1,2,3,4,5,6,7,8,9};
 vector<int> yaxis = {10,20,30,40,50,60,70,80,90};
-map<int,int> messages = {{1,2},{2,6},{3,7},{0,10}};
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,8 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     CreateGraph *graph = new CreateGraph();
-    //graph->drawGraph(xaxis, yaxis, ui->horizontalFrame);
-    graph->drawBarGraph(messages, ui->horizontalFrame);
+    QLineSeries* series = new QLineSeries();
+    for (int i = 0; i < std::min(xaxis.size(), yaxis.size()); ++i)
+        {
+        series->append(QPoint(xaxis[i], yaxis[i]));
+        }
+    graph->drawGraph(series, ui->horizontalFrame);
 }
 
 MainWindow::~MainWindow()
