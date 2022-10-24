@@ -2,7 +2,14 @@
 
 jsonTrafficMessageParser::jsonTrafficMessageParser(const QString file)
 {
+    jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
 
+    bool isObject = createJsonObject();
+    if (isObject == false) {
+        messageAmount_ = -1;
+    } else {
+        getData();
+    }
 }
 
 bool jsonTrafficMessageParser::createJsonObject()
@@ -21,7 +28,7 @@ bool jsonTrafficMessageParser::createJsonObject()
     return false;
 }
 
-void jsonRoadMaintenanceParser::getData()
+void jsonTrafficMessageParser::getData()
 {
-    taskAmount = features_.size();
+    messageAmount_ = features_.size();
 }
