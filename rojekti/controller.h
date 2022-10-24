@@ -2,13 +2,18 @@
 #define CONTROLLER_H
 
 #include <QObject>
+#include "model.h"
+#include "mainwindow.h"
 
 class controller : public QObject
 {
     Q_OBJECT
 public:
-    explicit controller(QObject *parent = nullptr);
-
+    controller(model *model, MainWindow *view, QObject *parent = nullptr);
+    void updateGraph();
+private:
+    model* model_;
+    MainWindow* view_;
 signals:
 
 };
