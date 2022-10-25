@@ -2,23 +2,28 @@
 #include <QNetworkAccessManager>
 #include <QtGlobal>
 
-
 jsonNetworker::jsonNetworker(QObject *parent) : QObject(parent)
 {
     connect(&manager, &QNetworkAccessManager::authenticationRequired, this, &jsonNetworker::authenticationRequired);
     connect(&manager, &QNetworkAccessManager::encrypted, this, &jsonNetworker::encrypted);
     connect(&manager, &QNetworkAccessManager::preSharedKeyAuthenticationRequired, this, &jsonNetworker::preSharedKeyAuthenticationRequired);
     connect(&manager, &QNetworkAccessManager::proxyAuthenticationRequired, this, &jsonNetworker::proxyAuthenticationRequired);
-    connect(&manager, &QNetworkAccessManager::sslErrors, this, &jsonNetworker::sslErrors);
-}
+    connect(&manager, &QNetworkAccessManager::sslErrors, this, &jsonNetworker::sslErrors);}
 
 void jsonNetworker::get(QString location)
 {
     //qInfo () << "Getting from server...";
     QNetworkReply* reply = manager.get(QNetworkRequest(QUrl(location)));
-    connect(reply, &QNetworkReply::finished,this,&jsonNetworker::finished);
+    //connect(reply, &QNetworkReply::finished,this,&jsonNetworker::finished);
     //QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     //connect(manager, &QNetworkAccessManager::finished, this, &jsonNetworker::downloadFinished);
+}
+
+void jsonNetworker::getDefault()
+{
+    QNetworkAccessManager *man = new QNetworkAccessManager(this);
+    connect(man, &QNetworkAccessManager::finished, this, &jsonNetworker::managerFinished);
+    man->get(QNetworkRequest(QUrl(myUrl)));
 }
 
 void jsonNetworker::readyRead()
@@ -65,6 +70,17 @@ void jsonNetworker::sslErrors(QNetworkReply *reply, const QList<QSslError> &erro
     Q_UNUSED(reply);
     Q_UNUSED(errors);
     qInfo () << "sslErrors";
+}
+void jsonNetworker::managerFinished(QNetworkReply *reply)
+{
+    if (reply->error()) {
+            qDebug() << reply->errorString();
+            return;
+        }
+
+        QString answer = reply->readAll();
+
+        qDebug() << answer;
 }
 
 

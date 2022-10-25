@@ -24,3 +24,10 @@ void MainWindow::drawGraph(model* model_)
     graph->drawGraph(series, ui->horizontalFrame);
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    jsonNetworker *networker = new jsonNetworker();
+    networker->getDefault();
+}
+

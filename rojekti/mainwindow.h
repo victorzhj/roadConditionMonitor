@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "model.h"
+#include "jsonnetworker.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,6 +17,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void drawGraph(model *model_);
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
