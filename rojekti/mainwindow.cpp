@@ -27,7 +27,6 @@ void MainWindow::drawGraph(model* model_)
 
 void MainWindow::on_pushButton_clicked()
 {
-    jsonNetworker *networker = new jsonNetworker();
-    networker->getDefault();
+
 }
 

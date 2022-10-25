@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include "model.h"
-#include "jsonnetworker.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

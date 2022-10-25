@@ -29,7 +29,5 @@ void model::updatePreferences()
 
 void model::jsonGetData()
 {
-    jsonNetworker networker;
-    networker.get("https://tie.digitraffic.fi/api/v3/data/road-conditions/21.7/61.45/21.8/61.50");
-    //cout << s.toStdString() << std::endl;
+    networker_->getDefault();
 }

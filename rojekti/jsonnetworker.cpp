@@ -19,13 +19,6 @@ void jsonNetworker::get(QString location)
     //connect(manager, &QNetworkAccessManager::finished, this, &jsonNetworker::downloadFinished);
 }
 
-void jsonNetworker::getDefault()
-{
-    QNetworkAccessManager *man = new QNetworkAccessManager(this);
-    connect(man, &QNetworkAccessManager::finished, this, &jsonNetworker::managerFinished);
-    man->get(QNetworkRequest(QUrl(myUrl)));
-}
-
 void jsonNetworker::readyRead()
 {
     qInfo () << "readyRead";
@@ -71,13 +64,22 @@ void jsonNetworker::sslErrors(QNetworkReply *reply, const QList<QSslError> &erro
     Q_UNUSED(errors);
     qInfo () << "sslErrors";
 }
+
+
+void jsonNetworker::getDefault()
+{
+    QNetworkAccessManager *man = new QNetworkAccessManager(this);
+    connect(man, &QNetworkAccessManager::finished, this, &jsonNetworker::managerFinished);
+    man->get(QNetworkRequest(QUrl(myUrl)));
+}
+
 void jsonNetworker::managerFinished(QNetworkReply *reply)
 {
     if (reply->error()) {
             qDebug() << reply->errorString();
             return;
         }
-
+    //writes the json in output, doesn't do anything with it yet
         QString answer = reply->readAll();
 
         qDebug() << answer;
