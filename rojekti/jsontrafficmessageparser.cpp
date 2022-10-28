@@ -13,6 +13,11 @@ jsonFile_(QJsonDocument::fromJson(file.toUtf8()))
     }
 }
 
+int jsonTrafficMessageParser::getTotalTrafficAmount()
+{
+    return messageAmount_;
+}
+
 bool jsonTrafficMessageParser::createJsonObject()
 {
     if (jsonFile_.isEmpty()) {
