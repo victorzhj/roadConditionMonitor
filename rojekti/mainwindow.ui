@@ -25,7 +25,7 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout"/>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="preference_dropdown">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -35,7 +35,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_2">
+   <widget class="QComboBox" name="road_dropdown">
     <property name="geometry">
      <rect>
       <x>600</x>
@@ -44,6 +44,16 @@
       <height>61</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>Sijainti 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>sijainti 2</string>
+     </property>
+    </item>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
@@ -58,7 +68,7 @@
      <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_3">
+   <widget class="QComboBox" name="timespan_dropdown">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -239,30 +249,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QRadioButton" name="visibility">
-         <property name="text">
-          <string>Visibility</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="friction">
-         <property name="text">
-          <string>Friction</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QRadioButton" name="precipitation">
          <property name="text">
           <string>Precipitation</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="slipperiness">
-         <property name="text">
-          <string>Winter slipperiness</string>
          </property>
         </widget>
        </item>

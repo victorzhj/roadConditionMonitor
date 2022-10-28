@@ -16,6 +16,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void drawGraph(model *model_);
+
+public slots:
+    void road(int index);
+
 private:
     Ui::MainWindow *ui;
 };
