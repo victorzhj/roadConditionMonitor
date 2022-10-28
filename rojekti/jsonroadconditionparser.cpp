@@ -1,11 +1,10 @@
 #include "jsonroadconditionparser.h"
 
 jsonRoadConditionParser::jsonRoadConditionParser(const QString file, const std::string item, const std::string forecastTime):
-item_(QString::fromStdString(item))
+item_(QString::fromStdString(item)), forecastTime_(QString::fromStdString(forecastTime))
 {
-    forecastTime_ = QString::fromStdString(forecastTime);
+    forecastTime_ = forecastTime_ + "h";
     jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
-
     bool isObject = createJsonObject();
     if (isObject == false) {
         wantedValue_ = "noValue";
@@ -29,7 +28,7 @@ bool jsonRoadConditionParser::createJsonObject()
     } else if (jsonFile_.isObject()) {
         jsonObject_ = jsonFile_.object();
         if (!jsonObject_.value("weatherData").isUndefined()) {
-            weatherDatas_ = jsonObject_.value("features").toArray();
+            weatherDatas_ = jsonObject_.value("weatherData").toArray();
             return true;
         }
     }
@@ -43,15 +42,16 @@ void jsonRoadConditionParser::getData()
         return;
     }
     QJsonObject weatherData = weatherDatas_.at(0).toObject();
-
     QJsonArray roadConditions = weatherData.value("roadConditions").toArray();
     foreach (const QJsonValue jsonValue, roadConditions) {
         QJsonObject tempObject = jsonValue.toObject();
-        if (tempObject.value("forecastName").toString() == forecastTime_) {
-            if (forecastTime_ == "0") {
+        std::string test = tempObject.value("forecastName").toString().toStdString();
+        if (test == forecastTime_.toStdString()) {
+            if (item_ == "overallRoadCondition") {
                 wantedValue_ = tempObject.value("overallRoadCondition").toString().toStdString();
             } else {
-                wantedValue_ = tempObject.value(item_).toString().toStdString();
+                QJsonObject forecastConditionReason = tempObject.value("forecastConditionReason").toObject();
+                wantedValue_ = forecastConditionReason.value(item_).toString().toStdString();
             }
         }
     }
