@@ -1,20 +1,19 @@
-#include "jsonroadmaintenanceparser.h"
+#include "jsontrafficmessageparser.h"
 
-jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file):
+jsonTrafficMessageParser::jsonTrafficMessageParser(const QString file):
 jsonFile_(QJsonDocument::fromJson(file.toUtf8()))
 {
-    jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
+
 
     bool isObject = createJsonObject();
     if (isObject == false) {
-        taskAmount = -1;
+        messageAmount_ = -1;
     } else {
         getData();
     }
 }
 
-
-bool jsonRoadMaintenanceParser::createJsonObject()
+bool jsonTrafficMessageParser::createJsonObject()
 {
     if (jsonFile_.isEmpty()) {
         return false;
@@ -30,14 +29,7 @@ bool jsonRoadMaintenanceParser::createJsonObject()
     return false;
 }
 
-
-void jsonRoadMaintenanceParser::getData()
+void jsonTrafficMessageParser::getData()
 {
-    taskAmount = features_.size();
-}
-
-
-int jsonRoadMaintenanceParser::getTaskAmountPerDay()
-{
-    return taskAmount;
+    messageAmount_ = features_.size();
 }
