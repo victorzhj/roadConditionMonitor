@@ -23,7 +23,7 @@ class jsonNetworker : public QObject
 {
 public:
     explicit jsonNetworker(QObject *parent = nullptr);
-    void getDefault();
+    QString getDefault();
 
 
 public slots:
@@ -38,8 +38,6 @@ private slots:
     void preSharedKeyAuthenticationRequired(QNetworkReply *reply, QSslPreSharedKeyAuthenticator *authenticator);
     void proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator);
     void sslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
-
-    void managerFinished(QNetworkReply*);
 
 private:
     QString startTime;
