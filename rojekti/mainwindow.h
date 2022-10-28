@@ -16,8 +16,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void drawGraph(model *model_);
-private slots:
-    void on_pushButton_clicked();
+
+public slots:
+    void road(int index);
 
 private:
     Ui::MainWindow *ui;
