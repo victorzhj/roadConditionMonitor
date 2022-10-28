@@ -5,8 +5,13 @@ controller::controller(model* model, MainWindow* view, QObject *parent) : QObjec
   , view_(view)
 {
     updateGraph();
+    model->jsonGetData();
 }
 
 void controller::updateGraph() {
     view_->drawGraph(model_);
+}
+
+void controller::getData() {
+   model_->jsonGetData();
 }

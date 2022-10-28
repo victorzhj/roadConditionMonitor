@@ -27,6 +27,7 @@ private:
     QList<QPoint> pointdata_ = {{1,2}, {2,4}, {3,10}, {4,2}, {5,1}};
     //using int as placeholder type since not sure what it will be
     int preferences_;
+    jsonNetworker* networker_ = new jsonNetworker();
 };
 
 #endif // MODEL_H
