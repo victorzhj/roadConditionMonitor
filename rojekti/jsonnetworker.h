@@ -26,6 +26,7 @@ public:
     QString getDefault();
 
 
+    QString getUrl(QUrl url);
 public slots:
     void get(QString location);
 

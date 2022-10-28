@@ -25,6 +25,13 @@ void MainWindow::drawGraph(model* model_)
             series->append(point);
         }
     graph->drawGraph(series, chartview);
+    /*QBarSet* axisy = new QBarSet("");
+    for (auto& point : model_->getChart()) {
+            axisy->append(point.y());
+            qDebug() << point.y();
+        }
+    QBarSeries* series = new QBarSeries(axisy);
+    graph->drawBarGraph(series, chartview);*/
 }
 
 void MainWindow::road(int index)
