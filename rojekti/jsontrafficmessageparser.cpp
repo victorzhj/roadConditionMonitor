@@ -1,8 +1,9 @@
 #include "jsontrafficmessageparser.h"
 
-jsonTrafficMessageParser::jsonTrafficMessageParser(const QString file)
+jsonTrafficMessageParser::jsonTrafficMessageParser(const QString file):
+jsonFile_(QJsonDocument::fromJson(file.toUtf8()))
 {
-    jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
+
 
     bool isObject = createJsonObject();
     if (isObject == false) {

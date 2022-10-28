@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(ui->road_dropdown, &QComboBox::currentIndexChanged,
+            this, &MainWindow::road);
 }
 
 MainWindow::~MainWindow()
@@ -24,3 +26,8 @@ void MainWindow::drawGraph(model* model_)
     graph->drawGraph(series, ui->horizontalFrame);
 }
 
+void MainWindow::road(int index)
+{
+    //Road dropdownin tekemiset laitetaan tänne
+    qDebug() << index;
+}

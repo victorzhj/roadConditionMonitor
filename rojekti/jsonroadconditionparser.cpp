@@ -1,8 +1,8 @@
 #include "jsonroadconditionparser.h"
 
-jsonRoadConditionParser::jsonRoadConditionParser(const QString file, const std::string item, const std::string forecastTime)
+jsonRoadConditionParser::jsonRoadConditionParser(const QString file, const std::string item, const std::string forecastTime):
+item_(QString::fromStdString(item))
 {
-    item_ = QString::fromStdString(item);
     forecastTime_ = QString::fromStdString(forecastTime);
     jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
 

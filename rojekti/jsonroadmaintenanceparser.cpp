@@ -1,6 +1,7 @@
 #include "jsonroadmaintenanceparser.h"
 
-jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file)
+jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file):
+jsonFile_(QJsonDocument::fromJson(file.toUtf8()))
 {
     jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
 
