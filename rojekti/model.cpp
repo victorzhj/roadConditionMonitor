@@ -26,3 +26,8 @@ void model::updatePreferences()
 {
 
 }
+
+void model::jsonGetData()
+{
+    networker_->getDefault();
+}
