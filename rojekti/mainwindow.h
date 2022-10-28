@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "model.h"
+#include "qchartview.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,7 +21,14 @@ public:
 public slots:
     void road(int index);
 
+private slots:
+    void on_pushButton_clicked();
+
+signals:
+    void pushButtonClicked();
+
 private:
     Ui::MainWindow *ui;
+    QChartView* chartview = new QChartView();
 };
 #endif // MAINWINDOW_H

@@ -14,17 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="horizontalFrame">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>120</y>
-      <width>451</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout"/>
-   </widget>
    <widget class="QComboBox" name="preference_dropdown">
     <property name="geometry">
      <rect>
@@ -65,7 +54,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Graph</string>
     </property>
    </widget>
    <widget class="QComboBox" name="timespan_dropdown">
@@ -299,6 +288,17 @@
       </layout>
      </item>
     </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>409</x>
+      <y>129</y>
+      <width>391</width>
+      <height>341</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

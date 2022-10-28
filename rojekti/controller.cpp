@@ -1,17 +1,21 @@
 #include "controller.h"
+#include "QObject"
 
 controller::controller(model* model, MainWindow* view, QObject *parent) : QObject(parent)
   , model_(model)
   , view_(view)
 {
-    updateGraph();
-    model->jsonGetData();
+
+    QObject::connect(view_, &MainWindow::pushButtonClicked,
+                             this, &controller::GraphButtonClicked);
 }
 
 void controller::updateGraph() {
     view_->drawGraph(model_);
 }
 
-void controller::getData() {
-   model_->jsonGetData();
+void controller::GraphButtonClicked()
+{
+    model_->jsonGetData();
+    updateGraph();
 }

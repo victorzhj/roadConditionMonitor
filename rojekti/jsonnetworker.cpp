@@ -1,6 +1,9 @@
 #include "jsonnetworker.h"
+#include "jsonroadmaintenanceparser.h"
+#include "qeventloop.h"
 #include <QNetworkAccessManager>
 #include <QtGlobal>
+
 
 jsonNetworker::jsonNetworker(QObject *parent) : QObject(parent)
 {
@@ -66,23 +69,26 @@ void jsonNetworker::sslErrors(QNetworkReply *reply, const QList<QSslError> &erro
 }
 
 
-void jsonNetworker::getDefault()
+QString jsonNetworker::getDefault()
 {
     QNetworkAccessManager *man = new QNetworkAccessManager(this);
-    connect(man, &QNetworkAccessManager::finished, this, &jsonNetworker::managerFinished);
-    man->get(QNetworkRequest(QUrl(myUrl)));
+    QNetworkReply *reply = man->get(QNetworkRequest(QUrl(myUrl)));
+    QEventLoop loop;
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    QString answer = reply->readAll();
+    return answer;
 }
 
-void jsonNetworker::managerFinished(QNetworkReply *reply)
+QString jsonNetworker::getUrl(QUrl url)
 {
-    if (reply->error()) {
-            qDebug() << reply->errorString();
-            return;
-        }
-    //writes the json in output, doesn't do anything with it yet
-        QString answer = reply->readAll();
-
-        qDebug() << answer;
+    QNetworkAccessManager *man = new QNetworkAccessManager(this);
+    QNetworkReply *reply = man->get(QNetworkRequest(QUrl(url)));
+    QEventLoop loop;
+    connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    QString answer = reply->readAll();
+    return answer;
 }
 
 

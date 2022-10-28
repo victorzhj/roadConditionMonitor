@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->road_dropdown, &QComboBox::currentIndexChanged,
             this, &MainWindow::road);
+    ui->horizontalLayout->addWidget(chartview);
 }
 
 MainWindow::~MainWindow()
@@ -23,7 +24,14 @@ void MainWindow::drawGraph(model* model_)
     for (auto& point : model_->getChart()) {
             series->append(point);
         }
-    graph->drawGraph(series, ui->horizontalFrame);
+    graph->drawGraph(series, chartview);
+    /*QBarSet* axisy = new QBarSet("");
+    for (auto& point : model_->getChart()) {
+            axisy->append(point.y());
+            qDebug() << point.y();
+        }
+    QBarSeries* series = new QBarSeries(axisy);
+    graph->drawBarGraph(series, chartview);*/
 }
 
 void MainWindow::road(int index)
@@ -31,3 +39,9 @@ void MainWindow::road(int index)
     //Road dropdownin tekemiset laitetaan tänne
     qDebug() << index;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+        emit pushButtonClicked();
+}
+

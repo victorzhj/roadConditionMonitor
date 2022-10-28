@@ -17,6 +17,9 @@ public:
 private:
     model* model_;
     MainWindow* view_;
+
+public slots:
+    void GraphButtonClicked();
 signals:
 
 };
