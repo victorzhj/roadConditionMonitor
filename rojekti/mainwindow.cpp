@@ -14,10 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     // Add roads
     ui->road_dropdown->addItems({"Sijainti 1", "Sijainti 2"});
 
-    // TODO correct timespans from API
-    QStringList tempTimes = {"ma", "ti", "ke", "to", "pe", "la", "su"};
-    ui->start_dropdown->addItems(tempTimes);
-    ui->end_dropdown->addItems(tempTimes);
+    // Set default time to today
+    ui->startTimeEdit->setDate(QDate::currentDate());
+    ui->endTimeEdit->setDateTime(QDateTime::currentDateTime());
 }
 
 MainWindow::~MainWindow()
@@ -57,5 +56,11 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_roadmaintenance_toggled(bool checked)
 {
     ui->type_pick->setEnabled(checked);
+}
+
+std::pair<QDateTime, QDateTime> MainWindow::getTimeRange() {
+    QDateTime start = ui->startTimeEdit->dateTime();
+    QDateTime end = ui->endTimeEdit->dateTime();
+    return std::make_pair(start, end);
 }
 

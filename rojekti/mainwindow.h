@@ -17,6 +17,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void drawGraph(model *model_);
+    std::pair<QDateTime, QDateTime> getTimeRange();
 
 public slots:
     void road(int index);

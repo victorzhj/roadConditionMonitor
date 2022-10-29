@@ -321,7 +321,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="start_dropdown"/>
+        <widget class="QDateTimeEdit" name="startTimeEdit"/>
        </item>
       </layout>
      </item>
@@ -335,7 +335,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="end_dropdown"/>
+        <widget class="QDateTimeEdit" name="endTimeEdit"/>
        </item>
       </layout>
      </item>

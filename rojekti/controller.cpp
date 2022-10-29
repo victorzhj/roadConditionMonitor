@@ -16,6 +16,8 @@ void controller::updateGraph() {
 
 void controller::GraphButtonClicked()
 {
+    std::pair<QDateTime, QDateTime> timeRange = view_->getTimeRange();
+    model_->setTimeRange(timeRange.first, timeRange.second);
     model_->jsonGetData();
     updateGraph();
 }
