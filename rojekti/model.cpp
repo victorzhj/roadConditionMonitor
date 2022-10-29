@@ -43,6 +43,7 @@ void model::jsonGetData()
     int days = start_.daysTo(end_);
 
     // yök olisko joku millä vois tehä vaa yhellä kutsulla sit vaikka filtteraa päivän mukaan tms, en jaksanu kattoa, featuren start ja end timet tms
+    // tämä for loop on todella hidas kun on useampia päiviä. (useat HTTP kutsut on hitaita)
     for (int i = 0; i <= days; i++) {
         QDateTime current = start_.addDays(i);
         stringstream t;

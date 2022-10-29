@@ -44,7 +44,6 @@ void MainWindow::drawGraph(model* model_)
 void MainWindow::road(int index)
 {
     //Road dropdownin tekemiset laitetaan tänne
-    qDebug() << index;
 }
 
 void MainWindow::on_pushButton_clicked()
