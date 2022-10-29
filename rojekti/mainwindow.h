@@ -24,6 +24,8 @@ public slots:
 private slots:
     void on_pushButton_clicked();
 
+    void on_roadmaintenance_toggled(bool checked);
+
 signals:
     void pushButtonClicked();
 

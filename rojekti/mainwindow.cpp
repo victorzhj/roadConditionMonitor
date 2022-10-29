@@ -10,6 +10,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->road_dropdown, &QComboBox::currentIndexChanged,
             this, &MainWindow::road);
     ui->horizontalLayout->addWidget(chartview);
+
+    // Add roads
+    ui->road_dropdown->addItems({"Sijainti 1", "Sijainti 2"});
+
+    // TODO correct timespans from API
+    QStringList tempTimes = {"ma", "ti", "ke", "to", "pe", "la", "su"};
+    ui->start_dropdown->addItems(tempTimes);
+    ui->end_dropdown->addItems(tempTimes);
 }
 
 MainWindow::~MainWindow()
@@ -43,5 +51,11 @@ void MainWindow::road(int index)
 void MainWindow::on_pushButton_clicked()
 {
         emit pushButtonClicked();
+}
+
+
+void MainWindow::on_roadmaintenance_toggled(bool checked)
+{
+    ui->type_pick->setEnabled(checked);
 }
 

@@ -33,16 +33,6 @@
       <height>61</height>
      </rect>
     </property>
-    <item>
-     <property name="text">
-      <string>Sijainti 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>sijainti 2</string>
-     </property>
-    </item>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
@@ -55,16 +45,6 @@
     </property>
     <property name="text">
      <string>Graph</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="timespan_dropdown">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>450</y>
-      <width>161</width>
-      <height>51</height>
-     </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -106,19 +86,6 @@
      <string>Road:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>461</y>
-      <width>81</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Timespan:</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
@@ -156,6 +123,9 @@
          <property name="text">
           <string>Road maintenance data</string>
          </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
@@ -168,12 +138,19 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="type_pick"/>
+          <widget class="QComboBox" name="type_pick">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
        <item>
         <widget class="QRadioButton" name="trafficmessages">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Traffic messages</string>
          </property>
@@ -181,6 +158,9 @@
        </item>
        <item>
         <widget class="QRadioButton" name="temperature_h">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Temperature</string>
          </property>
@@ -188,6 +168,9 @@
        </item>
        <item>
         <widget class="QRadioButton" name="observedwind">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Observed wind</string>
          </property>
@@ -195,6 +178,9 @@
        </item>
        <item>
         <widget class="QRadioButton" name="observedcloudiness">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Observed cloudiness</string>
          </property>
@@ -239,6 +225,9 @@
        </item>
        <item>
         <widget class="QRadioButton" name="precipitation">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Precipitation</string>
          </property>
@@ -246,6 +235,9 @@
        </item>
        <item>
         <widget class="QRadioButton" name="roadcondition">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Overall road condition</string>
          </property>
@@ -253,6 +245,9 @@
        </item>
        <item>
         <widget class="QRadioButton" name="temperature_f">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Temperature</string>
          </property>
@@ -260,6 +255,9 @@
        </item>
        <item>
         <widget class="QRadioButton" name="predictedwind">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Predicted wind</string>
          </property>
@@ -267,6 +265,9 @@
        </item>
        <item>
         <widget class="QRadioButton" name="predictedtemperature">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Predicted temperature</string>
          </property>
@@ -299,6 +300,46 @@
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout"/>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>420</y>
+      <width>291</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="startLabel">
+         <property name="text">
+          <string>Start:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="start_dropdown"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="endLabel">
+         <property name="text">
+          <string>End:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="end_dropdown"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
