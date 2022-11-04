@@ -23,22 +23,13 @@ class jsonNetworker : public QObject
 {
 public:
     explicit jsonNetworker(QObject *parent = nullptr);
-    QString getDefault();
-
 
     QString getUrl(QUrl url);
 public slots:
-    void get(QString location);
 
 
 private slots:
-    void readyRead();
-    void authenticationRequired(QNetworkReply *reply, QAuthenticator *authenticator);
-    void encrypted(QNetworkReply *reply);
-    void finished(QNetworkReply *reply);
-    void preSharedKeyAuthenticationRequired(QNetworkReply *reply, QSslPreSharedKeyAuthenticator *authenticator);
-    void proxyAuthenticationRequired(const QNetworkProxy &proxy, QAuthenticator *authenticator);
-    void sslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
+
 
 private:
     QString startTime;

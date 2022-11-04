@@ -32,13 +32,7 @@ void MainWindow::drawGraph(model* model_)
             series->append(point);
         }
     graph->drawGraph(series, chartview);
-    /*QBarSet* axisy = new QBarSet("");
-    for (auto& point : model_->getChart()) {
-            axisy->append(point.y());
-            qDebug() << point.y();
-        }
-    QBarSeries* series = new QBarSeries(axisy);
-    graph->drawBarGraph(series, chartview);*/
+    delete graph;
 }
 
 void MainWindow::road(int index)
@@ -61,5 +55,25 @@ std::pair<QDateTime, QDateTime> MainWindow::getTimeRange() {
     QDateTime start = ui->startTimeEdit->dateTime();
     QDateTime end = ui->endTimeEdit->dateTime();
     return std::make_pair(start, end);
+}
+
+
+void MainWindow::on_saveButton_clicked()
+{
+    placeholdername = QInputDialog::getText(this, "Input required","Enter graph name");
+    emit saveButtonClicked();
+}
+
+
+
+void MainWindow::addtoCompare() {
+    ui->CompareDropdown->addItem(placeholdername);
+}
+
+
+
+void MainWindow::on_CompareDropdown_activated(int index)
+{
+
 }
 

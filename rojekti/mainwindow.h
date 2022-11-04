@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "model.h"
 #include "qchartview.h"
+#include <QInputDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,11 +15,13 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    QString placeholdername;
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void drawGraph(model *model_);
     std::pair<QDateTime, QDateTime> getTimeRange();
 
+    void addtoCompare();
 public slots:
     void road(int index);
 
@@ -27,8 +30,15 @@ private slots:
 
     void on_roadmaintenance_toggled(bool checked);
 
+    void on_saveButton_clicked();
+
+
+
+    void on_CompareDropdown_activated(int index);
+
 signals:
     void pushButtonClicked();
+    void saveButtonClicked();
 
 private:
     Ui::MainWindow *ui;
