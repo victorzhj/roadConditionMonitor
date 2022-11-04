@@ -8,6 +8,7 @@ model::model()
 }
 
 QList<QPoint> model::getChart() {
+    //returns the points on the chart
     return pointdata_;
 }
 
@@ -15,8 +16,9 @@ int model::getPreferences()
 {
     return preferences_;
 }
-//update this when the data is pulled from the networker or loaded from file
+
 void model::updateChart(vector<int> timeData, vector<int> OtherData) {
+    //Combines two vectors into chart points (QPoint)
     pointdata_.clear();
     for (int i = 0; i < std::min(timeData.size(), OtherData.size()); ++i)
         {
@@ -42,7 +44,6 @@ void model::jsonGetData()
     vector<int> yaxis = {};
     int days = start_.daysTo(end_);
 
-    // yök olisko joku millä vois tehä vaa yhellä kutsulla sit vaikka filtteraa päivän mukaan tms, en jaksanu kattoa, featuren start ja end timet tms
     // tämä for loop on todella hidas kun on useampia päiviä. (useat HTTP kutsut on hitaita)
     for (int i = 0; i <= days; i++) {
         QDateTime current = start_.addDays(i);
@@ -60,3 +61,5 @@ void model::jsonGetData()
 
     updateChart(xaxis, yaxis);
 }
+
+

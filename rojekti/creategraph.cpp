@@ -8,7 +8,6 @@
 #include <QtCharts/QChartView>
 #include <QBarSeries>
 #include <QBarSet>
-#include <iostream>
 using namespace std;
 
 class CreateGraph {
@@ -25,12 +24,6 @@ void drawGraph(QLineSeries* series, QChartView* object)
         object->setChart(chart);
 
 };
-void drawBarGraph(QBarSeries* yaxis, QChartView* object)
-{
-        // Create chart, add data, hide legend, and add axis
-        QChart *chart = new QChart();
-        chart->legend()->hide();
-        chart->addSeries(yaxis);
-        chart->createDefaultAxes();}
+
 
 };
