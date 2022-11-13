@@ -17,6 +17,8 @@
 class model
 {
 public:
+
+    QList<QPoint> pointdata2_;
     model();
     QList<QPoint> getChart();
     int getPreferences();

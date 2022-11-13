@@ -12,8 +12,10 @@ class controller : public QObject
     Q_OBJECT
 public:
     controller(model *model, MainWindow *view, QObject *parent = nullptr);
-    void updateGraph();
+    void updateGraph(int i);
     void getData();
+    void compareDropdownActivated();
+    void deleteButtonClicked();
 private:
     model* model_;
     MainWindow* view_;
