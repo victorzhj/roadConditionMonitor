@@ -38,13 +38,13 @@ void xmlParser::parse()
         }
     }
     amount_ = timeList.size();
-    /*
+
     for (auto i : storedData_) {
         std::cout << i.first << std::endl;
         for (auto j : i.second) {
             std::cout << j << std::endl;
         }
     }
-    */
+
 }
 
