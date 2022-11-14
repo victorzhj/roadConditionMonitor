@@ -22,11 +22,15 @@ class xmlParser
 {
 public:
     xmlParser(const QString file);
+    std::map<parameter, std::vector<value>>getValues();
+
+    int getAmount();
 private:
     void parse();
 
-    std::map<std::string, std::vector<value>> storedData_;
+    std::map<parameter, std::vector<value>> storedData_;
     QDomDocument file_;
+    int amount_;
 
 };
 
