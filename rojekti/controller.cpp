@@ -33,6 +33,27 @@ void controller::GraphButtonClicked()
     model_->setTimeRange(timeRange.first, timeRange.second);
     model_->jsonGetData();
     updateGraph(1);
+
+    /*
+     * some pseudocode
+     * location = get location name from road_dropdown
+     * selected = selected radio button
+     *
+     * if(selected == road maintenance) {
+     *      taskName = get task name from type_pick combo box
+     *      model_->getRoadMaintenance(timeRange.first, timeRange.second, taskName, location)
+     * } else if (selected == precipitation or selected == overall road condition) {
+     *      type = selected
+     *      forecast = get forecast from mainwindow
+     *      model_->getRoadCondition(type, forecast, location)
+     * } else if (selected == traffic messages) {
+     *      model_->getTrafficMsg();
+     * }
+     *
+     *
+     *
+     * updateGraph(1);
+    */
 }
 
 //Saving to file called graphs.txt (initializing if there is none)

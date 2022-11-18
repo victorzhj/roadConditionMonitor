@@ -1,6 +1,8 @@
 #include "model.h"
 #include "creategraph.cpp"
 #include "jsonroadmaintenanceparser.h"
+#include "jsonroadconditionparser.h"
+#include "jsontrafficmessageparser.h"
 #include <string>
 #include <sstream>
 model::model()
@@ -59,6 +61,56 @@ void model::jsonGetData()
         yaxis.push_back(final);
     }
 
+    updateChart(xaxis, yaxis);
+}
+
+void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const  std::string taskName, const std::string location)
+{
+    // TODO
+    // somehow craft the url
+    start_ = start;
+    end_ = end;
+
+    vector<int> xaxis = {};
+    vector<int> yaxis = {};
+    int days = start.daysTo(end);
+
+    for (int i = 0; i <= days; i++) {
+        QDateTime current = start.addDays(i);
+        std::string dateString = current.date().toString(Qt::ISODate).toStdString();
+        // TODO
+        // somehow craft the url e.g url = urlCrafter.getRoadMaitenanceUrl(start, dateString, coordinates);
+        QString json = networker_->getUrl(QUrl(url));
+        jsonRoadMaintenanceParser j(json);
+        int final = j.getTaskAmountPerDay();
+        //xaxis.push_back(current.toString().toStdString()); jos haluaa timestampit graafiin
+        xaxis.push_back(i);
+        yaxis.push_back(final);
+    }
+    updateChart(xaxis, yaxis);
+}
+
+void model::getRoadCondition(const std::string item, const std::string forecastTime, const std::string location)
+{
+    // TODO
+    // somehow craft the url e.g url = urlCrafter.getRoadConditionUrl(coordinates);
+    QString json = networker_->getUrl(QUrl(url));
+    jsonRoadConditionParser j(json, item, forecastTime);
+    std::string value = j.getWantedValue();
+    // TODO display the value
+}
+
+void model::getTrafficMsg()
+{
+    vector<int> xaxis = {};
+    vector<int> yaxis = {};
+    // TODO
+    // somehow craft the url e.g url = urlCrafter.getTraffocMsgUrl(situationType);
+    QString json = networker_->getUrl(QUrl(url));
+    jsonTrafficMessageParser j(json);
+    int value = j.getTotalTrafficAmount();
+    xaxis.push_back(value);
+    // what to add to y axis
     updateChart(xaxis, yaxis);
 }
 

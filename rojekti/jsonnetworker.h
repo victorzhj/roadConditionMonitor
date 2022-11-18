@@ -25,20 +25,8 @@ public:
     explicit jsonNetworker(QObject *parent = nullptr);
 
     QString getUrl(QUrl url);
-public slots:
-
-
-private slots:
-
 
 private:
-    QString startTime;
-    QString endTime;
-    QString X_MIN;
-    QString Y_MIN;
-    QString X_MAX;
-    QString Y_MAX;
-
     QNetworkAccessManager manager;
     QString myUrl= "https://tie.digitraffic.fi/api/maintenance/v1/tracking/routes?endFrom=2022-01-19T09%3A00%3A00Z&endBefore=2022-01-19T14%3A00%3A00Z&xMin=21&yMin=61&xMax=22&yMax=62&taskId=&domain=state-roads";
 
