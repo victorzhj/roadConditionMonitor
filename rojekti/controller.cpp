@@ -10,7 +10,7 @@ controller::controller(model* model, MainWindow* view, QObject *parent) : QObjec
   , model_(model)
   , view_(view)
 {
-
+    creator_ = new fileCreator();
     QObject::connect(view_, &MainWindow::pushButtonClicked,
                              this, &controller::GraphButtonClicked);
     QObject::connect(view_, &MainWindow::saveButtonClicked,
@@ -37,35 +37,18 @@ void controller::GraphButtonClicked()
 
 //Saving to file called graphs.txt (initializing if there is none)
 void controller::saveButtonClicked() {
-    QFile file("graphs.txt");
-    if(!file.open(QIODevice::ReadOnly)){
-        qCritical() << file.errorString();
-        return;
-    }
-   QByteArray jsonFile_ = file.readAll();
-   file.close();
-   QJsonDocument tempdoc = QJsonDocument::fromJson(jsonFile_);
-   QJsonObject myObject = tempdoc.object();
 
+   QJsonObject myObject = creator_->getGraphsfromfile();
     QList<QPoint> temp = model_->getChart();
     QMap<QString, QVariant> myMap;
     for (int i = 0; i< temp.size(); i++)
         {
         //x-coordinate saved as a key to call for y coordinate
             myMap.insert(QString::number(temp[i].x()), temp[i].y());
-
         };
     QJsonValue myValue = QJsonValue::fromVariant(myMap);
     myObject.insert(view_->placeholdername, myValue);
-    QJsonDocument myDoc(myObject);
-
-
-    if(!file.open(QIODevice::WriteOnly )){
-        qCritical() << file.errorString();
-        return;
-    }
-    file.write(myDoc.toJson());
-    file.close();
+    creator_->writetoGraphs(myObject);
     updateGraph(0);
 }
 
@@ -75,15 +58,7 @@ void controller::compareDropdownActivated() {
     std::vector<int> xaxis;
     std::vector<int> yaxis;
     QString graphname = view_->placeholdername;
-    QFile file("graphs.txt");
-    if(!file.open(QIODevice::ReadOnly)){
-        qCritical() << file.errorString();
-        return;
-    }
-   QByteArray jsonFile_ = file.readAll();
-   file.close();
-   QJsonDocument tempdoc = QJsonDocument::fromJson(jsonFile_);
-   QJsonObject myObject = tempdoc.object();
+   QJsonObject myObject = creator_->getGraphsfromfile();
    QList<QPoint> pointdata;
    for(QString num : myObject[graphname].toObject().keys()){
    pointdata.append(QPoint(num.toInt(), myObject[graphname][num].toInt()));
@@ -95,19 +70,9 @@ void controller::compareDropdownActivated() {
 }
 
 void controller::deleteButtonClicked() {
-    QFile file("graphs.txt");
-    if(!file.open(QIODevice::ReadWrite)){
-        qCritical() << file.errorString();
-        return;
-    }
-   QByteArray jsonFile_ = file.readAll();
-   QJsonDocument tempdoc = QJsonDocument::fromJson(jsonFile_);
-   QJsonObject myObject = tempdoc.object();
+   QJsonObject myObject = creator_->getGraphsfromfile();
    myObject.remove(view_->placeholdername);
-   QJsonDocument myDoc(myObject);
-   file.resize(0);
-   file.write(myDoc.toJson());
-   file.close();
+   creator_->writetoGraphs(myObject);
    view_->loadCompareItems();
    compareDropdownActivated();
 }
