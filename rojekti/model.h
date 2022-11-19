@@ -10,17 +10,21 @@
 #include <QList>
 #include <QPoint>
 #include <iostream>
-
+#include "jsonroadmaintenanceparser.h"
+#include "jsonroadconditionparser.h"
+#include "jsontrafficmessageparser.h"
 #include "jsonnetworker.h"
+#include "xmlparser.h"
 
-using coord = std::string;
-using minMaxXY = std::string;
+using coord = QString;
+using minMaxXY = QString;
+using placeName = QString;
 // vector where data is stored [minX, minY, maxX, maxY]
 // puuttuu vielä yksi
-static const std::map<std::string, std::vector<std::string>> locations = {{"Pori E8", {"21.7536", "61.4837", "21.7537", "61.4838"}},
-                                                                          {"Tampere 65", {"23.6587", "61.5160", "23.6588", "61.5161"}},
-                                                                          {"Hämeenlinna E12", {"24.4670", "60.9826", "24.4671", "60.9827"}},
-                                                                          {"Pasila Pasilankatu", {"24.9262", "60.2020", "24.9263", "60.2021"}}};
+static const QMap<placeName, QVector<minMaxXY>> locations = {{"Pori E8", {"21.7536", "61.4837", "21.7537", "61.4838"}},
+                                                                      {"Tampere 65", {"23.6587", "61.5160", "23.6588", "61.5161"}},
+                                                                      {"Hämeenlinna E12", {"24.4670", "60.9826", "24.4671", "60.9827"}},
+                                                                      {"Pasila Pasilankatu", {"24.9262", "60.2020", "24.9263", "60.2021"}}};
 
 class model
 {
@@ -34,9 +38,12 @@ public:
     void updatePreferences();
     void setTimeRange(QDateTime start, QDateTime end);
     void jsonGetData();
-    void getRoadMaintenance(const QDateTime start, const QDateTime end, const  std::string taskName, const std::string location);
-    void getRoadCondition(const std::string item, const std::string forecastTime, const std::string location);
+    void getRoadMaintenance(const QDateTime start, const QDateTime end, const  QString taskName, const QString location);
+    void getRoadCondition(const std::string item, const std::string forecastTime, QString location);
     void getTrafficMsg();
+    void getXmlWeatherObservation(const QString time, const QString param, const QString location);
+    void getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location);
+    void getXmlWeatherForecast(const QDateTime startTime, QString duration, const QString param, const QString location);
 
 private:
     QList<QPoint> pointdata_;

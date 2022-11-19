@@ -1,8 +1,5 @@
 #include "model.h"
 #include "creategraph.cpp"
-#include "jsonroadmaintenanceparser.h"
-#include "jsonroadconditionparser.h"
-#include "jsontrafficmessageparser.h"
 #include <string>
 #include <sstream>
 model::model()
@@ -64,10 +61,8 @@ void model::jsonGetData()
     updateChart(xaxis, yaxis);
 }
 
-void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const  std::string taskName, const std::string location)
+void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const  QString taskName, const QString location)
 {
-    // TODO
-    // somehow craft the url
     start_ = start;
     end_ = end;
 
@@ -75,12 +70,13 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
     vector<int> yaxis = {};
     int days = start.daysTo(end);
 
-    for (int i = 0; i <= days; i++) {
+    for (int i = 0; i <= days; i++)
+    {
         QDateTime current = start.addDays(i);
-        std::string dateString = current.date().toString(Qt::ISODate).toStdString();
-        // TODO
-        // somehow craft the url e.g url = urlCrafter.getRoadMaitenanceUrl(start, dateString, coordinates);
-        QString json = networker_->getUrl(QUrl(url));
+        QString dateString = current.date().toString(Qt::ISODate);
+        urlBuilder ubuilder;
+        QUrl url = ubuilder.getRoadMaintenanceUrl(taskName, locations.value(location), dateString);
+        QString json = networker_->getUrl(url);
         jsonRoadMaintenanceParser j(json);
         int final = j.getTaskAmountPerDay();
         //xaxis.push_back(current.toString().toStdString()); jos haluaa timestampit graafiin
@@ -90,11 +86,11 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
     updateChart(xaxis, yaxis);
 }
 
-void model::getRoadCondition(const std::string item, const std::string forecastTime, const std::string location)
+void model::getRoadCondition(const std::string item, const std::string forecastTime, QString location)
 {
-    // TODO
-    // somehow craft the url e.g url = urlCrafter.getRoadConditionUrl(coordinates);
-    QString json = networker_->getUrl(QUrl(url));
+    urlBuilder ubuilder;
+    QUrl url = ubuilder.getRoadConditionUrl(locations.value(location));
+    QString json = networker_->getUrl(url);
     jsonRoadConditionParser j(json, item, forecastTime);
     std::string value = j.getWantedValue();
     // TODO display the value
@@ -104,14 +100,83 @@ void model::getTrafficMsg()
 {
     vector<int> xaxis = {};
     vector<int> yaxis = {};
-    // TODO
-    // somehow craft the url e.g url = urlCrafter.getTraffocMsgUrl(situationType);
-    QString json = networker_->getUrl(QUrl(url));
+    urlBuilder ubuilder;
+    QUrl url = ubuilder.getTrafficMsgUrl();
+    QString json = networker_->getUrl(url);
     jsonTrafficMessageParser j(json);
     int value = j.getTotalTrafficAmount();
     xaxis.push_back(value);
     // what to add to y axis
     updateChart(xaxis, yaxis);
+}
+
+void model::getXmlWeatherObservation(const QString time, const QString param, const QString location)
+{
+    // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
+    vector<double> xaxis = {};
+    vector<double> yaxis = {};
+    urlBuilder ubuilder;
+    QUrl url = ubuilder.getWeatherObservations(time, locations.value(location), param);
+    QString xml = networker_->getUrl(url);
+    xmlParser xmlPar(xml);
+    // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
+    std::map<std::string, std::vector<std::string>> data = xmlPar.getValues();
+    std::vector<std::string> values = data.at(param.toStdString());
+    for (auto value : values)
+    {
+        if (value != "NaN") {
+            yaxis.push_back(std::stod(value));
+
+        } else {
+            yaxis.push_back(0);
+        }
+    }
+}
+
+void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location)
+{
+    // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
+    vector<double> xaxis = {};
+    vector<double> yaxis = {};
+    urlBuilder ubuilder;
+    QUrl url = ubuilder.getAveragegObservations(start, end, time, locations.value(location), param);
+    QString xml = networker_->getUrl(url);
+    xmlParser xmlPar(xml);
+    // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
+    std::map<std::string, std::vector<std::string>> data = xmlPar.getValues();
+    std::vector<std::string> values = data.at(param.toStdString());
+    for (auto value : values)
+    {
+        if (value != "NaN") {
+            yaxis.push_back(std::stod(value));
+
+        } else {
+            yaxis.push_back(0);
+        }
+    }
+}
+
+void model::getXmlWeatherForecast(const QDateTime startTime, QString duration, const QString param, const QString location)
+{
+    // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
+    vector<double> xaxis = {};
+    vector<double> yaxis = {};
+    urlBuilder ubuilder;
+    QUrl url = ubuilder.getWeatherForecast(startTime, duration, locations.value(location), param);
+    QString xml = networker_->getUrl(url);
+    xmlParser xmlPar(xml);
+    // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
+    std::map<std::string, std::vector<std::string>> data = xmlPar.getValues();
+    std::vector<std::string> values = data.at(param.toStdString());
+    for (auto value : values)
+    {
+        if (value != "NaN") {
+            yaxis.push_back(std::stod(value));
+
+        } else {
+            yaxis.push_back(0);
+        }
+    }
 }
 
 
