@@ -1,7 +1,12 @@
 #include "model.h"
+#include "jsonroadmaintenanceparser.h"
+#include "jsonroadconditionparser.h"
+#include "jsontrafficmessageparser.h"
+#include "xmlparser.h"
 #include "creategraph.cpp"
 #include <string>
 #include <sstream>
+
 model::model()
 {
 }
@@ -118,11 +123,11 @@ void model::getXmlWeatherObservation(const QString time, const QString param, co
     urlBuilder ubuilder;
     QUrl url = ubuilder.getWeatherObservations(time, locations.value(location), param);
     QString xml = networker_->getUrl(url);
-    xmlParser xmlPar(xml);
+    xmlParser xmlPar(xml, param);
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
-    std::map<std::string, std::vector<std::string>> data = xmlPar.getValues();
-    std::vector<std::string> values = data.at(param.toStdString());
-    for (auto value : values)
+    std::vector<std::string> data = xmlPar.getValues();
+    std::vector<std::string> dateTime = xmlPar.getTimes();
+    for (auto value : data)
     {
         if (value != "NaN") {
             yaxis.push_back(std::stod(value));
@@ -141,11 +146,11 @@ void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, cons
     urlBuilder ubuilder;
     QUrl url = ubuilder.getAveragegObservations(start, end, time, locations.value(location), param);
     QString xml = networker_->getUrl(url);
-    xmlParser xmlPar(xml);
+    xmlParser xmlPar(xml, param);
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
-    std::map<std::string, std::vector<std::string>> data = xmlPar.getValues();
-    std::vector<std::string> values = data.at(param.toStdString());
-    for (auto value : values)
+    std::vector<std::string> data = xmlPar.getValues();
+    std::vector<std::string> dateTime = xmlPar.getTimes();
+    for (auto value : data)
     {
         if (value != "NaN") {
             yaxis.push_back(std::stod(value));
@@ -164,11 +169,11 @@ void model::getXmlWeatherForecast(const QDateTime startTime, QString duration, c
     urlBuilder ubuilder;
     QUrl url = ubuilder.getWeatherForecast(startTime, duration, locations.value(location), param);
     QString xml = networker_->getUrl(url);
-    xmlParser xmlPar(xml);
+    xmlParser xmlPar(xml, param);
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
-    std::map<std::string, std::vector<std::string>> data = xmlPar.getValues();
-    std::vector<std::string> values = data.at(param.toStdString());
-    for (auto value : values)
+    std::vector<std::string> data = xmlPar.getValues();
+    std::vector<std::string> dateTime = xmlPar.getTimes();
+    for (auto value : data)
     {
         if (value != "NaN") {
             yaxis.push_back(std::stod(value));

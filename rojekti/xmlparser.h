@@ -10,29 +10,23 @@
 
 using parameter = std::string;
 using value = std::string;
-static const std::map<std::string, std::string> acceptedParameters = {{"t2m", "oTemp"},
-                                                                      {"ws_10min", "oWindSeed"},
-                                                                      {"n_man", "oCloudiness"},
-                                                                      {"temperature", "fTemp"},
-                                                                      {"windspeedms", "fWindSpeed"},
-                                                                      {"TA_PT1H_AVG", "avgTemp"},
-                                                                      {"TA_PT1H_MAX", "maxTemp"},
-                                                                      {"TA_PT1H_MIN", "minTemp"}};
+using dateTime = std::string;
 
 class xmlParser
 {
 public:
-    xmlParser(const QString file);
-    std::map<parameter, std::vector<value>>getValues();
+    xmlParser(const QString file, const QString param);
+    std::vector<value> getValues();
 
     int getAmount();
 private:
     void parse();
-
-    std::map<parameter, std::vector<value>> storedData_;
+    // std::map<parameter, std::vector<value>> storedData_;
+    std::vector<value> storedData_;
+    std::vector<dateTime> times_;
     QDomDocument file_;
     int amount_;
-
+    QString param_;
 };
 
 #endif // XMLPARSER_H
