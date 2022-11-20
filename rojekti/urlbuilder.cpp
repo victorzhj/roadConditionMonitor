@@ -53,7 +53,7 @@ QUrl urlBuilder::getAveragegObservations(QString startDate, QString endDate, QVe
     return QUrl(url);
 }
 
-QUrl urlBuilder::getWeatherForecast(QString date, QVector<QString> coords)
+QUrl urlBuilder::getWeatherForecast(QString date, QVector<QString> coords, QString param)
 {
     QString url = fmiBase
             + "forecast::harmonie::surface::point::simple&latlon="
@@ -62,6 +62,6 @@ QUrl urlBuilder::getWeatherForecast(QString date, QVector<QString> coords)
             + date + "T00:00:00Z"
             + "&endtime=" + date + "T" // päivään pitää lisätä yksi, miten?
             + "23:59:59Z"
-            + "&parameters=temperature,windspeedms";
+            + "&parameters=" + param;
     return QUrl(url);
 }
