@@ -48,7 +48,14 @@ void controller::GraphButtonClicked()
      *      model_->getRoadCondition(type, forecast, location)
      * } else if (selected == traffic messages) {
      *      model_->getTrafficMsg();
+     * } else if (selected == oTemp or oWind or ocloud) {
+     *      model_->getXmlWeatherObservation(time, selected.name, location)
+     * } else if (selected == avgTemp or minTemp or maxTemp) {
+     *      model_->getXmlAvgMinMaxTemp(timeRange.first, timeRange.second, selected.name, location);
+     * } else if (selected == fTemp or fWind) {
+     *      model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selected.name, location);
      * }
+     *
      *
      *
      *
