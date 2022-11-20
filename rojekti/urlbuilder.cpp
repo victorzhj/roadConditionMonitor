@@ -59,9 +59,9 @@ QUrl urlBuilder::getWeatherForecast(QString date, QString time, QVector<QString>
             + "forecast::harmonie::surface::point::simple&latlon="
             + coords[0] + ","  + coords[1]
             + "&timestep=30&starttime="
-            + date + "T" + time + "Z"
+            + date + "T00:00:00Z"
             + "&endtime=" + date + "T" // päivään pitää lisätä yksi, miten?
-            + time + "Z"
+            + "23:59:59Z"
             + "&parameters=temperature,windspeedms";
     return QUrl(url);
 }
