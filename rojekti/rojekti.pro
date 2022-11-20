@@ -23,6 +23,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
+    urlbuilder.cpp \
     xmlparser.cpp
 
 HEADERS += \
@@ -34,6 +35,7 @@ HEADERS += \
     jsonnetworker.h \
     mainwindow.h \
     model.h \
+    urlbuilder.h \
     xmlparser.h
 
 FORMS += \
