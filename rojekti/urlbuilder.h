@@ -14,7 +14,7 @@ public:
     QUrl getRoadConditionUrl(QVector<QString> coords);
     QUrl getTrafficMsgUrl();
     QUrl getWeatherObservations(QString time, QVector<QString> coords, QString param);
-    QUrl getAveragegObservations(QString startDate, QString endDate, QString time, QVector<QString> coords, QString param);
+    QUrl getAveragegObservations(QString startDate, QString endDate, QVector<QString> coords, QString param);
     QUrl getWeatherForecast(QString date, QString time, QVector<QString> coords);
 
 private:
