@@ -15,7 +15,7 @@ public:
     QUrl getTrafficMsgUrl();
     QUrl getWeatherObservations(QString time, QVector<QString> coords, QString param);
     QUrl getAveragegObservations(QString startDate, QString endDate, QVector<QString> coords, QString param);
-    QUrl getWeatherForecast(QString date, QVector<QString> coords);
+    QUrl getWeatherForecast(QString date, QVector<QString> coords, QString param);
 
 private:
     QString digitrafficBase = "https://tie.digitraffic.fi/api/";
