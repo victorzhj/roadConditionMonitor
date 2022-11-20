@@ -41,14 +41,14 @@ QUrl urlBuilder::getWeatherObservations(QString time, QVector<QString> coords, Q
     return QUrl(url);
 }
 
-QUrl urlBuilder::getAveragegObservations(QString startDate, QString endDate, QString time, QVector<QString> coords, QString param)
+QUrl urlBuilder::getAveragegObservations(QString startDate, QString endDate, QVector<QString> coords, QString param)
 {
     QString url = fmiBase + "observations::weather::hourly::simple&bbox="
             + coords[0] + ","  + coords[1]
             + "," + coords[2] + "," + coords[3]
             + "&starttime=" + startDate
             + "T00:00:00Z&endtime=" + endDate
-            + "T" + time + "Z"
+            + "T23:59:59Z"
             + "&parameters=" + param;
     return QUrl(url);
 }
