@@ -30,5 +30,4 @@ void drawGraph(QLineSeries* series, QChartView* object)
 
 };
 
-
 };
