@@ -7,6 +7,9 @@
 #include <QInputDialog>
 #include <QFile>
 #include <QMessageBox>
+#include "creategraph.cpp"
+#include "filecreator.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

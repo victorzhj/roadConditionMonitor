@@ -16,6 +16,7 @@ CONFIG += c++11
 SOURCES += \
     creategraph.cpp \
     controller.cpp \
+    filecreator.cpp \
     jsonnetworker.cpp \
     jsonroadconditionparser.cpp \
     jsonroadmaintenanceparser.cpp \
@@ -23,9 +24,11 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
+    urlbuilder.cpp \
     xmlparser.cpp
 
 HEADERS += \
+    filecreator.h \
     jsonroadconditionparser.h \
     jsonroadmaintenanceparser.h \
     jsontrafficmessageparser.h \
@@ -34,6 +37,7 @@ HEADERS += \
     jsonnetworker.h \
     mainwindow.h \
     model.h \
+    urlbuilder.h \
     xmlparser.h
 
 FORMS += \

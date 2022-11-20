@@ -9,6 +9,7 @@
 
 model::model()
 {
+    coordMap["sijainti1"] = {"61.516", "23.658", "61.517", "23.659"};
 }
 
 QList<QPoint> model::getChart() {
@@ -42,11 +43,15 @@ void model::setTimeRange(QDateTime start, QDateTime end)
     end_ = end;
 }
 
-void model::jsonGetData()
+void model::jsonGetData(QString whatData, QString where)
 {
     vector<int> xaxis = {};
     vector<int> yaxis = {};
     int days = start_.daysTo(end_);
+
+    // get min and max coordinates
+    QList<QString> coords = coordMap[where];
+
 
     // tämä for loop on todella hidas kun on useampia päiviä. (useat HTTP kutsut on hitaita)
     for (int i = 0; i <= days; i++) {
@@ -79,8 +84,7 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
     {
         QDateTime current = start.addDays(i);
         QString dateString = current.date().toString(Qt::ISODate);
-        urlBuilder ubuilder;
-        QUrl url = ubuilder.getRoadMaintenanceUrl(taskName, locations.value(location), dateString);
+        QUrl url = urlBuilder.getRoadMaintenanceUrl(taskName, locations.value(location), dateString);
         QString json = networker_->getUrl(url);
         jsonRoadMaintenanceParser j(json);
         int final = j.getTaskAmountPerDay();
@@ -93,8 +97,7 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
 
 void model::getRoadCondition(const std::string item, const std::string forecastTime, QString location)
 {
-    urlBuilder ubuilder;
-    QUrl url = ubuilder.getRoadConditionUrl(locations.value(location));
+    QUrl url = urlBuilder.getRoadConditionUrl(locations.value(location));
     QString json = networker_->getUrl(url);
     jsonRoadConditionParser j(json, item, forecastTime);
     std::string value = j.getWantedValue();
@@ -105,8 +108,7 @@ void model::getTrafficMsg()
 {
     vector<int> xaxis = {};
     vector<int> yaxis = {};
-    urlBuilder ubuilder;
-    QUrl url = ubuilder.getTrafficMsgUrl();
+    QUrl url = urlBuilder.getTrafficMsgUrl();
     QString json = networker_->getUrl(url);
     jsonTrafficMessageParser j(json);
     int value = j.getTotalTrafficAmount();
@@ -120,8 +122,7 @@ void model::getXmlWeatherObservation(const QString time, const QString param, co
     // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
     vector<double> xaxis = {};
     vector<double> yaxis = {};
-    urlBuilder ubuilder;
-    QUrl url = ubuilder.getWeatherObservations(time, locations.value(location), param);
+    QUrl url = urlBuilder.getWeatherObservations(time, locations.value(location), param);
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
@@ -138,13 +139,14 @@ void model::getXmlWeatherObservation(const QString time, const QString param, co
     }
 }
 
-void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location)
+void model::getXmlAvgMinMaxTemp(const QString time, const QDateTime start, const QDateTime end, const QString param, const QString location)
 {
     // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
     vector<double> xaxis = {};
     vector<double> yaxis = {};
-    urlBuilder ubuilder;
-    QUrl url = ubuilder.getAveragegObservations(start, end, time, locations.value(location), param);
+    QString startDate = start.date().toString(Qt::ISODate);
+    QString endDate = end.date().toString(Qt::ISODate);
+    QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, time, locations.value(location), param);
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
@@ -166,8 +168,7 @@ void model::getXmlWeatherForecast(const QDateTime startTime, QString duration, c
     // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
     vector<double> xaxis = {};
     vector<double> yaxis = {};
-    urlBuilder ubuilder;
-    QUrl url = ubuilder.getWeatherForecast(startTime, duration, locations.value(location), param);
+    QUrl url = urlBuilder.getWeatherForecast(startTime, duration, locations.value(location), param);
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES

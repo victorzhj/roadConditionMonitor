@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "creategraph.cpp"
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -71,9 +69,9 @@ void MainWindow::on_saveButton_clicked()
 {
     placeholdername = QInputDialog::getText(this, "Input required","Enter graph name:");
 
-    if(ui->CompareDropdown->findText(placeholdername) == 1) {
+    if(ui->CompareDropdown->findText(placeholdername) != -1) {
         QMessageBox::warning(this, "Error", "Name already used, delete previous one or use another name");
-
+        return;
     }
     else{emit saveButtonClicked();ui->CompareDropdown->addItem(placeholdername);}
 }
@@ -97,16 +95,11 @@ void MainWindow::loadCompareItems() {
     ui->CompareDropdown->clear();
     ui->CompareDropdown->addItem("Current");
     placeholdername = "Current";
-    QFile file("graphs.txt");
-    if(!file.open(QIODevice::ReadOnly)){
-        qCritical() << file.errorString();
-        return;
-    }
-   QByteArray jsonFile_ = file.readAll();
-   QJsonDocument doc = QJsonDocument::fromJson(jsonFile_);
-   file.close();
+    fileCreator* temp = new fileCreator;
+    QList<QString> graphs = temp->loadGraphNames();
 
-   for(auto i : doc.object().keys()) {
+   for(auto i : graphs) {
        ui->CompareDropdown->addItem(i);
    }
+
 }

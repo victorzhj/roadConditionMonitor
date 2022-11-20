@@ -17,7 +17,7 @@ class xmlParser
 public:
     xmlParser(const QString file, const QString param);
     std::vector<value> getValues();
-
+    std::vector<dateTime> getTimes();
     int getAmount();
 private:
     void parse();
