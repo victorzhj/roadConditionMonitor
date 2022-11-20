@@ -19,9 +19,13 @@ QList<QString> fileCreator::loadGraphNames()
     return doc.object().keys();
 }
 
-void fileCreator::writetoGraphs(QJsonObject something)
+void fileCreator::writetoGraphs(QJsonObject something, int i)
 {
     QFile file("graphs.txt");
+    if(i == 1) {
+        file.setFileName("preferences.txt");
+    }
+
     QJsonDocument myDoc(something);
     if(!file.open(QIODevice::WriteOnly )){
         qCritical() << file.errorString();
@@ -31,9 +35,13 @@ void fileCreator::writetoGraphs(QJsonObject something)
     file.close();
 }
 
-QJsonObject fileCreator::getGraphsfromfile()
+QJsonObject fileCreator::getGraphsfromfile(int i)
 {
     QFile file("graphs.txt");
+    if(i == 1) {
+        file.setFileName("preferences.txt");
+    }
+
     if(!file.open(QIODevice::ReadOnly)){
         qCritical() << file.errorString();
         return QJsonObject();

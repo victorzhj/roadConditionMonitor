@@ -11,8 +11,9 @@ class fileCreator
 public:
     fileCreator();
     QList<QString> loadGraphNames() ;
-    void writetoGraphs(QJsonObject something);
-    QJsonObject getGraphsfromfile();
+    void writetoGraphs(QJsonObject something, int whichfile = 0);
+    QJsonObject getGraphsfromfile(int whichfile = 0);
+
 };
 
 #endif // FILECREATOR_H

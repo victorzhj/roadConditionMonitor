@@ -63,8 +63,6 @@ void controller::compareDropdownActivated() {
    for(QString num : myObject[graphname].toObject().keys()){
    pointdata.append(QPoint(num.toInt(), myObject[graphname][num].toInt()));
    }
-
-
     model_->pointdata2_ = pointdata;}
     updateGraph(0);
 }
