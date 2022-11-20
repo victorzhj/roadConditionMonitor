@@ -53,7 +53,7 @@ QUrl urlBuilder::getAveragegObservations(QString startDate, QString endDate, QVe
     return QUrl(url);
 }
 
-QUrl urlBuilder::getWeatherForecast(QString date, QString time, QVector<QString> coords)
+QUrl urlBuilder::getWeatherForecast(QString date, QVector<QString> coords)
 {
     QString url = fmiBase
             + "forecast::harmonie::surface::point::simple&latlon="
