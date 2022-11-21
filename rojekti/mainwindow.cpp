@@ -67,13 +67,7 @@ std::pair<QDateTime, QDateTime> MainWindow::getTimeRange() {
 
 void MainWindow::on_saveButton_clicked()
 {
-<<<<<<< HEAD
     placeholdername = QInputDialog::getText(this, "Input required!","Enter graph name:");
-    emit saveButtonClicked();
-}
-=======
-    placeholdername = QInputDialog::getText(this, "Input required","Enter graph name:");
->>>>>>> 60c564cdb59eada3f0067c5767cefe5bfaae2d6d
 
     if(ui->CompareDropdown->findText(placeholdername) != -1) {
         QMessageBox::warning(this, "Error", "Name already used, delete previous one or use another name");
