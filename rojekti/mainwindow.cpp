@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->horizontalLayout->addWidget(chartview);
 
     // Add roads
-    ui->road_dropdown->addItems({"Sijainti 1", "Sijainti 2"});
+    ui->road_dropdown->addItems({"Valtatie 12 Kauppi", "Tie 65 Lielahti", "Pasilankatu Helsinki", "E12 Virveli Hämeenlinna", "E8 Pori"});
 
     // Set default time to today
     ui->startTimeEdit->setDate(QDate::currentDate());
@@ -60,7 +60,7 @@ std::pair<QDateTime, QDateTime> MainWindow::getTimeRange() {
 
 void MainWindow::on_saveButton_clicked()
 {
-    placeholdername = QInputDialog::getText(this, "Input required","Enter graph name");
+    placeholdername = QInputDialog::getText(this, "Input required!","Enter graph name:");
     emit saveButtonClicked();
 }
 
