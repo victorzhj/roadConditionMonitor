@@ -92,7 +92,7 @@
       <x>10</x>
       <y>130</y>
       <width>340</width>
-      <height>261</height>
+      <height>291</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -300,36 +300,6 @@
          </property>
          <property name="text">
           <string>Predicted temperature</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="predictedtemperature_2">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Average temperature</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="predictedtemperature_3">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Minimum temperature</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="predictedtemperature_4">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Maximum temperature</string>
          </property>
         </widget>
        </item>
