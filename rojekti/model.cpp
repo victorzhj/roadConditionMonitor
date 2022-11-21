@@ -3,8 +3,11 @@
 #include "jsonroadmaintenanceparser.h"
 #include <string>
 #include <sstream>
+
+
 model::model()
 {
+    coordMap["sijainti1"] = {"61.516", "23.658", "61.517", "23.659"};
 }
 
 QList<QPoint> model::getChart() {
@@ -38,11 +41,15 @@ void model::setTimeRange(QDateTime start, QDateTime end)
     end_ = end;
 }
 
-void model::jsonGetData()
+void model::jsonGetData(QString whatData, QString where)
 {
     vector<int> xaxis = {};
     vector<int> yaxis = {};
     int days = start_.daysTo(end_);
+
+    // get min and max coordinates
+    QList<QString> coords = coordMap[where];
+
 
     // tämä for loop on todella hidas kun on useampia päiviä. (useat HTTP kutsut on hitaita)
     for (int i = 0; i <= days; i++) {

@@ -10,20 +10,26 @@
 #include <QList>
 #include <QPoint>
 #include <iostream>
+#include <QMap>
+#include <QList>
 
 #include "jsonnetworker.h"
+#include "urlbuilder.h"
+
 
 
 class model
 {
 public:
+
+    QList<QPoint> pointdata2_;
     model();
     QList<QPoint> getChart();
     int getPreferences();
     void updateChart(std::vector<int> timeData, std::vector<int> OtherData);
     void updatePreferences();
     void setTimeRange(QDateTime start, QDateTime end);
-    void jsonGetData();
+    void jsonGetData(QString whatData, QString where);
 private:
     QList<QPoint> pointdata_;
     //using int as placeholder type since not sure what it will be
@@ -31,6 +37,9 @@ private:
     jsonNetworker* networker_ = new jsonNetworker();
     QDateTime start_;
     QDateTime end_;
+
+    QMap<QString,QVector<QString>> coordMap;
+    urlBuilder urlBuilder;
 };
 
 #endif // MODEL_H

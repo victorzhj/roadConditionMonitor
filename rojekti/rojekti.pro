@@ -3,6 +3,7 @@ QT       += core
 QT       += core gui
 QT       += charts
 QT       += network
+QT       += xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,15 +16,19 @@ CONFIG += c++11
 SOURCES += \
     creategraph.cpp \
     controller.cpp \
+    filecreator.cpp \
     jsonnetworker.cpp \
     jsonroadconditionparser.cpp \
     jsonroadmaintenanceparser.cpp \
     jsontrafficmessageparser.cpp \
     main.cpp \
     mainwindow.cpp \
-    model.cpp
+    model.cpp \
+    urlbuilder.cpp \
+    xmlparser.cpp
 
 HEADERS += \
+    filecreator.h \
     jsonroadconditionparser.h \
     jsonroadmaintenanceparser.h \
     jsontrafficmessageparser.h \
@@ -31,7 +36,9 @@ HEADERS += \
     controller.h \
     jsonnetworker.h \
     mainwindow.h \
-    model.h
+    model.h \
+    urlbuilder.h \
+    xmlparser.h
 
 FORMS += \
     mainwindow.ui

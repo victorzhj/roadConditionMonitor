@@ -15,6 +15,11 @@ private:
 public:
 void drawGraph(QLineSeries* series, QChartView* object)
 {
+    QVector<QPointF> points = series->points();
+    std::sort(points.begin(), points.end(), [](const QPointF & p1, const QPointF & p2) {
+        return p1.x() > p2.x();
+    });
+    series->replace(points);
         // Create chart, add data, hide legend, and add axis
         QChart *chart = new QChart();
         chart->legend()->hide();
@@ -24,6 +29,5 @@ void drawGraph(QLineSeries* series, QChartView* object)
         object->setChart(chart);
 
 };
-
 
 };
