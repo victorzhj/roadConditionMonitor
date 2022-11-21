@@ -139,14 +139,14 @@ void model::getXmlWeatherObservation(const QString time, const QString param, co
     }
 }
 
-void model::getXmlAvgMinMaxTemp(const QString time, const QDateTime start, const QDateTime end, const QString param, const QString location)
+void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location)
 {
     // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
     vector<double> xaxis = {};
     vector<double> yaxis = {};
     QString startDate = start.date().toString(Qt::ISODate);
     QString endDate = end.date().toString(Qt::ISODate);
-    QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, time, locations.value(location), param);
+    QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, locations.value(location), param);
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
@@ -163,12 +163,13 @@ void model::getXmlAvgMinMaxTemp(const QString time, const QDateTime start, const
     }
 }
 
-void model::getXmlWeatherForecast(const QDateTime startTime, QString duration, const QString param, const QString location)
+void model::getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location)
 {
     // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
     vector<double> xaxis = {};
     vector<double> yaxis = {};
-    QUrl url = urlBuilder.getWeatherForecast(startTime, duration, locations.value(location), param);
+    QString startDate = startTime.date().toString(Qt::ISODate);
+    QUrl url = urlBuilder.getWeatherForecast(startDate, locations.value(location), param);
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES

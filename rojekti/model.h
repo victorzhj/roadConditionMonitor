@@ -48,8 +48,8 @@ public:
     void getRoadCondition(const std::string item, const std::string forecastTime, QString location);
     void getTrafficMsg();
     void getXmlWeatherObservation(const QString time, const QString param, const QString location);
-    void getXmlAvgMinMaxTemp(const QString time, const QDateTime start, const QDateTime end, const QString param, const QString location);
-    void getXmlWeatherForecast(const QDateTime startTime, QString duration, const QString param, const QString location);
+    void getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location);
+    void getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location);
     void jsonGetData(QString whatData, QString where);
 
 private:
