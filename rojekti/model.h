@@ -50,6 +50,7 @@ public:
     void getXmlWeatherObservation(const QString time, const QString param, const QString location);
     void getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location);
     void getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location);
+    void getXmlDataHelper(const QString xml, const QString param);
     void jsonGetData(QString whatData, QString where);
 
 private:

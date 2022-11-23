@@ -119,62 +119,39 @@ void model::getTrafficMsg()
 
 void model::getXmlWeatherObservation(const QString time, const QString param, const QString location)
 {
-    // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
-    vector<double> xaxis = {};
-    vector<double> yaxis = {};
     QUrl url = urlBuilder.getWeatherObservations(time, locations.value(location), param);
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
-    // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
-    std::vector<std::string> data = xmlPar.getValues();
-    std::vector<std::string> dateTime = xmlPar.getTimes();
-    for (auto value : data)
-    {
-        if (value != "NaN") {
-            yaxis.push_back(std::stod(value));
-
-        } else {
-            yaxis.push_back(0);
-        }
-    }
+    getXmlDataHelper(xml, param);
 }
 
 void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location)
 {
-    // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
-    vector<double> xaxis = {};
-    vector<double> yaxis = {};
     QString startDate = start.date().toString(Qt::ISODate);
     QString endDate = end.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, locations.value(location), param);
     QString xml = networker_->getUrl(url);
-    xmlParser xmlPar(xml, param);
-    // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
-    std::vector<std::string> data = xmlPar.getValues();
-    std::vector<std::string> dateTime = xmlPar.getTimes();
-    for (auto value : data)
-    {
-        if (value != "NaN") {
-            yaxis.push_back(std::stod(value));
-
-        } else {
-            yaxis.push_back(0);
-        }
-    }
+    getXmlDataHelper(xml, param);
 }
 
 void model::getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location)
 {
-    // TODO CHANGE PARAM WHEN THE TEXT IS KNOWN
-    vector<double> xaxis = {};
-    vector<double> yaxis = {};
     QString startDate = startTime.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getWeatherForecast(startDate, locations.value(location), param);
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
-    // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
+    getXmlDataHelper(xml, param);
+
+}
+
+void model::getXmlDataHelper(const QString xml, const QString param)
+{
+    vector<double> xaxis = {};
+    vector<double> yaxis = {};
+    xmlParser xmlPar(xml, param);
     std::vector<std::string> data = xmlPar.getValues();
     std::vector<std::string> dateTime = xmlPar.getTimes();
+    // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
     for (auto value : data)
     {
         if (value != "NaN") {
@@ -184,6 +161,7 @@ void model::getXmlWeatherForecast(const QDateTime startTime, const QString param
             yaxis.push_back(0);
         }
     }
+    // updateChart(xaxis, yaxis);
 }
 
 

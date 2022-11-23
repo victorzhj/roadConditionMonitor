@@ -5,7 +5,6 @@ xmlParser::xmlParser(const QString file, const QString param):
 {
     if(!file_.setContent(file))
         {
-            // TODO
             return;
         }
     file_.setContent(file);
@@ -45,7 +44,10 @@ void xmlParser::parse()
         QString tempParameterName = parameterNameList.at(i).toElement().text();
         std::string tempParameterValue = parameterValueList.at(i).toElement().text().toStdString();
         // Check if param in file is right
-        if (!(param_ != tempParameterName)) {
+        if (param_ != tempParameterName) {
+            continue;
+        }
+        if (tempParameterValue == "NaN") {
             continue;
         }
         // Add time to set for checking duplicate times
