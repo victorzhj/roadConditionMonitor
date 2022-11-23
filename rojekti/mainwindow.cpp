@@ -52,16 +52,20 @@ std::pair<QDateTime, QDateTime> MainWindow::getTimeRange() {
 void MainWindow::on_saveButton_clicked()
 {
     QMessageBox* typeselector = new QMessageBox();
-    typeselector->addButton("Save normally", QMessageBox::AcceptRole);
-    typeselector->addButton("Save as image", QMessageBox::RejectRole);
+    typeselector->addButton("Save normally", QMessageBox::YesRole);
+    typeselector->addButton("Save as image", QMessageBox::AcceptRole);
     int test = typeselector->exec();
-    placeholdername = QInputDialog::getText(this, "Input required!","Enter graph name:");
-
-    if(ui->CompareDropdown->findText(placeholdername) != -1) {
+    QInputDialog window;
+    int test2 =window.exec();
+    qInfo() << test2;
+    placeholdername = window.textValue();
+    if(ui->CompareDropdown->findText(placeholdername) != -1 & test2 !=0) {
+        qInfo() << placeholdername;
         QMessageBox::warning(this, "Error", "Name already used, delete previous one or use another name");
         return;
     }
-    else{emit saveButtonClicked(test);
+    else if (test2 == 1)
+    {emit saveButtonClicked(test);
         ui->CompareDropdown->addItem(placeholdername);}
 }
 
