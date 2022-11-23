@@ -23,7 +23,7 @@ private:
 
 public slots:
     void GraphButtonClicked();
-    void saveButtonClicked();
+    void saveButtonClicked(int i);
 signals:
 
 };

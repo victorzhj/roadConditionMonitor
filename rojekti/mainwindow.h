@@ -2,13 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "model.h"
 #include "qchartview.h"
 #include <QInputDialog>
 #include <QFile>
 #include <QMessageBox>
 #include "creategraph.cpp"
 #include "filecreator.h"
+#include "qlabel.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -21,14 +21,17 @@ class MainWindow : public QMainWindow
 
 public:
     QString placeholdername;
+    QChartView* chartview = new QChartView();
+    QChartView* chartview2 = new QChartView();
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void drawGraph(model *model_, bool WhichGraph);
     std::pair<QDateTime, QDateTime> getTimeRange();
     void loadCompareItems();
     void addtoCompare();
 public slots:
     void road(int index);
+    void on_CompareDropdown_activated(int index);
+
 
 private slots:
     void on_pushButton_clicked();
@@ -37,21 +40,17 @@ private slots:
 
     void on_saveButton_clicked();
 
-
-
-    void on_CompareDropdown_activated(int index);
-
     void on_deleteButton_clicked();
 
 signals:
     void pushButtonClicked();
-    void saveButtonClicked();
+    void saveButtonClicked(int i);
     void compareDropdownActivated();
     void deleteButtonClicked();
 
 private:
     Ui::MainWindow *ui;
-    QChartView* chartview = new QChartView();
-    QChartView* chartview2 = new QChartView();
+
+    QLabel* imagelabel = new QLabel();
 };
 #endif // MAINWINDOW_H
