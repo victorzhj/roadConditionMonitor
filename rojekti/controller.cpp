@@ -1,11 +1,11 @@
 #include "controller.h"
 #include "QObject"
+#include "qdir.h"
 #include "ui_mainwindow.h"
 #include <string>
 #include <sstream>
 #include <QFile>
 #include <QTextStream>
-
 controller::controller(model* model, MainWindow* view, QObject *parent) : QObject(parent)
   , model_(model)
   , view_(view)
@@ -24,7 +24,18 @@ controller::controller(model* model, MainWindow* view, QObject *parent) : QObjec
 
 void controller::updateGraph(int i) {
     //Tells the view to draw a new chart based on inputs
-    view_->drawGraph(model_, i);
+    QChartView* tempchartview;
+    QList<QPoint> pointdata;
+    if(i){tempchartview = view_->chartview; pointdata = model_->getChart();}
+    else {tempchartview = view_->chartview2; pointdata = model_->pointdata2_;}
+    CreateGraph *graph = new CreateGraph();
+    QLineSeries* series = new QLineSeries();
+    for (auto& point : pointdata) {
+            series->append(point);
+        }
+
+    graph->drawGraph(series, tempchartview);
+    delete graph;
 }
 
 void controller::GraphButtonClicked()
@@ -36,8 +47,9 @@ void controller::GraphButtonClicked()
 }
 
 //Saving to file called graphs.txt (initializing if there is none)
-void controller::saveButtonClicked() {
+void controller::saveButtonClicked(int i) {
 
+    if(i==0){
    QJsonObject myObject = creator_->getGraphsfromfile();
     QList<QPoint> temp = model_->getChart();
     QMap<QString, QVariant> myMap;
@@ -49,7 +61,14 @@ void controller::saveButtonClicked() {
     QJsonValue myValue = QJsonValue::fromVariant(myMap);
     myObject.insert(view_->placeholdername, myValue);
     creator_->writetoGraphs(myObject);
-    updateGraph(0);
+    }
+    else {
+        std::filesystem::create_directory("graphImages");
+        stringstream t;
+        t << "graphImages/" << view_->placeholdername.toStdString() << ".png";
+        view_->chartview->grab().save(QString::fromStdString(t.str()));
+
+    }
 }
 
 void controller::compareDropdownActivated() {
@@ -68,9 +87,18 @@ void controller::compareDropdownActivated() {
 }
 
 void controller::deleteButtonClicked() {
+    QList<QString> emptylist = {};
+    if(creator_->getImageNames(emptylist).contains(view_->placeholdername)) {
+        stringstream s;
+        s << "graphImages/" << view_->placeholdername.toStdString() << ".png";
+        remove(s.str().c_str());
+    }
+    else{
    QJsonObject myObject = creator_->getGraphsfromfile();
    myObject.remove(view_->placeholdername);
-   creator_->writetoGraphs(myObject);
+   creator_->writetoGraphs(myObject);}
    view_->loadCompareItems();
-   compareDropdownActivated();
+   view_->on_CompareDropdown_activated(0);
+
+   qInfo() << view_->placeholdername;
 }
