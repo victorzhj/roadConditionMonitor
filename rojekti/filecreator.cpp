@@ -48,11 +48,14 @@ QJsonObject fileCreator::getGraphsfromfile(int i)
 }
 
 QList<QString> fileCreator::getImageNames(QList<QString> stuff) {
+
+    std::filesystem::create_directory("graphImages");
     std::filesystem::path dir = std::filesystem::current_path().append("graphImages");
    for (const auto & entry : std::filesystem::directory_iterator(dir))
          {QDir directory = entry.path();
        QString imagename = directory.dirName();
        imagename.remove(imagename.size()-4, 4);
        stuff.append(imagename);}
+
    return stuff;
 }

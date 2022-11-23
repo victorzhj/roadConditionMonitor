@@ -63,7 +63,6 @@ void controller::saveButtonClicked(int i) {
     creator_->writetoGraphs(myObject);
     }
     else {
-        std::filesystem::create_directory("graphImages");
         stringstream t;
         t << "graphImages/" << view_->placeholdername.toStdString() << ".png";
         view_->chartview->grab().save(QString::fromStdString(t.str()));
