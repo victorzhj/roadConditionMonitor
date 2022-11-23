@@ -44,6 +44,34 @@ void controller::GraphButtonClicked()
     model_->setTimeRange(timeRange.first, timeRange.second);
     model_->jsonGetData("maintenance","sijainti1");
     updateGraph(1);
+
+    /*
+     * some pseudocode
+     * location = get location name from road_dropdown
+     * selected = selected radio button
+     *
+     * if(selected == road maintenance) {
+     *      taskName = get task name from type_pick combo box
+     *      model_->getRoadMaintenance(timeRange.first, timeRange.second, taskName, location)
+     * } else if (selected == precipitation or selected == overall road condition) {
+     *      type = selected
+     *      forecast = get forecast from mainwindow
+     *      model_->getRoadCondition(type, forecast, location)
+     * } else if (selected == traffic messages) {
+     *      model_->getTrafficMsg();
+     * } else if (selected == oTemp or oWind or ocloud) {
+     *      model_->getXmlWeatherObservation(time, selected.name, location)
+     * } else if (selected == avgTemp or minTemp or maxTemp) {
+     *      model_->getXmlAvgMinMaxTemp(timeRange.first, timeRange.second, selected.name, location);
+     * } else if (selected == fTemp or fWind) {
+     *      model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selected.name, location);
+     * }
+     *
+     *
+     *
+     *
+     * updateGraph(1);
+    */
 }
 
 //Saving to file called graphs.txt (initializing if there is none)
