@@ -114,3 +114,12 @@ void MainWindow::loadCompareItems() {
    }
 
 }
+
+void MainWindow::on_GraphcomboBox_activated(int index)
+{
+    if(index == 0){graphtype = "line";}
+    else if(index == 1){graphtype = "bar";}
+    else if (index == 2) {graphtype = "scatter";}
+    emit pushButtonClicked();
+}
+
