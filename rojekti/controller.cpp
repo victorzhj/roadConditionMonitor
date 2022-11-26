@@ -1,7 +1,5 @@
 #include "controller.h"
 #include "QObject"
-#include "qdir.h"
-#include "ui_mainwindow.h"
 #include <string>
 #include <sstream>
 #include <QFile>
@@ -34,7 +32,7 @@ void controller::updateGraph(int i) {
             series->append(point);
         }
 
-    graph->drawGraph(series, tempchartview);
+    graph->drawGraph(series, tempchartview, view_->graphtype);
     delete graph;
 }
 

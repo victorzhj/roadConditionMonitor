@@ -6,9 +6,8 @@
 #include <QInputDialog>
 #include <QFile>
 #include <QMessageBox>
-#include "creategraph.cpp"
-#include "filecreator.h"
 #include "qlabel.h"
+#include "filecreator.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -21,6 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     QString placeholdername;
+    std::string graphtype = "line";
     QChartView* chartview = new QChartView();
     QChartView* chartview2 = new QChartView();
     MainWindow(QWidget *parent = nullptr);
@@ -41,6 +41,8 @@ private slots:
     void on_saveButton_clicked();
 
     void on_deleteButton_clicked();
+
+    void on_GraphcomboBox_activated(int index);
 
 signals:
     void pushButtonClicked();

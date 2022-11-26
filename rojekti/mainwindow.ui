@@ -474,6 +474,44 @@ background-color: rgb(255, 0, 0);</string>
      <string>Delete graph</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="GraphcomboBox">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>90</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Line Graph</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Bar Graph</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Scatter plot</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>100</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Graphtype:</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
