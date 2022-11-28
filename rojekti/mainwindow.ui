@@ -149,7 +149,7 @@
        <item>
         <widget class="QRadioButton" name="trafficmessages">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Traffic messages</string>
@@ -159,7 +159,7 @@
        <item>
         <widget class="QRadioButton" name="temperature_h">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Temperature</string>
@@ -169,7 +169,7 @@
        <item>
         <widget class="QRadioButton" name="observedwind">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Observed wind</string>
@@ -179,7 +179,7 @@
        <item>
         <widget class="QRadioButton" name="observedcloudiness">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Observed cloudiness</string>
@@ -187,9 +187,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="predictedtemperature_5">
+        <widget class="QRadioButton" name="averageTemperature">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Average temperature</string>
@@ -197,9 +197,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="predictedtemperature_6">
+        <widget class="QRadioButton" name="minimumTemperature">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Minimum temperature</string>
@@ -207,9 +207,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="predictedtemperature_8">
+        <widget class="QRadioButton" name="maximumTemperature">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Maximum temperature</string>
@@ -256,7 +256,7 @@
        <item>
         <widget class="QRadioButton" name="precipitation">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Precipitation</string>
@@ -266,7 +266,7 @@
        <item>
         <widget class="QRadioButton" name="roadcondition">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Overall road condition</string>
@@ -276,7 +276,7 @@
        <item>
         <widget class="QRadioButton" name="temperature_f">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Temperature</string>
@@ -286,7 +286,7 @@
        <item>
         <widget class="QRadioButton" name="predictedwind">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Predicted wind</string>
@@ -296,7 +296,7 @@
        <item>
         <widget class="QRadioButton" name="predictedtemperature">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Predicted temperature</string>
@@ -519,7 +519,7 @@ background-color: rgb(255, 0, 0);</string>
      <x>0</x>
      <y>0</y>
      <width>836</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

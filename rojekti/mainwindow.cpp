@@ -4,11 +4,26 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), currentButton_(Button::RoadMaintenance)
 {
     ui->setupUi(this);
     connect(ui->road_dropdown, &QComboBox::currentIndexChanged,
             this, &MainWindow::road);
+
+    connect(ui->roadmaintenance, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->roadcondition, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->averageTemperature, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->maximumTemperature, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->minimumTemperature, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->predictedtemperature, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->predictedwind, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->observedwind, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->observedcloudiness, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->precipitation, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->temperature_f, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->temperature_h, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+    connect(ui->trafficmessages, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
+
     ui->horizontalLayout->addWidget(chartview);
 
     // Add roads
@@ -94,6 +109,39 @@ void MainWindow::on_CompareDropdown_activated(int index)
     }
 }
 
+void MainWindow::updateCurrentButton()
+{
+    if (ui->roadmaintenance->isChecked()) {
+        currentButton_ = Button::RoadMaintenance;
+    } else if (ui->roadcondition->isChecked()) {
+        currentButton_ = Button::OverallRoadCondition;
+    } else if (ui->averageTemperature->isChecked()) {
+        currentButton_ = Button::AverageTemperature;
+    } else if (ui->maximumTemperature->isChecked()) {
+        currentButton_ = Button::MaximumTemperature;
+    } else if (ui->minimumTemperature->isChecked()) {
+        currentButton_ = Button::MinimumTemperature;
+    } else if (ui->predictedtemperature->isChecked()) {
+        currentButton_ = Button::PredictedTemperature;
+    } else if (ui->predictedwind->isChecked()) {
+        currentButton_ = Button::PredictedWind;
+    } else if (ui->observedwind->isChecked()) {
+        currentButton_ = Button::ObservedWind;
+    } else if (ui->observedcloudiness->isChecked()) {
+        currentButton_ = Button::ObservedCloudiness;
+    } else if (ui->precipitation->isChecked()) {
+        currentButton_ = Button::Precipitation;
+    } else if (ui->temperature_f->isChecked()) {
+        currentButton_ = Button::TemperatureForecast;
+    } else if (ui->temperature_h->isChecked()) {
+        currentButton_ = Button::TemperatureHistory;
+    } else if (ui->trafficmessages->isChecked()) {
+        currentButton_ = Button::TrafficMessages;
+    } else {
+        currentButton_ = Button::NaB;
+    }
+}
+
 
 void MainWindow::on_deleteButton_clicked()
 {
@@ -113,6 +161,11 @@ void MainWindow::loadCompareItems() {
        ui->CompareDropdown->addItem(i);
    }
 
+}
+
+MainWindow::Button MainWindow::getCurrentButton()
+{
+    return currentButton_;
 }
 
 void MainWindow::on_GraphcomboBox_activated(int index)

@@ -19,6 +19,24 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    enum Button {
+        NaB,    // Not a Button
+        RoadMaintenance,
+        TrafficMessages,
+        TemperatureHistory,
+        ObservedWind,
+        ObservedCloudiness,
+        AverageTemperature,
+        MinimumTemperature,
+        MaximumTemperature,
+        Precipitation,
+        OverallRoadCondition,
+        TemperatureForecast,
+        PredictedWind,
+        PredictedTemperature
+    };
+    Q_ENUM(Button)
+
     QString placeholdername;
     std::string graphtype = "line";
     QChartView* chartview = new QChartView();
@@ -28,9 +46,14 @@ public:
     std::pair<QDateTime, QDateTime> getTimeRange();
     void loadCompareItems();
     void addtoCompare();
+
+    Button getCurrentButton();
+
 public slots:
     void road(int index);
     void on_CompareDropdown_activated(int index);
+
+    void updateCurrentButton();
 
 
 private slots:
@@ -54,5 +77,8 @@ private:
     Ui::MainWindow *ui;
 
     QLabel* imagelabel = new QLabel();
+
+    Button currentButton_;
+
 };
 #endif // MAINWINDOW_H
