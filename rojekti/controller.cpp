@@ -40,36 +40,65 @@ void controller::GraphButtonClicked()
 {
     std::pair<QDateTime, QDateTime> timeRange = view_->getTimeRange();
     model_->setTimeRange(timeRange.first, timeRange.second);
-    model_->jsonGetData("maintenance","sijainti1");
-    updateGraph(1);
+    //model_->jsonGetData("maintenance","sijainti1");
 
-    /*
-     * some pseudocode
-     * location = get location name from road_dropdown
-     * selected = selected radio button
-     *
-     * if(selected == road maintenance) {
-     *      taskName = get task name from type_pick combo box
-     *      model_->getRoadMaintenance(timeRange.first, timeRange.second, taskName, location)
-     * } else if (selected == precipitation or selected == overall road condition) {
-     *      type = selected
-     *      forecast = get forecast from mainwindow
-     *      model_->getRoadCondition(type, forecast, location)
-     * } else if (selected == traffic messages) {
-     *      model_->getTrafficMsg();
-     * } else if (selected == oTemp or oWind or ocloud) {
-     *      model_->getXmlWeatherObservation(time, selected.name, location)
-     * } else if (selected == avgTemp or minTemp or maxTemp) {
-     *      model_->getXmlAvgMinMaxTemp(timeRange.first, timeRange.second, selected.name, location);
-     * } else if (selected == fTemp or fWind) {
-     *      model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selected.name, location);
-     * }
-     *
-     *
-     *
-     *
-     * updateGraph(1);
-    */
+    std::string location = view_->getLocation();
+    MainWindow::Button selected = view_->getCurrentButton();
+    if(selected == MainWindow::Button::RoadMaintenance) {
+        std::string taskName = view_->getCurrentTask();
+        model_->getRoadMaintenance(timeRange.first, timeRange.second, QString::fromStdString(taskName), QString::fromStdString(location));
+    } else if (selected == MainWindow::Button::Precipitation || selected == MainWindow::Button::OverallRoadCondition) {
+        std::string selectedName;
+        if (selected == MainWindow::Button::Precipitation) {
+            selectedName = "precipitation";
+        } else if (selected == MainWindow::Button::OverallRoadCondition) {
+            selectedName = "over all road condition";
+        }
+        std::string forecast = view_->getForecast().toStdString();
+        model_->getRoadCondition(selectedName, forecast, QString::fromStdString(location));
+    } else if (selected == MainWindow::Button::TrafficMessages) {
+        model_->getTrafficMsg();
+    } else if (selected == MainWindow::Button::TemperatureHistory || selected == MainWindow::Button::ObservedWind || selected == MainWindow::Button::ObservedCloudiness) {
+        QString selectedName;
+
+        // TODO
+        if (selected == MainWindow::Button::TemperatureHistory) {
+            selectedName = "";
+        } else if (selected == MainWindow::Button::ObservedWind) {
+            selectedName = "";
+        } else if (selected == MainWindow::Button::ObservedCloudiness) {
+            selectedName = "";
+        }
+
+        // TODO
+        // model_->getXmlWeatherObservation(time, selectedName, location)
+    } else if (selected == MainWindow::Button::AverageTemperature || selected == MainWindow::Button::MinimumTemperature || selected == MainWindow::Button::MaximumTemperature) {
+        QString selectedName;
+
+        // TODO
+        if (selected == MainWindow::Button::AverageTemperature) {
+            selectedName = "";
+        } else if (selected == MainWindow::Button::MinimumTemperature) {
+            selectedName = "";
+        } else if (selected == MainWindow::Button::MaximumTemperature) {
+            selectedName = "";
+        }
+        model_->getXmlAvgMinMaxTemp(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
+    } else if (selected == MainWindow::Button::TemperatureForecast || selected == MainWindow::Button::PredictedWind) {
+        QString selectedName;
+
+        // TODO
+        if (selected == MainWindow::Button::TemperatureForecast) {
+            selectedName = "";
+        } else if (selected == MainWindow::Button::PredictedWind) {
+            selectedName = "";
+        }
+        // model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
+        model_->getXmlWeatherForecast(timeRange.first, selectedName, QString::fromStdString(location));
+    }
+
+
+    updateGraph(1);
 }
 
 //Saving to file called graphs.txt (initializing if there is none)

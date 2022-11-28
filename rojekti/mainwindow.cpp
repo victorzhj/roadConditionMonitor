@@ -29,6 +29,17 @@ MainWindow::MainWindow(QWidget *parent)
     // Add roads
     ui->road_dropdown->addItems({"Valtatie 12 Kauppi", "Tie 65 Lielahti", "Pasilankatu Helsinki", "E12 Virveli Hämeenlinna", "E8 Pori"});
 
+    ui->fHoursSelect->addItems(forecastIntervals);
+    ui->fHoursSelect->setEnabled(false);
+
+    QStringList typeTexts;
+
+    for (std::map<std::string, std::string> i: tasks) {
+        typeTexts.append(QString::fromStdString(i.at("nameEn")));
+    }
+
+    ui->type_pick->addItems(typeTexts);
+
     // Set default time to today
     ui->startTimeEdit->setDate(QDate::currentDate());
     ui->endTimeEdit->setDateTime(QDateTime::currentDateTime());
@@ -140,6 +151,10 @@ void MainWindow::updateCurrentButton()
     } else {
         currentButton_ = Button::NaB;
     }
+
+    ui->fHoursSelect->setEnabled(currentButton_ == Button::Precipitation || currentButton_ == Button::OverallRoadCondition);
+    ui->startTimeEdit->setEnabled(currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition);
+    ui->endTimeEdit->setEnabled(currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition);
 }
 
 
@@ -166,6 +181,22 @@ void MainWindow::loadCompareItems() {
 MainWindow::Button MainWindow::getCurrentButton()
 {
     return currentButton_;
+}
+
+std::string MainWindow::getCurrentTask()
+{
+    int currentIndex = ui->type_pick->currentIndex();
+    return tasks[currentIndex].at("id");
+}
+
+std::string MainWindow::getLocation()
+{
+    return ui->road_dropdown->currentText().toStdString();
+}
+
+QString MainWindow::getForecast()
+{
+    return ui->fHoursSelect->currentText();
 }
 
 void MainWindow::on_GraphcomboBox_activated(int index)

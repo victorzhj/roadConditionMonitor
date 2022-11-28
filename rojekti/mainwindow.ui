@@ -50,8 +50,8 @@
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>500</y>
+      <x>190</x>
+      <y>520</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -337,7 +337,7 @@
       <x>10</x>
       <y>420</y>
       <width>291</width>
-      <height>80</height>
+      <height>100</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -369,6 +369,20 @@
        </item>
       </layout>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="fHoursLabel">
+         <property name="text">
+          <string>Forecast hours:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="fHoursSelect"/>
+       </item>
+      </layout>
+     </item>
     </layout>
    </widget>
    <widget class="QPushButton" name="saveButton">
@@ -387,8 +401,8 @@
    <widget class="QComboBox" name="CompareDropdown">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>560</y>
+      <x>100</x>
+      <y>600</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -397,8 +411,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>550</y>
+      <x>30</x>
+      <y>590</y>
       <width>111</width>
       <height>41</height>
      </rect>

@@ -7,14 +7,14 @@ urlBuilder::urlBuilder()
 
 QUrl urlBuilder::getRoadMaintenanceUrl(QString taskName, QVector<QString> coords, QString date)
 {
-      QString url = digitrafficBase + "v1/tracking/routes?endFrom="
+      QString url = digitrafficBase + "maintenance/v1/tracking/routes?endFrom="
                 + date + "T09%3A00%3A00Z&endBefore=" + date
                 + "T14%3A00%3A00Z&xMin=" + coords[0]
                 + "&yMin=" + coords[1]
                 + "&xMax=" + coords[2]
                 + "&yMax=" + coords[3]
-                + "&taskId=" + taskName
                 + "&domain=state-roads";
+      if (taskName != "") url = url + "&taskId=" + taskName;
       return QUrl(url);
 }
 
