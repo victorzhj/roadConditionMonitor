@@ -65,8 +65,8 @@ void model::getTrafficMsg()
     qDebug() << url.toString();
     QString json = networker_->getUrl(url);
     jsonTrafficMessageParser j(json);
-    std::cout << j.getValue() << std::endl;
     int value = stoi(j.getValue());
+    std::cout << value << std::endl;
 
 }
 
@@ -84,6 +84,7 @@ void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, cons
     QString startDate = start.date().toString(Qt::ISODate);
     QString endDate = end.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, locations.value(location), param);
+    qDebug() << url.toString();
     QString xml = networker_->getUrl(url);
     getXmlDataHelper(xml, param);
 }
@@ -93,7 +94,9 @@ void model::getXmlWeatherForecast(const QDateTime startTime, const QString param
     QString startDate = startTime.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getWeatherForecast(startDate, locations.value(location), param);
     QString xml = networker_->getUrl(url);
+    qDebug() << url.toString();
     xmlParser xmlPar(xml, param);
+    qDebug() << xml;
     getXmlDataHelper(xml, param);
 
 }

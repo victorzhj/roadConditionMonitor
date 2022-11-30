@@ -10,8 +10,8 @@ class IjsonParser
 {
 public:
     /**
-     * @brief getTaskAmountPerDay
-     * @return (int) total amount of certain task
+     * @brief get the wanted value
+     * @return (string) the wanted value
      * Will return (string) -1 if there was error with the file.
      */
     std::string getValue();
