@@ -16,6 +16,9 @@ public:
     void getData();
     void compareDropdownActivated();
     void deleteButtonClicked();
+    void deletePreferenceButtonClicked();
+    void PreferenceButtonClicked(int i, int j, int h, int k);
+
 private:
     model* model_;
     MainWindow* view_;

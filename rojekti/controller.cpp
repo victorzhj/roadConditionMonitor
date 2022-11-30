@@ -9,7 +9,7 @@ controller::controller(model* model, MainWindow* view, QObject *parent) : QObjec
   , view_(view)
 {
     creator_ = new fileCreator();
-    QObject::connect(view_, &MainWindow::pushButtonClicked,
+    QObject::connect(view_, &MainWindow::graphButtonClicked,
                              this, &controller::GraphButtonClicked);
     QObject::connect(view_, &MainWindow::saveButtonClicked,
                              this, &controller::saveButtonClicked);
@@ -17,13 +17,19 @@ controller::controller(model* model, MainWindow* view, QObject *parent) : QObjec
                              this, &controller::compareDropdownActivated);
     QObject::connect(view_, &MainWindow::deleteButtonClicked,
                              this, &controller::deleteButtonClicked);
+    QObject::connect(view_, &MainWindow::PreferenceButtonClicked,
+                             this, &controller::PreferenceButtonClicked);
+    QObject::connect(view_, &MainWindow::deletePreferenceButtonClicked,
+                             this, &controller::deletePreferenceButtonClicked);
+
 
 }
 
+//Graphs a chart based on the model
 void controller::updateGraph(int i) {
     //Tells the view to draw a new chart based on inputs
     QChartView* tempchartview;
-    QList<QPoint> pointdata;
+    QList<QPointF> pointdata;
     if(i){tempchartview = view_->chartview; pointdata = model_->getChart();}
     else {tempchartview = view_->chartview2; pointdata = model_->pointdata2_;}
     CreateGraph *graph = new CreateGraph();
@@ -36,6 +42,7 @@ void controller::updateGraph(int i) {
     delete graph;
 }
 
+//Changes the model to match the selected inputs and then calls updateGraph
 void controller::GraphButtonClicked()
 {
     std::pair<QDateTime, QDateTime> timeRange = view_->getTimeRange();
@@ -106,7 +113,7 @@ void controller::saveButtonClicked(int i) {
 
     if(i==0){
    QJsonObject myObject = creator_->getGraphsfromfile();
-    QList<QPoint> temp = model_->getChart();
+    QList<QPointF> temp = model_->getChart();
     QMap<QString, QVariant> myMap;
     for (int i = 0; i< temp.size(); i++)
         {
@@ -115,7 +122,7 @@ void controller::saveButtonClicked(int i) {
         };
     QJsonValue myValue = QJsonValue::fromVariant(myMap);
     myObject.insert(view_->placeholdername, myValue);
-    creator_->writetoGraphs(myObject);
+    creator_->writetoFiles(myObject);
     }
     else {
         stringstream t;
@@ -125,21 +132,23 @@ void controller::saveButtonClicked(int i) {
     }
 }
 
+//Draws the chart selected from the dropdown to the compare section
 void controller::compareDropdownActivated() {
     if(view_->placeholdername == "Current") {model_->pointdata2_ = model_->getChart();}
     else{
-    std::vector<int> xaxis;
-    std::vector<int> yaxis;
+    std::vector<double> xaxis;
+    std::vector<double> yaxis;
     QString graphname = view_->placeholdername;
    QJsonObject myObject = creator_->getGraphsfromfile();
-   QList<QPoint> pointdata;
+   QList<QPointF> pointdata;
    for(QString num : myObject[graphname].toObject().keys()){
-   pointdata.append(QPoint(num.toInt(), myObject[graphname][num].toInt()));
+   pointdata.append(QPointF(num.toDouble(), myObject[graphname][num].toDouble()));
    }
     model_->pointdata2_ = pointdata;}
     updateGraph(0);
 }
 
+//Deletes the current compare graph
 void controller::deleteButtonClicked() {
     QList<QString> emptylist = {};
     if(creator_->getImageNames(emptylist).contains(view_->placeholdername)) {
@@ -150,9 +159,34 @@ void controller::deleteButtonClicked() {
     else{
    QJsonObject myObject = creator_->getGraphsfromfile();
    myObject.remove(view_->placeholdername);
-   creator_->writetoGraphs(myObject);}
+   creator_->writetoFiles(myObject);}
    view_->loadCompareItems();
    view_->on_CompareDropdown_activated(0);
+}
 
-   qInfo() << view_->placeholdername;
+//Adds the current search to the preferences file
+void controller::PreferenceButtonClicked(int i, int j, int h, int k) {
+    QJsonObject Writetofile = creator_->getGraphsfromfile(1);;
+    QJsonObject preferences;
+    QJsonObject dates;
+    dates.insert("startdate", view_->getTimeRange().first.toString());
+    dates.insert("enddate", view_->getTimeRange().second.toString());
+    preferences.insert("location", i);
+    preferences.insert("graphtype", j);
+    preferences.insert("radiobutton", view_->preferenceButton_);
+    preferences.insert("type_pick", h);
+    preferences.insert("fhours", k);
+    preferences.insert("dates", dates);
+    Writetofile.insert(view_->preferenceName, preferences);
+    creator_->writetoFiles(Writetofile, 1);
+    view_->loadPreferences();
+
+}
+
+//Deletes the saved preference, does nothing if there is no matching name saved (ex. "")
+void controller::deletePreferenceButtonClicked() {
+   QJsonObject myObject = creator_->getGraphsfromfile(1);
+   myObject.remove(view_->preferenceName);
+   creator_->writetoFiles(myObject, 1);
+   view_->loadPreferences();
 }

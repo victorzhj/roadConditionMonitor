@@ -10,17 +10,26 @@ fileCreator::fileCreator()
 
 }
 
-QList<QString> fileCreator::loadGraphNames()
+//Gets the graph names from the files or preference names from preferences.txt
+QList<QString> fileCreator::loadNames(int i)
 {
     QFile file("graphs.txt");
+    if(i == 1) {
+        file.setFileName("preferences.txt");
+    }
     file.open(QIODevice::ReadOnly);
     QByteArray jsonFile_ = file.readAll();
     QJsonDocument doc = QJsonDocument::fromJson(jsonFile_);
     file.close();
-    return getImageNames(doc.object().keys());
+    if(i == 1) {
+        return doc.object().keys();
+    }
+    else{
+    return getImageNames(doc.object().keys());}
 }
 
-void fileCreator::writetoGraphs(QJsonObject something, int i)
+//Writes the content to a file specified by i
+void fileCreator::writetoFiles(QJsonObject something, int i)
 {
     QFile file("graphs.txt");
     if(i == 1) {
@@ -33,6 +42,7 @@ void fileCreator::writetoGraphs(QJsonObject something, int i)
     file.close();
 }
 
+//Gets the content from a while specified by i
 QJsonObject fileCreator::getGraphsfromfile(int i)
 {
     QFile file("graphs.txt");
@@ -47,6 +57,7 @@ QJsonObject fileCreator::getGraphsfromfile(int i)
    return tempdoc.object();
 }
 
+//Gets the names of the images in graphImages folder
 QList<QString> fileCreator::getImageNames(QList<QString> stuff) {
 
     std::filesystem::create_directory("graphImages");
