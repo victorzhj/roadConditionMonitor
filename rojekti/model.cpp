@@ -12,28 +12,18 @@ model::model()
     coordMap["sijainti1"] = {"61.516", "23.658", "61.517", "23.659"};
 }
 
-QList<QPoint> model::getChart() {
+QList<QPointF> model::getChart() {
     //returns the points on the chart
     return pointdata_;
 }
 
-int model::getPreferences()
-{
-    return preferences_;
-}
-
-void model::updateChart(vector<int> timeData, vector<int> OtherData) {
-    //Combines two vectors into chart points (QPoint)
+void model::updateChart(vector<double> timeData, vector<double> OtherData) {
+    //Combines two vectors into chart points (QPointF)
     pointdata_.clear();
     for (int i = 0; i < std::min(timeData.size(), OtherData.size()); ++i)
         {
-            pointdata_.append(QPoint(timeData[i], OtherData[i]));
+            pointdata_.append(QPointF(timeData[i], OtherData[i]));
         }
-}
-
-void model::updatePreferences()
-{
-
 }
 
 void model::setTimeRange(QDateTime start, QDateTime end)
@@ -45,8 +35,8 @@ void model::setTimeRange(QDateTime start, QDateTime end)
 
 void model::jsonGetData(QString whatData, QString where)
 {
-    vector<int> xaxis = {};
-    vector<int> yaxis = {};
+    vector<double> xaxis = {};
+    vector<double> yaxis = {};
     int days = start_.daysTo(end_);
 
     // get min and max coordinates
@@ -76,8 +66,8 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
     start_ = start;
     end_ = end;
 
-    vector<int> xaxis = {};
-    vector<int> yaxis = {};
+    vector<double> xaxis = {};
+    vector<double> yaxis = {};
     int days = start.daysTo(end);
 
     for (int i = 0; i <= days; i++)
@@ -93,6 +83,7 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
         yaxis.push_back(final);
     }
     updateChart(xaxis, yaxis);
+
 }
 
 void model::getRoadCondition(const std::string item, const std::string forecastTime, QString location)
@@ -106,8 +97,8 @@ void model::getRoadCondition(const std::string item, const std::string forecastT
 
 void model::getTrafficMsg()
 {
-    vector<int> xaxis = {};
-    vector<int> yaxis = {};
+    vector<double> xaxis = {};
+    vector<double> yaxis = {};
     QUrl url = urlBuilder.getTrafficMsgUrl();
     QString json = networker_->getUrl(url);
     jsonTrafficMessageParser j(json);
@@ -161,7 +152,7 @@ void model::getXmlDataHelper(const QString xml, const QString param)
             yaxis.push_back(0);
         }
     }
-    // updateChart(xaxis, yaxis);
+     updateChart(xaxis, yaxis);
 }
 
 

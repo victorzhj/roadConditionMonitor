@@ -15,6 +15,8 @@ using namespace std;
 class CreateGraph {
 private:
 public:
+
+//Draws a graph from the points in series to the object. The type of graph depends on graphtype
 void drawGraph(QLineSeries* series, QChartView* object, string graphtype)
 {
     QVector<QPointF> points = series->points();

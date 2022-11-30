@@ -23,6 +23,11 @@
       <height>31</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string/>
+     </property>
+    </item>
    </widget>
    <widget class="QComboBox" name="road_dropdown">
     <property name="geometry">
@@ -34,7 +39,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="graphButton">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -47,14 +52,17 @@
      <string>Graph</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="savePreferenceButton">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>60</x>
       <y>520</y>
       <width>100</width>
       <height>32</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 255, 0);</string>
     </property>
     <property name="text">
      <string>Save search</string>
@@ -526,6 +534,22 @@ background-color: rgb(255, 0, 0);</string>
      <string>Graphtype:</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="deletePreferenceButton">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>520</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string>Delete preference</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -533,7 +557,7 @@ background-color: rgb(255, 0, 0);</string>
      <x>0</x>
      <y>0</y>
      <width>836</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

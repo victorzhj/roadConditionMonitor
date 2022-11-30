@@ -37,7 +37,9 @@ public:
     };
     Q_ENUM(Button)
 
+    QString preferenceButton_ = "roadmaintenance";
     QString placeholdername;
+    QString preferenceName;
     std::string graphtype = "line";
     QChartView* chartview = new QChartView();
     QChartView* chartview2 = new QChartView();
@@ -47,6 +49,7 @@ public:
     void loadCompareItems();
     void addtoCompare();
 
+    void loadPreferences();
     Button getCurrentButton();
     std::string getCurrentTask();
     std::string getLocation();
@@ -60,7 +63,7 @@ public slots:
 
 
 private slots:
-    void on_pushButton_clicked();
+    void on_graphButton_clicked();
 
     void on_roadmaintenance_toggled(bool checked);
 
@@ -70,11 +73,20 @@ private slots:
 
     void on_GraphcomboBox_activated(int index);
 
+
+    void on_savePreferenceButton_clicked();
+
+    void on_preference_dropdown_activated(int index);
+
+    void on_deletePreferenceButton_clicked();
+
 signals:
-    void pushButtonClicked();
+    void graphButtonClicked();
     void saveButtonClicked(int i);
     void compareDropdownActivated();
     void deleteButtonClicked();
+    void deletePreferenceButtonClicked();
+    void PreferenceButtonClicked(int i, int j, int h, int k);
 
 private:
     Ui::MainWindow *ui;
@@ -164,6 +176,5 @@ private:
         {
             {"id", "UNKNOWN"},    {"nameFi", "Tuntematon"},    {"nameEn", "Unknown"},    {"nameSv", "Obekant"},  }
       };
-
 };
 #endif // MAINWINDOW_H

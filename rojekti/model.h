@@ -41,12 +41,10 @@ class model
 {
 public:
 
-    QList<QPoint> pointdata2_;
+    QList<QPointF> pointdata2_;
     model();
-    QList<QPoint> getChart();
-    int getPreferences();
-    void updateChart(std::vector<int> timeData, std::vector<int> OtherData);
-    void updatePreferences();
+    QList<QPointF> getChart();
+    void updateChart(std::vector<double> timeData, std::vector<double> OtherData);
     void setTimeRange(QDateTime start, QDateTime end);
     void getRoadMaintenance(const QDateTime start, const QDateTime end, const  QString taskName, const QString location);
     void getRoadCondition(const std::string item, const std::string forecastTime, QString location);
@@ -58,9 +56,7 @@ public:
     void jsonGetData(QString whatData, QString where);
 
 private:
-    QList<QPoint> pointdata_;
-    //using int as placeholder type since not sure what it will be
-    int preferences_;
+    QList<QPointF> pointdata_;
     jsonNetworker* networker_ = new jsonNetworker();
     QDateTime start_;
     QDateTime end_;
