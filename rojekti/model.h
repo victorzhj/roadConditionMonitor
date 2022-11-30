@@ -45,7 +45,6 @@ public:
     model();
     QList<QPointF> getChart();
     void updateChart(std::vector<double> timeData, std::vector<double> OtherData);
-    void setTimeRange(QDateTime start, QDateTime end);
     void getRoadMaintenance(const QDateTime start, const QDateTime end, const  QString taskName, const QString location);
     void getRoadCondition(const std::string item, const std::string forecastTime, QString location);
     void getTrafficMsg();
@@ -53,7 +52,6 @@ public:
     void getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location);
     void getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location);
     void getXmlDataHelper(const QString xml, const QString param);
-    void jsonGetData(QString whatData, QString where);
 
 private:
     QList<QPointF> pointdata_;

@@ -46,7 +46,6 @@ void controller::updateGraph(int i) {
 void controller::GraphButtonClicked()
 {
     std::pair<QDateTime, QDateTime> timeRange = view_->getTimeRange();
-    model_->setTimeRange(timeRange.first, timeRange.second);
     //model_->jsonGetData("maintenance","sijainti1");
 
     std::string location = view_->getLocation();
@@ -70,11 +69,11 @@ void controller::GraphButtonClicked()
 
         // TODO
         if (selected == MainWindow::Button::TemperatureHistory) {
-            selectedName = "";
+            selectedName = "t2m";
         } else if (selected == MainWindow::Button::ObservedWind) {
-            selectedName = "";
+            selectedName = "ws_10min";
         } else if (selected == MainWindow::Button::ObservedCloudiness) {
-            selectedName = "";
+            selectedName = "n_man";
         }
 
         // TODO
@@ -84,11 +83,11 @@ void controller::GraphButtonClicked()
 
         // TODO
         if (selected == MainWindow::Button::AverageTemperature) {
-            selectedName = "";
+            selectedName = "TA_PT1H_AVG";
         } else if (selected == MainWindow::Button::MinimumTemperature) {
-            selectedName = "";
+            selectedName = "TA_PT1H_MIN";
         } else if (selected == MainWindow::Button::MaximumTemperature) {
-            selectedName = "";
+            selectedName = "TA_PT1H_MAX";
         }
         model_->getXmlAvgMinMaxTemp(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
     } else if (selected == MainWindow::Button::TemperatureForecast || selected == MainWindow::Button::PredictedWind) {
@@ -96,9 +95,9 @@ void controller::GraphButtonClicked()
 
         // TODO
         if (selected == MainWindow::Button::TemperatureForecast) {
-            selectedName = "";
+            selectedName = "temperature";
         } else if (selected == MainWindow::Button::PredictedWind) {
-            selectedName = "";
+            selectedName = "windspeedms";
         }
         // model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
         model_->getXmlWeatherForecast(timeRange.first, selectedName, QString::fromStdString(location));
