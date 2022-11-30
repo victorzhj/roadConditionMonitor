@@ -68,9 +68,9 @@ void model::getTrafficMsg()
 
 }
 
-void model::getXmlWeatherObservation(const QString time, const QString param, const QString location)
+void model::getXmlWeatherObservation(const QString param, const QString location)
 {
-    QUrl url = urlBuilder.getWeatherObservations(time, locations.value(location), param);
+    QUrl url = urlBuilder.getWeatherObservations(locations.value(location), param);
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
     getXmlDataHelper(xml, param);

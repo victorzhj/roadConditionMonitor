@@ -75,9 +75,7 @@ void controller::GraphButtonClicked()
         } else if (selected == MainWindow::Button::ObservedCloudiness) {
             selectedName = "n_man";
         }
-        QString forecast = view_->getForecast();
-        // TODO
-        model_->getXmlWeatherObservation(forecast, selectedName, QString::fromStdString(location));
+        model_->getXmlWeatherObservation(selectedName, QString::fromStdString(location));
     } else if (selected == MainWindow::Button::AverageTemperature || selected == MainWindow::Button::MinimumTemperature || selected == MainWindow::Button::MaximumTemperature) {
         QString selectedName;
 
