@@ -45,13 +45,47 @@ public:
     model();
     QList<QPointF> getChart();
     void updateChart(std::vector<double> timeData, std::vector<double> OtherData);
+    /**
+     * @brief getRoadMaintenance gets road mainenance data
+     * @param QDateTime start, start time
+     * @param QDateTime end, end time
+     * @param QString taskName, the name of the task
+     * @param QString location
+     */
     void getRoadMaintenance(const QDateTime start, const QDateTime end, const  QString taskName, const QString location);
+    /**
+     * @brief getRoadCondition, gets road maintenance data
+     * @param std::string item
+     * @param std::string forecastTime
+     * @param QString location
+     */
     void getRoadCondition(const std::string item, const std::string forecastTime, QString location);
+    /**
+     * @brief getTrafficMsg, gets traffic message data
+     */
     void getTrafficMsg();
+    /**
+     * @brief getXmlWeatherObservation, gets data for observation temp, ws and cloudiness
+     * @param QString param, the data that is wanted (t2m, ws_10min, n_man)
+     * @param QString location, the location
+     */
     void getXmlWeatherObservation(const QString param, const QString location);
+    /**
+     * @brief getXmlAvgMinMaxTemp, gets data for avg, min and max temp
+     * @param QDateTime start, start time
+     * @param QDateTime end, end time
+     * @param QString param, the data that is wanted (TA_PT1H_AVG, TA_PT1H_MAX, TA_PT1H_MIN)
+     * @param QString location, the location
+     */
     void getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location);
+    /**
+     * @brief getXmlWeatherForecast, gets data for forecast temp and ws
+     * @param QDateTime startTime, start time
+     * @param QString param, the data that is wanted (temperature, windspeedms)
+     * @param QString location, the location
+     */
     void getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location);
-    void getXmlDataHelper(const QString xml, const QString param);
+
 
 private:
     QList<QPointF> pointdata_;
@@ -60,6 +94,13 @@ private:
     QDateTime end_;
 
     urlBuilder urlBuilder;
+
+    /**
+     * @brief getXmlDataHelper
+     * @param QString xml, the xml file
+     * @param QString param, the wanted values
+     */
+    void getXmlDataHelper(const QString xml, const QString param);
 };
 
 #endif // MODEL_H
