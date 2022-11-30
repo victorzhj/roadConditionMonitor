@@ -15,13 +15,33 @@ using dateTime = std::string;
 class xmlParser
 {
 public:
+    /**
+     * @brief xmlParser, constructor
+     * @param file, the file that needs to be read.
+     * @param param, the wanted paramater from file
+     * Parses xml file with given parameter.
+     */
     xmlParser(const QString file, const QString param);
+    /**
+     * @brief getValues, get the wanted data
+     * @return std::vector<std::string> where element is the wanted value
+     */
     std::vector<value> getValues();
+    /**
+     * @brief getTimes, get each values time.
+     * @return std::vector<std::string> where element is the time
+     */
     std::vector<dateTime> getTimes();
+    /**
+     * @brief getAmount, returns the total amount of values
+     * @return int
+     */
     int getAmount();
 private:
+    /**
+     * @brief parse, parses the json data and stores it
+     */
     void parse();
-    // std::map<parameter, std::vector<value>> storedData_;
     std::vector<value> storedData_;
     std::vector<dateTime> times_;
     QDomDocument file_;
