@@ -62,8 +62,10 @@ void model::getRoadCondition(const std::string item, const std::string forecastT
 void model::getTrafficMsg()
 {
     QUrl url = urlBuilder.getTrafficMsgUrl();
+    qDebug() << url.toString();
     QString json = networker_->getUrl(url);
     jsonTrafficMessageParser j(json);
+    std::cout << j.getValue() << std::endl;
     int value = stoi(j.getValue());
 
 }
@@ -71,6 +73,7 @@ void model::getTrafficMsg()
 void model::getXmlWeatherObservation(const QString param, const QString location)
 {
     QUrl url = urlBuilder.getWeatherObservations(locations.value(location), param);
+    qDebug() << url.toString();
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
     getXmlDataHelper(xml, param);
@@ -104,10 +107,13 @@ void model::getXmlDataHelper(const QString xml, const QString param)
     std::vector<std::string> dateTime = xmlPar.getTimes();
 
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
-    for (auto &value : data)
+    for (unsigned long int index = 0; index < data.size(); index++)
     {
-        yaxis.push_back(std::stod(value));
+        std::cout << data.at(index) << std::endl;
+        yaxis.push_back(std::stod(data[index]));
+        xaxis.push_back(index);
     }
+    std::cout << "VÄLI" << std::endl;
     updateChart(xaxis, yaxis);
 }
 
