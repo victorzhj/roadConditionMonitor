@@ -62,15 +62,18 @@ void model::getRoadCondition(const std::string item, const std::string forecastT
 void model::getTrafficMsg()
 {
     QUrl url = urlBuilder.getTrafficMsgUrl();
+    qDebug() << url.toString();
     QString json = networker_->getUrl(url);
     jsonTrafficMessageParser j(json);
     int value = stoi(j.getValue());
+    std::cout << value << std::endl;
 
 }
 
 void model::getXmlWeatherObservation(const QString param, const QString location)
 {
     QUrl url = urlBuilder.getWeatherObservations(locations.value(location), param);
+    qDebug() << url.toString();
     QString xml = networker_->getUrl(url);
     xmlParser xmlPar(xml, param);
     getXmlDataHelper(xml, param);
@@ -81,6 +84,7 @@ void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, cons
     QString startDate = start.date().toString(Qt::ISODate);
     QString endDate = end.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, locations.value(location), param);
+    qDebug() << url.toString();
     QString xml = networker_->getUrl(url);
     getXmlDataHelper(xml, param);
 }
@@ -90,7 +94,9 @@ void model::getXmlWeatherForecast(const QDateTime startTime, const QString param
     QString startDate = startTime.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getWeatherForecast(startDate, locations.value(location), param);
     QString xml = networker_->getUrl(url);
+    qDebug() << url.toString();
     xmlParser xmlPar(xml, param);
+    qDebug() << xml;
     getXmlDataHelper(xml, param);
 
 }
@@ -104,10 +110,13 @@ void model::getXmlDataHelper(const QString xml, const QString param)
     std::vector<std::string> dateTime = xmlPar.getTimes();
 
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
-    for (auto &value : data)
+    for (unsigned long int index = 0; index < data.size(); index++)
     {
-        yaxis.push_back(std::stod(value));
+        std::cout << data.at(index) << std::endl;
+        yaxis.push_back(std::stod(data[index]));
+        xaxis.push_back(index);
     }
+    std::cout << "VÄLI" << std::endl;
     updateChart(xaxis, yaxis);
 }
 

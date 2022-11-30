@@ -14,5 +14,6 @@ jsonTrafficMessageParser::jsonTrafficMessageParser(const QString file)
 
 void jsonTrafficMessageParser::getData()
 {
-    wantedValue_ = features_.size();
+    //std::cout << features_.size() << std::endl;
+    wantedValue_ = std::to_string(features_.size());
 }
