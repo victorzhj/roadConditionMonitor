@@ -1,43 +1,18 @@
 #include "jsonroadmaintenanceparser.h"
 
-jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file):
-jsonFile_(QJsonDocument::fromJson(file.toUtf8()))
+jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file)
 {
     jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
 
-    bool isObject = createJsonObject();
+    bool isObject = createJsonObject("features");
     if (isObject == false) {
-        taskAmount = -1;
+        wantedValue_ = "-1";
     } else {
-        getData();
+        jsonRoadMaintenanceParser::getData();
     }
 }
-
-
-bool jsonRoadMaintenanceParser::createJsonObject()
-{
-    if (jsonFile_.isEmpty()) {
-        return false;
-    } else if (jsonFile_.isArray()) {
-        return false;
-    } else if (jsonFile_.isObject()) {
-        jsonObject_ = jsonFile_.object();
-        if (!jsonObject_.value("features").isUndefined()) {
-            features_ = jsonObject_.value("features").toArray();
-            return true;
-        }
-    }
-    return false;
-}
-
 
 void jsonRoadMaintenanceParser::getData()
 {
-    taskAmount = features_.size();
-}
-
-
-int jsonRoadMaintenanceParser::getTaskAmountPerDay()
-{
-    return taskAmount;
+    wantedValue_ = std::to_string(features_.size());
 }

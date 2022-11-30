@@ -32,7 +32,7 @@ QUrl urlBuilder::getTrafficMsgUrl()
     return QUrl(url);
 }
 
-QUrl urlBuilder::getWeatherObservations(QString time, QVector<QString> coords, QString param)
+QUrl urlBuilder::getWeatherObservations(QVector<QString> coords, QString param)
 {
     QString url = fmiBase + "observations::weather::simple&bbox="
             + coords[0] + ","  + coords[1]

@@ -17,6 +17,7 @@ SOURCES += \
     creategraph.cpp \
     controller.cpp \
     filecreator.cpp \
+    ijsonparser.cpp \
     jsonnetworker.cpp \
     jsonroadconditionparser.cpp \
     jsonroadmaintenanceparser.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 
 HEADERS += \
     filecreator.h \
+    ijsonparser.h \
     jsonroadconditionparser.h \
     jsonroadmaintenanceparser.h \
     jsontrafficmessageparser.h \

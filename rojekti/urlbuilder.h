@@ -13,7 +13,7 @@ public:
     QUrl getRoadMaintenanceUrl(QString whatData, QVector<QString> coords, QString date);
     QUrl getRoadConditionUrl(QVector<QString> coords);
     QUrl getTrafficMsgUrl();
-    QUrl getWeatherObservations(QString time, QVector<QString> coords, QString param);
+    QUrl getWeatherObservations(QVector<QString> coords, QString param);
     QUrl getAveragegObservations(QString startDate, QString endDate, QVector<QString> coords, QString param);
     QUrl getWeatherForecast(QString date, QVector<QString> coords, QString param);
 
