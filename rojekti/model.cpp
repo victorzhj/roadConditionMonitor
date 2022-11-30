@@ -9,7 +9,6 @@
 
 model::model()
 {
-    coordMap["sijainti1"] = {"61.516", "23.658", "61.517", "23.659"};
 }
 
 QList<QPointF> model::getChart() {

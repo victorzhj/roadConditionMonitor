@@ -30,11 +30,11 @@ using placeName = QString;
 
 // vector where data is stored [minX, minY, maxX, maxY]
 static const QMap<placeName, QVector<minMaxXY>> locations = {
-    {"Valtatie 12 Kauppi", {"23.8165", "61.5034", "23.8166", "61.5035"}},
-    {"E8 Pori", {"21.7536", "61.4837", "21.7537", "61.4838"}},
-    {"Tie 65 Lielahti", {"23.6587", "61.5160", "23.6588", "61.5161"}},
-    {"E12 Virveli Hämeenlinna", {"24.4670", "60.9826", "24.4671", "60.9827"}},
-    {"Pasilankatu Helsinki", {"24.9262", "60.2020", "24.9263", "60.2021"}}
+    {"Valtatie 12 Kauppi", {"23.74", "61.46", "23.98", "61.48"}},
+    {"E8 Pori", {"21.78", "61.47", "21.79", "61.48"}},
+    {"E12 Pirkkala", {"23.5", "61.4", "23.65", "61.5"}},
+    {"E12 Virveli Hämeenlinna", {"24.4", "60.9", "24.5", "61"}},
+    {"Tie 45 Helsinki", {"24.94", "60.17", "24.95", "60.22"}}
     };
 
 class model
@@ -59,7 +59,6 @@ private:
     QDateTime start_;
     QDateTime end_;
 
-    QMap<QString,QVector<QString>> coordMap;
     urlBuilder urlBuilder;
 };
 

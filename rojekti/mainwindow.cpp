@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->horizontalLayout->addWidget(chartview);
 
     // Add roads
-    ui->road_dropdown->addItems({"Valtatie 12 Kauppi", "Tie 65 Lielahti", "Pasilankatu Helsinki", "E12 Virveli Hämeenlinna", "E8 Pori"});
+    ui->road_dropdown->addItems({"Valtatie 12 Kauppi", "E12 Pirkkala", "Tie 45 Helsinki", "E12 Virveli Hämeenlinna", "E8 Pori"});
 
     ui->fHoursSelect->addItems(forecastIntervals);
     ui->fHoursSelect->setEnabled(false);
