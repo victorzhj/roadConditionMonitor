@@ -125,7 +125,7 @@ void controller::GraphButtonClicked()
             selectedName = "windspeedms";
         }
         // model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
-        model_->getXmlWeatherForecast(timeRange.first, selectedName, QString::fromStdString(location));
+        model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
     }
 
     updateGraph(1, endDate);

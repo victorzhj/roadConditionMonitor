@@ -104,7 +104,7 @@ public:
      * @param QString param, the data that is wanted (temperature, windspeedms)
      * @param QString location, the location
      */
-    void getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location);
+    void getXmlWeatherForecast(const QDateTime startTime, const QDateTime endTime, const QString param, const QString location);
 
 
 private:

@@ -52,7 +52,7 @@ public:
      * @param param choose what information is wanted
      * @return finished URL
      */
-    QUrl getWeatherForecast(QString date, QVector<QString> coords, QString param);
+    QUrl getWeatherForecast(QString start, QString end, QVector<QString> coords, QString param);
 
 private:
     QString digitrafficBase = "https://tie.digitraffic.fi/api/";

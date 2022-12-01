@@ -85,11 +85,13 @@ void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, cons
     getXmlDataHelper(xml, param);
 }
 
-void model::getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location)
+void model::getXmlWeatherForecast(const QDateTime startTime, const QDateTime endTime, const QString param, const QString location)
 {
     QString startDate = startTime.date().toString(Qt::ISODate);
-    QUrl url = urlBuilder.getWeatherForecast(startDate, locations.value(location), param);
+    QString endDate = endTime.date().toString(Qt::ISODate);
+    QUrl url = urlBuilder.getWeatherForecast(startDate, endDate, locations.value(location), param);
     QString xml = networker_->getData(url);
+    qDebug() << url.toString();
     xmlParser xmlPar(xml, param);
     getXmlDataHelper(xml, param);
 
