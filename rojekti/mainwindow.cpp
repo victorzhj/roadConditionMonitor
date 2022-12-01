@@ -8,8 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow), currentButton_(Button::RoadMaintenance)
 {
     ui->setupUi(this);
-    connect(ui->road_dropdown, &QComboBox::currentIndexChanged,
-            this, &MainWindow::road);
 
     connect(ui->roadmaintenance, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
     connect(ui->roadcondition, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
@@ -25,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->temperature_h, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
     connect(ui->trafficmessages, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
 
+    connect(ui->trafficmessages, &QRadioButton::toggled, this, &MainWindow::on_trafficmessage_toggled);
+
     ui->horizontalLayout->addWidget(chartview);
 
     // Add roads
@@ -34,12 +34,19 @@ MainWindow::MainWindow(QWidget *parent)
     ui->fHoursSelect->setEnabled(false);
 
     QStringList typeTexts;
+    QStringList messageTypeTexts;
 
     for (std::map<std::string, std::string> i: tasks) {
         typeTexts.append(QString::fromStdString(i.at("nameEn")));
     }
 
+    for (std::map<std::string, std::string> i: messages) {
+        messageTypeTexts.append(QString::fromStdString(i.at("nameEn")));
+    }
+
     ui->type_pick->addItems(typeTexts);
+    ui->messagetype_pick->addItems(messageTypeTexts);
+    ui->messagetype_pick->setEnabled(false);
 
     // Set default time to today
     ui->startTimeEdit->setDate(QDate::currentDate());
@@ -51,11 +58,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::road(int index)
-{
-    //Road dropdownin tekemiset laitetaan tänne
 }
 
 void MainWindow::on_graphButton_clicked()
@@ -70,6 +72,11 @@ void MainWindow::on_graphButton_clicked()
 void MainWindow::on_roadmaintenance_toggled(bool checked)
 {
     ui->type_pick->setEnabled(checked);
+}
+
+void MainWindow::on_trafficmessage_toggled(bool checked)
+{
+    ui->messagetype_pick->setEnabled(checked);
 }
 
 std::pair<QDateTime, QDateTime> MainWindow::getTimeRange() {
@@ -176,8 +183,8 @@ void MainWindow::updateCurrentButton()
     }
 
     ui->fHoursSelect->setEnabled(currentButton_ == Button::Precipitation || currentButton_ == Button::OverallRoadCondition);
-    ui->startTimeEdit->setEnabled(currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition);
-    ui->endTimeEdit->setEnabled(currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition);
+    ui->startTimeEdit->setEnabled(currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition && currentButton_ != Button::TrafficMessages && currentButton_ != Button::TemperatureHistory && currentButton_ != Button::ObservedCloudiness && currentButton_ != Button::ObservedWind);
+    ui->endTimeEdit->setEnabled(currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition && currentButton_ != Button::TrafficMessages && currentButton_ != Button::TemperatureHistory && currentButton_ != Button::ObservedCloudiness && currentButton_ != Button::ObservedWind);
 }
 
 
@@ -222,6 +229,12 @@ std::string MainWindow::getCurrentTask()
 {
     int currentIndex = ui->type_pick->currentIndex();
     return tasks[currentIndex].at("id");
+}
+
+std::string MainWindow::getCurrentMessage()
+{
+    int currentIndex = ui->messagetype_pick->currentIndex();
+    return messages[currentIndex].at("id");
 }
 
 std::string MainWindow::getLocation()

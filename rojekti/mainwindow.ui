@@ -101,9 +101,9 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>130</y>
+      <y>100</y>
       <width>340</width>
-      <height>291</height>
+      <height>321</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -166,6 +166,24 @@
           <string>Traffic messages</string>
          </property>
         </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="roadmaintenance_type_2">
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Type:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="messagetype_pick">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QRadioButton" name="temperature_h">

@@ -26,9 +26,9 @@ QUrl urlBuilder::getRoadConditionUrl(QVector<QString> coords)
     return QUrl(url);
 }
 
-QUrl urlBuilder::getTrafficMsgUrl()
+QUrl urlBuilder::getTrafficMsgUrl(QString messageType)
 {
-    QString url = digitrafficBase + "traffic-message/v1/messages?inactiveHours=0&includeAreaGeometry=false&situationType=TRAFFIC_ANNOUNCEMENT";
+    QString url = digitrafficBase + "traffic-message/v1/messages?inactiveHours=0&includeAreaGeometry=false&situationType=" + messageType;
     return QUrl(url);
 }
 

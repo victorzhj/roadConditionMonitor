@@ -65,7 +65,8 @@ public:
      * @brief getTrafficMsg, gets traffic message data
      * @return std::string the amount of traffic messages
      */
-    std::string getTrafficMsg();
+    std::string getTrafficMsg(std::string messageType);
+
     /**
      * @brief getXmlWeatherObservation, gets data for observation temp, ws and cloudiness
      * @param QString param, the data that is wanted (t2m, ws_10min, n_man)

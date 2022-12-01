@@ -28,7 +28,7 @@ public:
      * @brief urlBuilder::getTrafficMsgUrl builds URL to get traffic messages from digitraffic API
      * @return finished URL
      */
-    QUrl getTrafficMsgUrl();
+    QUrl getTrafficMsgUrl(QString messageType);
     /**
      * @brief urlBuilder::getWeatherObservations builds URL to get road maintenance from digitraffic API
      * @param coords contains min and max coordinates from within the data is being collected

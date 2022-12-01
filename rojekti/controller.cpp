@@ -85,7 +85,8 @@ void controller::GraphButtonClicked()
         return;
     } else if (selected == MainWindow::Button::TrafficMessages) {
         view_->chartview->setLayout(layout);
-        displayLabel->setText(QString::fromStdString(model_->getTrafficMsg()));
+        std::string messageType = view_->getCurrentMessage();
+        displayLabel->setText(QString::fromStdString(model_->getTrafficMsg(messageType)));
         displayLabel->setObjectName(displayLabel->text());
         return;
     } else if (selected == MainWindow::Button::TemperatureHistory || selected == MainWindow::Button::ObservedWind || selected == MainWindow::Button::ObservedCloudiness) {

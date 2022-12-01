@@ -52,11 +52,11 @@ public:
     void loadPreferences();
     Button getCurrentButton();
     std::string getCurrentTask();
+    std::string getCurrentMessage();
     std::string getLocation();
     QString getForecast();
 
 public slots:
-    void road(int index);
     void on_CompareDropdown_activated(int index);
 
     void updateCurrentButton();
@@ -66,6 +66,8 @@ private slots:
     void on_graphButton_clicked();
 
     void on_roadmaintenance_toggled(bool checked);
+
+    void on_trafficmessage_toggled(bool checked);
 
     void on_saveButton_clicked();
 
@@ -96,6 +98,12 @@ private:
     Button currentButton_;
 
     const QStringList forecastIntervals = {"0", "2", "4", "6", "12"};
+    const std::vector<std::map<std::string, std::string>> messages = {
+        {{"id", "TRAFFIC_ANNOUNCEMENT"}, {"nameEn", "Traffic Announcement"}},
+        {{"id", "EXEMPTED_TRANSPORT"}, {"nameEn", "Exempted Transport"}},
+        {{"id", "WEIGHT_RESTRICTION"}, {"nameEn", "Weight Restriction"}},
+        {{"id", "ROAD_WORK"}, {"nameEn", "Road Work"}}
+    };
     const std::vector<std::map<std::string, std::string>> tasks = {
         {
             {"id", ""},     {"nameFi", "Kaikki"},   {"nameEn", "All"},  {"nameSv", "Alla"},     },
