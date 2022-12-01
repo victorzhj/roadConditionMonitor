@@ -30,11 +30,11 @@ using placeName = QString;
 
 // vector where data is stored [minX, minY, maxX, maxY]
 static const QMap<placeName, QVector<minMaxXY>> locations = {
-    {"Valtatie 12 Kauppi", {"23.74", "61.46", "23.98", "61.48"}},
-    {"E8 Pori", {"21.78", "61.47", "21.79", "61.48"}},
-    {"E12 Pirkkala", {"23.5", "61.4", "23.65", "61.5"}},
-    {"E12 Virveli Hämeenlinna", {"24.4", "60.9", "24.5", "61"}},
-    {"Tie 45 Helsinki", {"24.94", "60.17", "24.95", "60.22"}}
+    {"Valtatie 12 Kauppi", {"23.7400", "61.4600", "23.8000", "61.5200"}},
+    {"E8 Pori", {"21.7800", "61.4700", "21.7900", "61.4800"}},
+    {"E12 Pirkkala", {"23.5000", "61.4000", "23.6500", "61.5000"}},
+    {"E12 Virveli Hämeenlinna", {"24.4000", "60.9000", "24.5000", "61.0000"}},
+    {"Tie 45 Helsinki", {"24.9400", "60.1700", "24.9500", "60.2200"}}
     };
 
 class model

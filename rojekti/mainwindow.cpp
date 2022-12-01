@@ -183,7 +183,7 @@ void MainWindow::updateCurrentButton()
     }
 
     ui->fHoursSelect->setEnabled(currentButton_ == Button::Precipitation || currentButton_ == Button::OverallRoadCondition);
-    ui->startTimeEdit->setEnabled(currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition && currentButton_ != Button::TrafficMessages && currentButton_ != Button::TemperatureHistory && currentButton_ != Button::ObservedCloudiness && currentButton_ != Button::ObservedWind);
+    ui->startTimeEdit->setEnabled(currentButton_ != Button::PredictedWind && currentButton_ != Button::TemperatureForecast && currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition && currentButton_ != Button::TrafficMessages && currentButton_ != Button::TemperatureHistory && currentButton_ != Button::ObservedCloudiness && currentButton_ != Button::ObservedWind);
     ui->endTimeEdit->setEnabled(currentButton_ != Button::Precipitation && currentButton_ != Button::OverallRoadCondition && currentButton_ != Button::TrafficMessages && currentButton_ != Button::TemperatureHistory && currentButton_ != Button::ObservedCloudiness && currentButton_ != Button::ObservedWind);
 }
 
