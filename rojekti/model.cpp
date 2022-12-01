@@ -59,15 +59,15 @@ void model::getRoadCondition(const std::string item, const std::string forecastT
     // TODO display the value
 }
 
-void model::getTrafficMsg()
+void model::getTrafficMsg(std::string messageType)
 {
-    QUrl url = urlBuilder.getTrafficMsgUrl();
+    QUrl url = urlBuilder.getTrafficMsgUrl(QString::fromStdString(messageType));
     qDebug() << url.toString();
     QString json = networker_->getUrl(url);
     jsonTrafficMessageParser j(json);
     int value = stoi(j.getValue());
     std::cout << value << std::endl;
-
+    std::cout << messageType << std::endl;
 }
 
 void model::getXmlWeatherObservation(const QString param, const QString location)

@@ -99,7 +99,6 @@ private:
 
     const QStringList forecastIntervals = {"0", "2", "4", "6", "12"};
     const std::vector<std::map<std::string, std::string>> messages = {
-        {{"id", ""}, {"nameEn", "All"}},
         {{"id", "TRAFFIC_ANNOUNCEMENT"}, {"nameEn", "Traffic Announcement"}},
         {{"id", "EXEMPTED_TRANSPORT"}, {"nameEn", "Exempted Transport"}},
         {{"id", "WEIGHT_RESTRICTION"}, {"nameEn", "Weight Restriction"}},

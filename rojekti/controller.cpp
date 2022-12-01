@@ -64,7 +64,7 @@ void controller::GraphButtonClicked()
         model_->getRoadCondition(selectedName, forecast, QString::fromStdString(location));
     } else if (selected == MainWindow::Button::TrafficMessages) {
         std::string messageType = view_->getCurrentMessage();
-        model_->getTrafficMsg();
+        model_->getTrafficMsg(messageType);
     } else if (selected == MainWindow::Button::TemperatureHistory || selected == MainWindow::Button::ObservedWind || selected == MainWindow::Button::ObservedCloudiness) {
         QString selectedName;
 
