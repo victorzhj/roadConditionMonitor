@@ -38,17 +38,45 @@ public:
     Q_ENUM(Button)
 
     QString preferenceButton_ = "roadmaintenance";
+    /**
+     * @brief Last active graph name (from upper or lower chart)
+     */
     QString placeholdername;
+    /**
+     * @brief Name of the currently selected preference
+     */
     QString preferenceName;
+    /**
+     * @brief graphtype, currently either line, bar or scatter
+     */
     std::string graphtype = "line";
+
+    /**
+     * @brief upper chartview
+     */
     QChartView* chartview = new QChartView();
+
+    /**
+     * @brief lower chartview
+     */
     QChartView* chartview2 = new QChartView();
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     std::pair<QDateTime, QDateTime> getTimeRange();
+
+    /**
+     * @brief Populates the comparedropdown from saved graphs
+     */
     void loadCompareItems();
+
+    /**
+     * @brief adds an element to the comparedropdown
+     */
     void addtoCompare();
 
+    /**
+     * @brief Populates the preferencedropdown from saved preferences
+     */
     void loadPreferences();
     Button getCurrentButton();
     std::string getCurrentTask();
@@ -57,6 +85,10 @@ public:
     QString getForecast();
 
 public slots:
+    /**
+     * @brief Receives a signal from the window when the comparedropdown is activated
+     * @param index of the selected dropdown option
+     */
     void on_CompareDropdown_activated(int index);
 
     void updateCurrentButton();
@@ -83,12 +115,41 @@ private slots:
     void on_deletePreferenceButton_clicked();
 
 signals:
+    /**
+     * @brief sends a signal when the graphButton is Clicked
+     */
     void graphButtonClicked();
+
+    /**
+     * @brief sends a signal when the saveButton is Clicked
+     * @param i is gotten from an inputdialog window which tells if we want to save as an image or as text
+     */
     void saveButtonClicked(int i);
+
+    /**
+     * @brief sends a signal when the comparedropdown is activated
+     */
     void compareDropdownActivated();
+
+    /**
+     * @brief sends a signal when the deleteButton is Clicked
+     */
     void deleteButtonClicked();
+
+    /**
+     * @brief sends a signal when the deletePreferenceButton is Clicked
+     */
     void deletePreferenceButtonClicked();
-    void PreferenceButtonClicked(int i, int j, int h, int k);
+
+    /**
+     * @brief sends a signal when the PreferenceButton is clicked, meaning we want to save the preference
+     * @param roaddropdownindex
+     * @param grapdropdownindex
+     * @param roadmaintenancetypeindex
+     * @param forecastdropdownindex
+     * @param messagetypedropdownindex
+     */
+    void PreferenceButtonClicked(int roaddropdownindex, int grapdropdownindex, int roadmaintenancetypeindex, int forecastdropdownindex, int messagetypedropdownindex);
 
 private:
     Ui::MainWindow *ui;

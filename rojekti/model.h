@@ -41,9 +41,26 @@ class model
 {
 public:
 
+    /**
+     * @brief pointdata for the lower chart
+     */
     QList<QPointF> pointdata2_;
+    /**
+     * @brief default constructor
+     */
     model();
+
+    /**
+     * @brief getChart
+     * @return the points in the upper chart
+     */
     QList<QPointF> getChart();
+
+    /**
+     * @brief updateChart Changes the pointdata
+     * @param timeData for the x-axis
+     * @param OtherData for the y-axis
+     */
     void updateChart(std::vector<double> timeData, std::vector<double> OtherData);
     /**
      * @brief getRoadMaintenance gets road mainenance data
