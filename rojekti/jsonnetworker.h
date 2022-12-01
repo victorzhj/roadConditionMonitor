@@ -22,8 +22,17 @@
 class jsonNetworker : public QObject
 {
 public:
+    /**
+     * @brief default constructor
+     * @param parent
+     */
     explicit jsonNetworker(QObject *parent = nullptr);
 
+    /**
+     * @brief Parses content that is gotten from the url
+     * @param url
+     * @return QString of request content
+     */
     QString getUrl(QUrl url);
 
 private:

@@ -89,7 +89,7 @@ std::pair<QDateTime, QDateTime> MainWindow::getTimeRange() {
 void MainWindow::on_saveButton_clicked()
 {
     QMessageBox* typeselector = new QMessageBox();
-    typeselector->addButton("Save normally", QMessageBox::YesRole);
+    typeselector->addButton("Save as text", QMessageBox::YesRole);
     typeselector->addButton("Save as image", QMessageBox::AcceptRole);
     //Asks user input
     int imageornormal = typeselector->exec();
@@ -269,7 +269,7 @@ void MainWindow::on_savePreferenceButton_clicked()
         return;
     }
     else if (closedOrNot == 1){
-        emit PreferenceButtonClicked(ui->road_dropdown->currentIndex(), ui->GraphcomboBox->currentIndex(), ui->type_pick->currentIndex(), ui->fHoursSelect->currentIndex());
+        emit PreferenceButtonClicked(ui->road_dropdown->currentIndex(), ui->GraphcomboBox->currentIndex(), ui->type_pick->currentIndex(), ui->fHoursSelect->currentIndex(), ui->messagetype_pick->currentIndex());
     }
 }
 
@@ -286,6 +286,7 @@ void MainWindow::on_preference_dropdown_activated(int index)
     ui->type_pick->setCurrentIndex(preference["type_pick"].toInt());
     ui->GraphcomboBox->setCurrentIndex(preference["graphtype"].toInt());
     ui->road_dropdown->setCurrentIndex(preference["location"].toInt());
+    ui->messagetype_pick->setCurrentIndex(preference["messagetype"].toInt());
     QRadioButton* button = findChild<QRadioButton*>(preference["radiobutton"].toString());
     button->setChecked(1);
     ui->startTimeEdit->setDateTime(QDateTime::fromString(preference["dates"].toObject()["startdate"].toString()));

@@ -212,17 +212,18 @@ void controller::deleteButtonClicked() {
 }
 
 //Adds the current search to the preferences file
-void controller::PreferenceButtonClicked(int i, int j, int h, int k) {
+void controller::PreferenceButtonClicked(int roaddropdownindex, int grapdropdownindex, int roadmaintenancetypeindex, int forecastdropdownindex, int messagetypedropdownindex) {
     QJsonObject Writetofile = creator_->getGraphsfromfile(1);;
     QJsonObject preferences;
     QJsonObject dates;
     dates.insert("startdate", view_->getTimeRange().first.toString());
     dates.insert("enddate", view_->getTimeRange().second.toString());
-    preferences.insert("location", i);
-    preferences.insert("graphtype", j);
+    preferences.insert("location", roaddropdownindex);
+    preferences.insert("graphtype", grapdropdownindex);
     preferences.insert("radiobutton", view_->preferenceButton_);
-    preferences.insert("type_pick", h);
-    preferences.insert("fhours", k);
+    preferences.insert("type_pick", roadmaintenancetypeindex);
+    preferences.insert("fhours", forecastdropdownindex);
+    preferences.insert("messagetype", messagetypedropdownindex);
     preferences.insert("dates", dates);
     Writetofile.insert(view_->preferenceName, preferences);
     creator_->writetoFiles(Writetofile, 1);
