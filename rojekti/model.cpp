@@ -50,24 +50,22 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
 
 }
 
-void model::getRoadCondition(const std::string item, const std::string forecastTime, QString location)
+std::string model::getRoadCondition(const std::string item, const std::string forecastTime, QString location)
 {
     QUrl url = urlBuilder.getRoadConditionUrl(locations.value(location));
     QString json = networker_->getUrl(url);
     jsonRoadConditionParser j(json, item, forecastTime);
     std::string value = j.getValue();
-    // TODO display the value
+    return value;
 }
 
-void model::getTrafficMsg(std::string messageType)
+std::string model::getTrafficMsg(std::string messageType)
 {
     QUrl url = urlBuilder.getTrafficMsgUrl(QString::fromStdString(messageType));
     qDebug() << url.toString();
     QString json = networker_->getUrl(url);
     jsonTrafficMessageParser j(json);
-    int value = stoi(j.getValue());
-    std::cout << value << std::endl;
-    std::cout << messageType << std::endl;
+    return j.getValue();
 }
 
 void model::getXmlWeatherObservation(const QString param, const QString location)
@@ -84,7 +82,7 @@ void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, cons
     QString startDate = start.date().toString(Qt::ISODate);
     QString endDate = end.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, locations.value(location), param);
-    qDebug() << url.toString();
+    qInfo() << url.toString();
     QString xml = networker_->getUrl(url);
     getXmlDataHelper(xml, param);
 }
@@ -96,7 +94,6 @@ void model::getXmlWeatherForecast(const QDateTime startTime, const QString param
     QString xml = networker_->getUrl(url);
     qDebug() << url.toString();
     xmlParser xmlPar(xml, param);
-    qDebug() << xml;
     getXmlDataHelper(xml, param);
 
 }
@@ -112,11 +109,11 @@ void model::getXmlDataHelper(const QString xml, const QString param)
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
     for (unsigned long int index = 0; index < data.size(); index++)
     {
-        std::cout << data.at(index) << std::endl;
+        //std::cout << data.at(index) << std::endl;
         yaxis.push_back(std::stod(data[index]));
         xaxis.push_back(index);
     }
-    std::cout << "VÄLI" << std::endl;
+    //std::cout << "VÄLI" << std::endl;
     updateChart(xaxis, yaxis);
 }
 

@@ -1,5 +1,6 @@
 #include "controller.h"
 #include "QObject"
+#include "qlayout.h"
 #include <string>
 #include <sstream>
 #include <QFile>
@@ -26,8 +27,11 @@ controller::controller(model* model, MainWindow* view, QObject *parent) : QObjec
 }
 
 //Graphs a chart based on the model
-void controller::updateGraph(int i) {
+void controller::updateGraph(int i, string endDate) {
     //Tells the view to draw a new chart based on inputs
+    if(endDate == ""){
+        endDate = view_->getTimeRange().second.toString().toStdString();
+    }
     QChartView* tempchartview;
     QList<QPointF> pointdata;
     if(i){tempchartview = view_->chartview; pointdata = model_->getChart();}
@@ -38,16 +42,26 @@ void controller::updateGraph(int i) {
             series->append(point);
         }
 
-    graph->drawGraph(series, tempchartview, view_->graphtype);
+    graph->drawGraph(series, tempchartview, view_->graphtype, endDate, typeoftime);
     delete graph;
 }
 
 //Changes the model to match the selected inputs and then calls updateGraph
 void controller::GraphButtonClicked()
 {
+    QBoxLayout* layout = new QBoxLayout(QBoxLayout::RightToLeft);
+    QLabel* displayLabel = new QLabel();
+    QFont font = displayLabel->font();
+    font.setPointSize(20);
+    displayLabel->setFont(font);
+    layout->addWidget(displayLabel);
+    layout->setAlignment(Qt::AlignHCenter);
+    layout->setObjectName("layoutwithlabel");
+    typeoftime = "days";
+    string endDate = view_->getTimeRange().first.toString().toStdString();
+
     std::pair<QDateTime, QDateTime> timeRange = view_->getTimeRange();
     //model_->jsonGetData("maintenance","sijainti1");
-
     std::string location = view_->getLocation();
     MainWindow::Button selected = view_->getCurrentButton();
     if(selected == MainWindow::Button::RoadMaintenance) {
@@ -55,18 +69,30 @@ void controller::GraphButtonClicked()
         model_->getRoadMaintenance(timeRange.first, timeRange.second, QString::fromStdString(taskName), QString::fromStdString(location));
     } else if (selected == MainWindow::Button::Precipitation || selected == MainWindow::Button::OverallRoadCondition) {
         std::string selectedName;
-        if (selected == MainWindow::Button::Precipitation) {
-            selectedName = "precipitation";
-        } else if (selected == MainWindow::Button::OverallRoadCondition) {
-            selectedName = "over all road condition";
-        }
         std::string forecast = view_->getForecast().toStdString();
-        model_->getRoadCondition(selectedName, forecast, QString::fromStdString(location));
+        if (selected == MainWindow::Button::Precipitation) {
+            selectedName = "precipitationCondition";
+        } else if (selected == MainWindow::Button::OverallRoadCondition) {
+            selectedName = "overallRoadCondition";
+
+        }
+
+        view_->chartview->setLayout(layout);
+        std::string tempstring = model_->getRoadCondition(selectedName, forecast, QString::fromStdString(location));
+        displayLabel->setText(QString::fromStdString(tempstring));
+        displayLabel->setObjectName(displayLabel->text());
+
+        return;
     } else if (selected == MainWindow::Button::TrafficMessages) {
+        view_->chartview->setLayout(layout);
         std::string messageType = view_->getCurrentMessage();
-        model_->getTrafficMsg(messageType);
+        displayLabel->setText(QString::fromStdString(model_->getTrafficMsg(messageType)));
+        displayLabel->setObjectName(displayLabel->text());
+        return;
     } else if (selected == MainWindow::Button::TemperatureHistory || selected == MainWindow::Button::ObservedWind || selected == MainWindow::Button::ObservedCloudiness) {
         QString selectedName;
+        typeoftime = "hours";
+        endDate = view_->getTimeRange().second.toString().toStdString();
 
         // TODO
         if (selected == MainWindow::Button::TemperatureHistory) {
@@ -79,7 +105,7 @@ void controller::GraphButtonClicked()
         model_->getXmlWeatherObservation(selectedName, QString::fromStdString(location));
     } else if (selected == MainWindow::Button::AverageTemperature || selected == MainWindow::Button::MinimumTemperature || selected == MainWindow::Button::MaximumTemperature) {
         QString selectedName;
-
+        typeoftime = "hours2";
         // TODO
         if (selected == MainWindow::Button::AverageTemperature) {
             selectedName = "TA_PT1H_AVG";
@@ -102,15 +128,17 @@ void controller::GraphButtonClicked()
         model_->getXmlWeatherForecast(timeRange.first, selectedName, QString::fromStdString(location));
     }
 
-
-    updateGraph(1);
+    updateGraph(1, endDate);
 }
 
 //Saving to file called graphs.txt (initializing if there is none)
 void controller::saveButtonClicked(int i) {
-
-    if(i==0){
-   QJsonObject myObject = creator_->getGraphsfromfile();
+    if(i==0 && !view_->chartview->findChild<QBoxLayout*>("layoutwithlabel")){
+   QJsonObject savedGraphs = creator_->getGraphsfromfile();
+   QJsonObject myObject;
+   myObject.insert("type", "normal");
+   myObject.insert("typeoftime", QString::fromStdString(typeoftime));
+   myObject.insert("endDate", view_->getTimeRange().second.toString());
     QList<QPointF> temp = model_->getChart();
     QMap<QString, QVariant> myMap;
     for (int i = 0; i< temp.size(); i++)
@@ -118,9 +146,19 @@ void controller::saveButtonClicked(int i) {
         //x-coordinate saved as a key to call for y coordinate
             myMap.insert(QString::number(temp[i].x()), temp[i].y());
         };
-    QJsonValue myValue = QJsonValue::fromVariant(myMap);
-    myObject.insert(view_->placeholdername, myValue);
-    creator_->writetoFiles(myObject);
+    QJsonValue graphpoints = QJsonValue::fromVariant(myMap);
+    myObject.insert("points", graphpoints);
+    savedGraphs.insert(view_->placeholdername, myObject);
+    creator_->writetoFiles(savedGraphs);
+    }
+    else if (i  == 0){
+       QJsonObject savedGraphs = creator_->getGraphsfromfile();
+       QJsonObject myObject;
+       myObject.insert("type", "label");
+       myObject.insert("endDate", view_->getTimeRange().second.toString());
+        myObject.insert("points", view_->chartview->findChild<QLabel*>()->objectName());
+        savedGraphs.insert(view_->placeholdername, myObject);
+        creator_->writetoFiles(savedGraphs);
     }
     else {
         stringstream t;
@@ -132,18 +170,29 @@ void controller::saveButtonClicked(int i) {
 
 //Draws the chart selected from the dropdown to the compare section
 void controller::compareDropdownActivated() {
-    if(view_->placeholdername == "Current") {model_->pointdata2_ = model_->getChart();}
-    else{
+    if(view_->placeholdername == "Current") {GraphButtonClicked(); model_->pointdata2_ = model_->getChart(); updateGraph(0); return;}
     std::vector<double> xaxis;
     std::vector<double> yaxis;
     QString graphname = view_->placeholdername;
-   QJsonObject myObject = creator_->getGraphsfromfile();
+   QJsonObject myObject = creator_->getGraphsfromfile()[graphname].toObject();
+   if(myObject["type"].toString() == "normal") {
    QList<QPointF> pointdata;
-   for(QString num : myObject[graphname].toObject().keys()){
-   pointdata.append(QPointF(num.toDouble(), myObject[graphname][num].toDouble()));
-   }
-    model_->pointdata2_ = pointdata;}
-    updateGraph(0);
+   for(QString num : myObject["points"].toObject().keys()){pointdata.append(QPointF(num.toDouble(), myObject["points"][num].toDouble()));}
+    model_->pointdata2_ = pointdata;
+    typeoftime = myObject["typeoftime"].toString().toStdString();
+    updateGraph(0, myObject["startDate"].toString().toStdString());}
+    else {
+       QBoxLayout* layout = new QBoxLayout(QBoxLayout::RightToLeft);
+       QLabel* displayLabel = new QLabel();
+       QFont font = displayLabel->font();
+       layout->addWidget(displayLabel);
+       font.setPointSize(20);
+       displayLabel->setFont(font);
+       layout->setAlignment(Qt::AlignHCenter);
+       view_->chartview2->setLayout(layout);
+       QString tempstring = myObject["points"].toString();
+       displayLabel->setText(tempstring);
+    }
 }
 
 //Deletes the current compare graph
