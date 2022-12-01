@@ -18,13 +18,13 @@ SOURCES += \
     controller.cpp \
     filecreator.cpp \
     ijsonparser.cpp \
-    jsonnetworker.cpp \
     jsonroadconditionparser.cpp \
     jsonroadmaintenanceparser.cpp \
     jsontrafficmessageparser.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
+    networker.cpp \
     urlbuilder.cpp \
     xmlparser.cpp
 
@@ -36,9 +36,9 @@ HEADERS += \
     jsontrafficmessageparser.h \
     mainwindow.h \
     controller.h \
-    jsonnetworker.h \
     mainwindow.h \
     model.h \
+    networker.h \
     urlbuilder.h \
     xmlparser.h
 

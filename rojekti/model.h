@@ -14,13 +14,13 @@
 #include "jsonroadmaintenanceparser.h"
 #include "jsonroadconditionparser.h"
 #include "jsontrafficmessageparser.h"
-#include "jsonnetworker.h"
+#include "networker.h"
 #include "xmlparser.h"
 
 #include <QMap>
 #include <QList>
 
-#include "jsonnetworker.h"
+#include "networker.h"
 #include "urlbuilder.h"
 
 using coord = QString;
@@ -109,7 +109,7 @@ public:
 
 private:
     QList<QPointF> pointdata_;
-    jsonNetworker* networker_ = new jsonNetworker();
+    Networker* networker_ = new Networker();
     QDateTime start_;
     QDateTime end_;
 
