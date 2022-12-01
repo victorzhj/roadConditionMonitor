@@ -1,14 +1,14 @@
-#include "jsonnetworker.h"
+#include "networker.h"
 #include "qeventloop.h"
 #include <QNetworkAccessManager>
 #include <QtGlobal>
 
 
-jsonNetworker::jsonNetworker(QObject *parent) : QObject(parent)
+Networker::Networker(QObject *parent) : QObject(parent)
 {}
 
 
-QString jsonNetworker::getUrl(QUrl url)
+QString Networker::getData(QUrl url)
 {
     QNetworkAccessManager *man = new QNetworkAccessManager(this);
     QNetworkReply *reply = man->get(QNetworkRequest(QUrl(url)));

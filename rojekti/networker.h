@@ -1,5 +1,5 @@
-#ifndef JSONNETWORKER_H
-#define JSONNETWORKER_H
+#ifndef NETWORKER_H
+#define NETWORKER_H
 
 #include <QNetworkReply>
 #include <QString>
@@ -19,21 +19,21 @@
 #include <QJsonValue>
 #include <QJsonObject>
 
-class jsonNetworker : public QObject
+class Networker : public QObject
 {
 public:
     /**
      * @brief default constructor
      * @param parent
      */
-    explicit jsonNetworker(QObject *parent = nullptr);
+    explicit Networker(QObject *parent = nullptr);
 
     /**
      * @brief Parses content that is gotten from the url
      * @param url
      * @return QString of request content
      */
-    QString getUrl(QUrl url);
+    QString getData(QUrl url);
 
 private:
     QNetworkAccessManager manager;
@@ -41,4 +41,4 @@ private:
     QString xmlTest = "https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::hourly::simple&bbox=23,61,24,62&starttime=2021-01-19T09:00:00Z&endtime=2021-01-19T14:00:00Z&parameters=TA_PT1H_AVG,TA_PT1H_MAX,TA_PT1H_MIN";
 };
 
-#endif // JSONNETWORKER_H
+#endif // NETWORKER_H
