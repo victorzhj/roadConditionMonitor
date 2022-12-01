@@ -58,7 +58,7 @@ QUrl urlBuilder::getWeatherForecast(QString start, QString end, QVector<QString>
     QString url = fmiBase
             + "forecast::harmonie::surface::point::simple&latlon="
             + coords[1] + ","  + coords[0]
-            + "&timestep=30&starttime="
+            + "&timestep=60&starttime="
             + start + "T00:00:00Z"
             + "&endtime=" + end + "T" // päivään pitää lisätä yksi, miten?
             + "23:59:59Z"

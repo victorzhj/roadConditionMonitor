@@ -117,7 +117,8 @@ void controller::GraphButtonClicked()
         model_->getXmlAvgMinMaxTemp(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
     } else if (selected == MainWindow::Button::TemperatureForecast || selected == MainWindow::Button::PredictedWind) {
         QString selectedName;
-
+        endDate = view_->getTimeRange().second.toString().toStdString();
+        typeoftime = "hours2";
         // TODO
         if (selected == MainWindow::Button::TemperatureForecast) {
             selectedName = "temperature";

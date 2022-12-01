@@ -35,7 +35,7 @@ void drawGraph(QLineSeries* series, QChartView* object, string graphtype, string
         if(points[i].y() > biggesty) {biggesty = points[i].y();}
         if(points[i].y() < smallesty) {smallesty = points[i].y();}
         if(typeoftime == "hours") {xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(-3600*13 + 3600*i).time().hour())));}
-        else if(typeoftime == "hours2") {startingdate.setTime(QTime(0,0));xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(3600*i).time().hour())));}
+        else if(typeoftime == "hours2") {startingdate.setTime(QTime(startingdate.time().hour() - (points.size()-1), 0));xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(3600*i).time().hour())));}
         else if(typeoftime == "days") {xaxis->append(QString::fromStdString(std::to_string(startingdate.addDays(i).date().day())));}
     }
 
