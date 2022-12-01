@@ -8,8 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow), currentButton_(Button::RoadMaintenance)
 {
     ui->setupUi(this);
-    connect(ui->road_dropdown, &QComboBox::currentIndexChanged,
-            this, &MainWindow::road);
 
     connect(ui->roadmaintenance, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
     connect(ui->roadcondition, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
@@ -60,11 +58,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::road(int index)
-{
-    //Road dropdownin tekemiset laitetaan tänne
 }
 
 void MainWindow::on_graphButton_clicked()

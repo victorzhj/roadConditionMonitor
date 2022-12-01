@@ -57,7 +57,6 @@ public:
     QString getForecast();
 
 public slots:
-    void road(int index);
     void on_CompareDropdown_activated(int index);
 
     void updateCurrentButton();
