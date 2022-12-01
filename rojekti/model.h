@@ -58,12 +58,14 @@ public:
      * @param std::string item
      * @param std::string forecastTime
      * @param QString location
+     * @return std::string either the precipitation amount or the overallroadcondition
      */
-    void getRoadCondition(const std::string item, const std::string forecastTime, QString location);
+    std::string getRoadCondition(const std::string item, const std::string forecastTime, QString location);
     /**
      * @brief getTrafficMsg, gets traffic message data
+     * @return std::string the amount of traffic messages
      */
-    void getTrafficMsg();
+    std::string getTrafficMsg();
     /**
      * @brief getXmlWeatherObservation, gets data for observation temp, ws and cloudiness
      * @param QString param, the data that is wanted (t2m, ws_10min, n_man)

@@ -60,6 +60,9 @@ void MainWindow::road(int index)
 
 void MainWindow::on_graphButton_clicked()
 {
+    ui->horizontalLayout->removeWidget(chartview);
+    chartview = new QChartView();
+    ui->horizontalLayout->addWidget(chartview);
         emit graphButtonClicked();
 }
 
@@ -100,25 +103,24 @@ void MainWindow::on_saveButton_clicked()
 void MainWindow::on_CompareDropdown_activated(int index)
 {
     fileCreator* creator_ = new fileCreator;
+    ui->horizontalLayout_5->removeWidget(chartview2);
+     chartview2 = new QChartView();
+    ui->horizontalLayout_5->removeWidget(imagelabel);
+     imagelabel = new QLabel();
     placeholdername = ui->CompareDropdown->currentText();
     QList<QString> emptylist = {};
     //If graph was saved as an image it copies it here
     if(creator_->getImageNames(emptylist).contains(placeholdername)) {
 
         //Removes the old widget (non-image chart) and adds a new one
-        ui->horizontalLayout_5->removeWidget(chartview2);
         ui->horizontalLayout_5->addWidget(imagelabel);
         //Re-initializes the removed widget so it can be added again later
-        chartview2 = new QChartView();
             QPixmap pixmap("graphImages/" + placeholdername + ".png");
 
           imagelabel->setPixmap(pixmap);
 
     }
     else{
-
-        ui->horizontalLayout_5->removeWidget(imagelabel);
-        imagelabel = new QLabel();
         ui->horizontalLayout_5->addWidget(chartview2);
     emit compareDropdownActivated();
     }
@@ -126,10 +128,12 @@ void MainWindow::on_CompareDropdown_activated(int index)
 
 void MainWindow::updateCurrentButton()
 {
+    ui->GraphcomboBox->setEnabled(1);
     if (ui->roadmaintenance->isChecked()) {
         currentButton_ = Button::RoadMaintenance;
         preferenceButton_ = ui->roadmaintenance->objectName();
     } else if (ui->roadcondition->isChecked()) {
+        ui->GraphcomboBox->setEnabled(0);
         currentButton_ = Button::OverallRoadCondition;
         preferenceButton_ = ui->roadcondition->objectName();
     } else if (ui->averageTemperature->isChecked()) {
@@ -163,6 +167,7 @@ void MainWindow::updateCurrentButton()
         currentButton_ = Button::TemperatureHistory;
         preferenceButton_ = ui->temperature_h->objectName();
     } else if (ui->trafficmessages->isChecked()) {
+        ui->GraphcomboBox->setEnabled(0);
         currentButton_ = Button::TrafficMessages;
         preferenceButton_ = ui->trafficmessages->objectName();
     } else {
@@ -273,6 +278,7 @@ void MainWindow::on_preference_dropdown_activated(int index)
     ui->startTimeEdit->setDateTime(QDateTime::fromString(preference["dates"].toObject()["startdate"].toString()));
     ui->endTimeEdit->setDateTime(QDateTime::fromString(preference["dates"].toObject()["enddate"].toString()));
     ui->GraphcomboBox->setCurrentIndex(preference["graphtype"].toInt());
+    updateCurrentButton();
     emit graphButtonClicked();
     }
 }
