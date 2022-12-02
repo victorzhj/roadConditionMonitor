@@ -29,16 +29,18 @@ public:
     explicit Networker(QObject *parent = nullptr);
 
     /**
-     * @brief Parses content that is gotten from the url
-     * @param url
-     * @return QString of request content
+     * @brief get content with a network request from the wanted API
+     * @param url built in urlBuilder
+     * @return QString of requested content
      */
     QString getData(QUrl url);
 
 private:
+    /**
+     * @brief manager sends network requests and receives replies
+     */
     QNetworkAccessManager manager;
-    QString myUrl= "https://tie.digitraffic.fi/api/maintenance/v1/tracking/routes?endFrom=2022-01-19T09%3A00%3A00Z&endBefore=2022-01-19T14%3A00%3A00Z&xMin=21&yMin=61&xMax=22&yMax=62&taskId=&domain=state-roads";
-    QString xmlTest = "https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::hourly::simple&bbox=23,61,24,62&starttime=2021-01-19T09:00:00Z&endtime=2021-01-19T14:00:00Z&parameters=TA_PT1H_AVG,TA_PT1H_MAX,TA_PT1H_MIN";
+
 };
 
 #endif // NETWORKER_H

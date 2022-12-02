@@ -5,7 +5,6 @@
 #include "model.h"
 #include "mainwindow.h"
 #include "creategraph.cpp"
-#include "networker.h"
 
 class controller : public QObject
 {
