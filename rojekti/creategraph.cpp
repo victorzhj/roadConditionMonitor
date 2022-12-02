@@ -28,15 +28,24 @@ void drawGraph(QLineSeries* series, QChartView* object, string graphtype, string
         return p1.x() < p2.x();
 
     });
+    int m = std::ceil(points.size()/ 12);
+    if(typeoftime == "days"){m = 0;}
+    if(m >= 4) {typeoftime = "days";}
     QBarCategoryAxis *xaxis = new QBarCategoryAxis();
     QValueAxis *yaxis = new QValueAxis();
     QDateTime startingdate = QDateTime::fromString(QString::fromStdString(startDate));
     for(int i = 0; i <points.size(); i++){
         if(points[i].y() > biggesty) {biggesty = points[i].y();}
         if(points[i].y() < smallesty) {smallesty = points[i].y();}
-        if(typeoftime == "hours") {xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(-3600*13 + 3600*i).time().hour())));}
-        else if(typeoftime == "hours2") {startingdate.setTime(QTime(0,0));xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(3600*i).time().hour())));}
-        else if(typeoftime == "days") {xaxis->append(QString::fromStdString(std::to_string(startingdate.addDays(i).date().day())));}
+        if(typeoftime == "hours") {if(m == 0){xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(-3600*13 + 3600*i).time().hour())));}
+        else if((i% m) == 0) {xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(-3600*13 + 3600*i).time().hour())));}}
+        else if(typeoftime == "hours2") {
+            if(m == 0){startingdate.setTime(QTime(startingdate.time().hour() - (points.size()-1), 0));xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(3600*i).time().hour())));}
+            else if((i % m) == 0){startingdate.setTime(QTime(startingdate.time().hour() - (points.size()-1), 0));xaxis->append(QString::fromStdString(std::to_string(startingdate.addSecs(3600*i).time().hour())));}
+        }
+        else if(typeoftime == "days") {
+            if(m == 0){xaxis->append(QString::fromStdString(std::to_string(startingdate.addDays(i).date().day())));}
+        else if ((i%24) == 0) {xaxis->append(QString::fromStdString(std::to_string(startingdate.addDays(i/24).date().day())));}}
     }
 
     yaxis->setRange(smallesty*1.1, biggesty*1.3);

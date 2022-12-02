@@ -5,7 +5,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-
+// Interface for json data parsing.
 class IjsonParser
 {
 public:

@@ -1,6 +1,6 @@
-This main branch includes a design document.
+The software is started by running main.cpp
 
-This is a QT-project so to use the application, Qt-library and Qt-creator are required. In Qt-creator all user needs to do is to open the pro file in rojekti folder and run the project.
+This is a QT-project so to use the application, Qt-library and Qt-creator are required. In Qt-creator all user needs to do is to open the pro file in rojekti folder and run the project. Note Qt version should be 6 or higher with QtCharts library downloaded (if it doesnt download automatically help is at https://stackoverflow.com/questions/42867557/how-to-install-qtcharts-on-windows). The recommended OS is windows as mac users might experience some problems (which stem from mac and not us)
 
 
 #### The application has only one window that includes these main functionalities: <br />
@@ -9,3 +9,4 @@ This is a QT-project so to use the application, Qt-library and Qt-creator are re
   - The saved preference can be deleted by picking it from the dropdown and pressing *"Delete preference"*-button.
 - The user can **save the drawn graph** as a image or as data points with the *"Save graph"*-button. The user can give the saved graph a name and it can be viewed from the **compare dropdown**. This is how the user can compare different searchers.
   - The saved graph can be deleted by picking it from the dropdown and pressing *"Delete graph"*-button.
+- When user chooses **precipitation** option with forecast set to **0** it won't do anything.

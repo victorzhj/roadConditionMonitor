@@ -14,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->averageTemperature, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
     connect(ui->maximumTemperature, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
     connect(ui->minimumTemperature, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
-    connect(ui->predictedtemperature, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
     connect(ui->predictedwind, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
     connect(ui->observedwind, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
     connect(ui->observedcloudiness, &QRadioButton::clicked, this, &MainWindow::updateCurrentButton);
@@ -152,9 +151,6 @@ void MainWindow::updateCurrentButton()
     } else if (ui->minimumTemperature->isChecked()) {
         currentButton_ = Button::MinimumTemperature;
         preferenceButton_ = ui->minimumTemperature->objectName();
-    } else if (ui->predictedtemperature->isChecked()) {
-        currentButton_ = Button::PredictedTemperature;
-        preferenceButton_ = ui->predictedtemperature->objectName();
     } else if (ui->predictedwind->isChecked()) {
         currentButton_ = Button::PredictedWind;
         preferenceButton_ = ui->predictedwind->objectName();
@@ -289,8 +285,8 @@ void MainWindow::on_preference_dropdown_activated(int index)
     ui->messagetype_pick->setCurrentIndex(preference["messagetype"].toInt());
     QRadioButton* button = findChild<QRadioButton*>(preference["radiobutton"].toString());
     button->setChecked(1);
-    ui->startTimeEdit->setDateTime(QDateTime::fromString(preference["dates"].toObject()["startdate"].toString()));
-    ui->endTimeEdit->setDateTime(QDateTime::fromString(preference["dates"].toObject()["enddate"].toString()));
+    ui->startTimeEdit->setDate(QDate::currentDate());
+    ui->endTimeEdit->setDateTime(QDateTime::currentDateTime());
     ui->GraphcomboBox->setCurrentIndex(preference["graphtype"].toInt());
     updateCurrentButton();
     emit graphButtonClicked();

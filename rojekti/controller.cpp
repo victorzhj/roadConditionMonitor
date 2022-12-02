@@ -117,7 +117,8 @@ void controller::GraphButtonClicked()
         model_->getXmlAvgMinMaxTemp(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
     } else if (selected == MainWindow::Button::TemperatureForecast || selected == MainWindow::Button::PredictedWind) {
         QString selectedName;
-
+        endDate = view_->getTimeRange().second.toString().toStdString();
+        typeoftime = "hours2";
         // TODO
         if (selected == MainWindow::Button::TemperatureForecast) {
             selectedName = "temperature";
@@ -125,7 +126,7 @@ void controller::GraphButtonClicked()
             selectedName = "windspeedms";
         }
         // model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
-        model_->getXmlWeatherForecast(timeRange.first, selectedName, QString::fromStdString(location));
+        model_->getXmlWeatherForecast(timeRange.second, selectedName, QString::fromStdString(location));
     }
 
     updateGraph(1, endDate);
@@ -215,16 +216,12 @@ void controller::deleteButtonClicked() {
 void controller::PreferenceButtonClicked(int roaddropdownindex, int grapdropdownindex, int roadmaintenancetypeindex, int forecastdropdownindex, int messagetypedropdownindex) {
     QJsonObject Writetofile = creator_->getGraphsfromfile(1);;
     QJsonObject preferences;
-    QJsonObject dates;
-    dates.insert("startdate", view_->getTimeRange().first.toString());
-    dates.insert("enddate", view_->getTimeRange().second.toString());
     preferences.insert("location", roaddropdownindex);
     preferences.insert("graphtype", grapdropdownindex);
     preferences.insert("radiobutton", view_->preferenceButton_);
     preferences.insert("type_pick", roadmaintenancetypeindex);
     preferences.insert("fhours", forecastdropdownindex);
     preferences.insert("messagetype", messagetypedropdownindex);
-    preferences.insert("dates", dates);
     Writetofile.insert(view_->preferenceName, preferences);
     creator_->writetoFiles(Writetofile, 1);
     view_->loadPreferences();

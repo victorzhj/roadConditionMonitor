@@ -13,14 +13,18 @@ fileCreator::fileCreator()
 //Gets the graph names from the files or preference names from preferences.txt
 QList<QString> fileCreator::loadNames(int i)
 {
+    QByteArray jsonFile_;
+    QJsonDocument doc;
     QFile file("graphs.txt");
     if(i == 1) {
         file.setFileName("preferences.txt");
     }
-    file.open(QIODevice::ReadOnly);
-    QByteArray jsonFile_ = file.readAll();
-    QJsonDocument doc = QJsonDocument::fromJson(jsonFile_);
-    file.close();
+    if(QFileInfo::exists(file.fileName())){file.open(QIODevice::ReadOnly);
+        jsonFile_ = file.readAll();
+        doc = QJsonDocument::fromJson(jsonFile_);
+        file.close();
+    }
+
     if(i == 1) {
         return doc.object().keys();
     }

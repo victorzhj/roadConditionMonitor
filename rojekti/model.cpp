@@ -76,15 +76,15 @@ void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, cons
     QString startDate = start.date().toString(Qt::ISODate);
     QString endDate = end.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, locations.value(location), param);
-    qInfo() << url.toString();
     QString xml = networker_->getData(url);
     getXmlDataHelper(xml, param);
 }
 
-void model::getXmlWeatherForecast(const QDateTime startTime, const QString param, const QString location)
+void model::getXmlWeatherForecast(const QDateTime endTime, const QString param, const QString location)
 {
-    QString startDate = startTime.date().toString(Qt::ISODate);
-    QUrl url = urlBuilder.getWeatherForecast(startDate, locations.value(location), param);
+    QString startDate = QDate::currentDate().toString(Qt::ISODate);
+    QString endDate = endTime.date().toString(Qt::ISODate);
+    QUrl url = urlBuilder.getWeatherForecast(startDate, endDate, locations.value(location), param);
     QString xml = networker_->getData(url);
     xmlParser xmlPar(xml, param);
     getXmlDataHelper(xml, param);
@@ -102,7 +102,6 @@ void model::getXmlDataHelper(const QString xml, const QString param)
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
     for (unsigned long int index = 0; index < data.size(); index++)
     {
-
         yaxis.push_back(std::stod(data[index]));
         xaxis.push_back(index);
     }
