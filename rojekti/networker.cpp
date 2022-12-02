@@ -4,12 +4,12 @@
 #include <QtGlobal>
 
 
-Networker::Networker(QObject *parent) : QObject(parent)
-{}
+Networker::Networker(QObject *parent) : QObject(parent) {
+
+}
 
 
-QString Networker::getData(QUrl url)
-{
+QString Networker::getData(QUrl url) {
     QNetworkAccessManager *man = new QNetworkAccessManager(this);
     QNetworkReply *reply = man->get(QNetworkRequest(QUrl(url)));
     QEventLoop loop;

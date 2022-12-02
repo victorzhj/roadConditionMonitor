@@ -34,8 +34,11 @@ void controller::updateGraph(int i, string endDate) {
     }
     QChartView* tempchartview;
     QList<QPointF> pointdata;
-    if(i){tempchartview = view_->chartview; pointdata = model_->getChart();}
-    else {tempchartview = view_->chartview2; pointdata = model_->pointdata2_;}
+    if(i){
+        tempchartview = view_->chartview; pointdata = model_->getChart();
+    } else {
+        tempchartview = view_->chartview2; pointdata = model_->pointdata2_;
+    }
     CreateGraph *graph = new CreateGraph();
     QLineSeries* series = new QLineSeries();
     for (auto& point : pointdata) {
@@ -47,8 +50,7 @@ void controller::updateGraph(int i, string endDate) {
 }
 
 //Changes the model to match the selected inputs and then calls updateGraph
-void controller::GraphButtonClicked()
-{
+void controller::GraphButtonClicked() {
     QBoxLayout* layout = new QBoxLayout(QBoxLayout::RightToLeft);
     QLabel* displayLabel = new QLabel();
     QFont font = displayLabel->font();
@@ -151,8 +153,7 @@ void controller::saveButtonClicked(int i) {
     myObject.insert("points", graphpoints);
     savedGraphs.insert(view_->placeholdername, myObject);
     creator_->writetoFiles(savedGraphs);
-    }
-    else if (i  == 0){
+    } else if (i  == 0){
        QJsonObject savedGraphs = creator_->getGraphsfromfile();
        QJsonObject myObject;
        myObject.insert("type", "label");
@@ -160,29 +161,31 @@ void controller::saveButtonClicked(int i) {
         myObject.insert("points", view_->chartview->findChild<QLabel*>()->objectName());
         savedGraphs.insert(view_->placeholdername, myObject);
         creator_->writetoFiles(savedGraphs);
-    }
-    else {
+    } else {
         stringstream t;
         t << "graphImages/" << view_->placeholdername.toStdString() << ".png";
         view_->chartview->grab().save(QString::fromStdString(t.str()));
-
     }
 }
 
 //Draws the chart selected from the dropdown to the compare section
 void controller::compareDropdownActivated() {
-    if(view_->placeholdername == "Current") {GraphButtonClicked(); model_->pointdata2_ = model_->getChart(); updateGraph(0); return;}
+    if(view_->placeholdername == "Current") {
+        GraphButtonClicked(); model_->pointdata2_ = model_->getChart(); updateGraph(0); return;
+    }
     std::vector<double> xaxis;
     std::vector<double> yaxis;
     QString graphname = view_->placeholdername;
    QJsonObject myObject = creator_->getGraphsfromfile()[graphname].toObject();
    if(myObject["type"].toString() == "normal") {
    QList<QPointF> pointdata;
-   for(QString num : myObject["points"].toObject().keys()){pointdata.append(QPointF(num.toDouble(), myObject["points"][num].toDouble()));}
+   for(QString num : myObject["points"].toObject().keys()){
+       pointdata.append(QPointF(num.toDouble(), myObject["points"][num].toDouble()));
+   }
     model_->pointdata2_ = pointdata;
     typeoftime = myObject["typeoftime"].toString().toStdString();
-    updateGraph(0, myObject["startDate"].toString().toStdString());}
-    else {
+    updateGraph(0, myObject["startDate"].toString().toStdString());
+   } else {
        QBoxLayout* layout = new QBoxLayout(QBoxLayout::RightToLeft);
        QLabel* displayLabel = new QLabel();
        QFont font = displayLabel->font();
@@ -203,8 +206,7 @@ void controller::deleteButtonClicked() {
         stringstream s;
         s << "graphImages/" << view_->placeholdername.toStdString() << ".png";
         remove(s.str().c_str());
-    }
-    else{
+    } else{
    QJsonObject myObject = creator_->getGraphsfromfile();
    myObject.remove(view_->placeholdername);
    creator_->writetoFiles(myObject);}

@@ -54,13 +54,11 @@ MainWindow::MainWindow(QWidget *parent)
     loadPreferences();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::on_graphButton_clicked()
-{
+void MainWindow::on_graphButton_clicked() {
     ui->horizontalLayout->removeWidget(chartview);
     chartview = new QChartView();
     ui->horizontalLayout->addWidget(chartview);
@@ -68,13 +66,11 @@ void MainWindow::on_graphButton_clicked()
 }
 
 
-void MainWindow::on_roadmaintenance_toggled(bool checked)
-{
+void MainWindow::on_roadmaintenance_toggled(bool checked) {
     ui->type_pick->setEnabled(checked);
 }
 
-void MainWindow::on_trafficmessage_toggled(bool checked)
-{
+void MainWindow::on_trafficmessage_toggled(bool checked) {
     ui->messagetype_pick->setEnabled(checked);
 }
 
@@ -85,8 +81,7 @@ std::pair<QDateTime, QDateTime> MainWindow::getTimeRange() {
 }
 
 
-void MainWindow::on_saveButton_clicked()
-{
+void MainWindow::on_saveButton_clicked() {
     QMessageBox* typeselector = new QMessageBox();
     typeselector->addButton("Save as text", QMessageBox::YesRole);
     typeselector->addButton("Save as image", QMessageBox::AcceptRole);
@@ -100,14 +95,14 @@ void MainWindow::on_saveButton_clicked()
         QMessageBox::warning(this, "Error", "Name already used, delete previous one or use another name");
         return;
     }
-    else if (closedOrNot == 1)
-    {emit saveButtonClicked(imageornormal);
-        ui->CompareDropdown->addItem(placeholdername);}
+    else if (closedOrNot == 1) {
+        emit saveButtonClicked(imageornormal);
+        ui->CompareDropdown->addItem(placeholdername);
+    }
 }
 
 
-void MainWindow::on_CompareDropdown_activated(int index)
-{
+void MainWindow::on_CompareDropdown_activated(int index) {
     fileCreator* creator_ = new fileCreator;
     ui->horizontalLayout_5->removeWidget(chartview2);
      chartview2 = new QChartView();
@@ -121,7 +116,7 @@ void MainWindow::on_CompareDropdown_activated(int index)
         //Removes the old widget (non-image chart) and adds a new one
         ui->horizontalLayout_5->addWidget(imagelabel);
         //Re-initializes the removed widget so it can be added again later
-            QPixmap pixmap("graphImages/" + placeholdername + ".png");
+          QPixmap pixmap("graphImages/" + placeholdername + ".png");
 
           imagelabel->setPixmap(pixmap);
 
@@ -132,8 +127,7 @@ void MainWindow::on_CompareDropdown_activated(int index)
     }
 }
 
-void MainWindow::updateCurrentButton()
-{
+void MainWindow::updateCurrentButton() {
     ui->GraphcomboBox->setEnabled(1);
     if (ui->roadmaintenance->isChecked()) {
         currentButton_ = Button::RoadMaintenance;
@@ -184,8 +178,7 @@ void MainWindow::updateCurrentButton()
 }
 
 
-void MainWindow::on_deleteButton_clicked()
-{
+void MainWindow::on_deleteButton_clicked() {
     placeholdername = ui->CompareDropdown->currentText();
     emit deleteButtonClicked();
 }
@@ -216,46 +209,45 @@ void MainWindow::loadPreferences() {
    }
 }
 
-MainWindow::Button MainWindow::getCurrentButton()
-{
+MainWindow::Button MainWindow::getCurrentButton() {
     return currentButton_;
 }
 
-std::string MainWindow::getCurrentTask()
-{
+std::string MainWindow::getCurrentTask() {
     int currentIndex = ui->type_pick->currentIndex();
     return tasks[currentIndex].at("id");
 }
 
-std::string MainWindow::getCurrentMessage()
-{
+std::string MainWindow::getCurrentMessage() {
     int currentIndex = ui->messagetype_pick->currentIndex();
     return messages[currentIndex].at("id");
 }
 
-std::string MainWindow::getLocation()
-{
+std::string MainWindow::getLocation() {
     return ui->road_dropdown->currentText().toStdString();
 }
 
-QString MainWindow::getForecast()
-{
+QString MainWindow::getForecast() {
     return ui->fHoursSelect->currentText();
 }
 
 //Changes the graphtype based on input and draws the graph again
-void MainWindow::on_GraphcomboBox_activated(int index)
-{
-    if(index == 0){graphtype = "line";}
-    else if(index == 1){graphtype = "bar";}
-    else if (index == 2) {graphtype = "scatter";}
+void MainWindow::on_GraphcomboBox_activated(int index) {
+    if(index == 0){
+        graphtype = "line";
+    }
+    else if(index == 1){
+        graphtype = "bar";
+    }
+    else if (index == 2) {
+        graphtype = "scatter";
+    }
     emit graphButtonClicked();
 }
 
 
 
-void MainWindow::on_savePreferenceButton_clicked()
-{
+void MainWindow::on_savePreferenceButton_clicked() {
     QInputDialog window;
     //Asks and verifies user input
     int closedOrNot = window.exec();
@@ -270,10 +262,11 @@ void MainWindow::on_savePreferenceButton_clicked()
 }
 
 
-void MainWindow::on_preference_dropdown_activated(int index)
-{
+void MainWindow::on_preference_dropdown_activated(int index) {
     preferenceName = ui->preference_dropdown->currentText();
-    if(preferenceName == ""){return;}
+    if(preferenceName == ""){
+        return;
+    }
     else{
     fileCreator* creator_ = new fileCreator;
     QJsonObject preference = creator_->getGraphsfromfile(1)[preferenceName].toObject();
@@ -294,8 +287,7 @@ void MainWindow::on_preference_dropdown_activated(int index)
 }
 
 
-void MainWindow::on_deletePreferenceButton_clicked()
-{
+void MainWindow::on_deletePreferenceButton_clicked() {
     preferenceName = ui->preference_dropdown->currentText();
     emit deletePreferenceButtonClicked();
 }

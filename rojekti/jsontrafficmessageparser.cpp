@@ -1,7 +1,6 @@
 #include "jsontrafficmessageparser.h"
 
-jsonTrafficMessageParser::jsonTrafficMessageParser(const QString file)
-{
+jsonTrafficMessageParser::jsonTrafficMessageParser(const QString file) {
     jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
 
     bool isObject = createJsonObject("features");
@@ -12,7 +11,6 @@ jsonTrafficMessageParser::jsonTrafficMessageParser(const QString file)
     }
 }
 
-void jsonTrafficMessageParser::getData()
-{
+void jsonTrafficMessageParser::getData() {
     wantedValue_ = std::to_string(features_.size());
 }

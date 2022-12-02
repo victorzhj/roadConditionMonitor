@@ -11,13 +11,11 @@ xmlParser::xmlParser(const QString file, const QString param):
     parse();
 }
 
-std::vector<value> xmlParser::getValues()
-{
+std::vector<value> xmlParser::getValues() {
     return storedData_;
 }
 
-std::vector<dateTime> xmlParser::getTimes()
-{
+std::vector<dateTime> xmlParser::getTimes() {
     return times_;
 }
 
@@ -25,8 +23,7 @@ int xmlParser::getAmount() {
     return amount_;
 }
 
-void xmlParser::parse()
-{
+void xmlParser::parse() {
     std::set<std::string> storeTimeValues;
     QDomNodeList timeList = file_.elementsByTagName("BsWfs:Time");
     QDomNodeList parameterNameList = file_.elementsByTagName("BsWfs:ParameterName");

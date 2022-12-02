@@ -7,8 +7,7 @@
 #include <string>
 #include <sstream>
 
-model::model()
-{
+model::model() {
 }
 
 QList<QPointF> model::getChart() {
@@ -25,8 +24,7 @@ void model::updateChart(vector<double> timeData, vector<double> OtherData) {
         }
 }
 
-void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const  QString taskName, const QString location)
-{
+void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const  QString taskName, const QString location) {
     start_ = start;
     end_ = end;
 
@@ -34,8 +32,7 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
     vector<double> yaxis = {};
     int days = start.daysTo(end);
 
-    for (int i = 0; i <= days; i++)
-    {
+    for (int i = 0; i <= days; i++) {
         QDateTime current = start.addDays(i);
         QString dateString = current.date().toString(Qt::ISODate);
         QUrl url = urlBuilder.getRoadMaintenanceUrl(taskName, locations.value(location), dateString);
@@ -50,8 +47,7 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
 
 }
 
-std::string model::getRoadCondition(const std::string item, const std::string forecastTime, QString location)
-{
+std::string model::getRoadCondition(const std::string item, const std::string forecastTime, QString location) {
     QUrl url = urlBuilder.getRoadConditionUrl(locations.value(location));
     QString json = networker_->getData(url);
     jsonRoadConditionParser j(json, item, forecastTime);
@@ -59,24 +55,21 @@ std::string model::getRoadCondition(const std::string item, const std::string fo
     return value;
 }
 
-std::string model::getTrafficMsg(std::string messageType)
-{
+std::string model::getTrafficMsg(std::string messageType) {
     QUrl url = urlBuilder.getTrafficMsgUrl(QString::fromStdString(messageType));
     QString json = networker_->getData(url);
     jsonTrafficMessageParser j(json);
     return j.getValue();
 }
 
-void model::getXmlWeatherObservation(const QString param, const QString location)
-{
+void model::getXmlWeatherObservation(const QString param, const QString location) {
     QUrl url = urlBuilder.getWeatherObservations(locations.value(location), param);
     QString xml = networker_->getData(url);
     xmlParser xmlPar(xml, param);
     getXmlDataHelper(xml, param);
 }
 
-void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location)
-{
+void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, const QString param, const QString location) {
     QString startDate = start.date().toString(Qt::ISODate);
     QString endDate = end.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getAveragegObservations(startDate, endDate, locations.value(location), param);
@@ -84,8 +77,7 @@ void model::getXmlAvgMinMaxTemp(const QDateTime start, const QDateTime end, cons
     getXmlDataHelper(xml, param);
 }
 
-void model::getXmlWeatherForecast(const QDateTime endTime, const QString param, const QString location)
-{
+void model::getXmlWeatherForecast(const QDateTime endTime, const QString param, const QString location) {
     QString startDate = QDate::currentDate().toString(Qt::ISODate);
     QString endDate = endTime.date().toString(Qt::ISODate);
     QUrl url = urlBuilder.getWeatherForecast(startDate, endDate, locations.value(location), param);
@@ -95,8 +87,7 @@ void model::getXmlWeatherForecast(const QDateTime endTime, const QString param, 
 
 }
 
-void model::getXmlDataHelper(const QString xml, const QString param)
-{
+void model::getXmlDataHelper(const QString xml, const QString param) {
     vector<double> xaxis = {};
     vector<double> yaxis = {};
     xmlParser xmlPar(xml, param);
@@ -104,8 +95,7 @@ void model::getXmlDataHelper(const QString xml, const QString param)
     std::vector<std::string> dateTime = xmlPar.getTimes();
 
     // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
-    for (unsigned long int index = 0; index < data.size(); index++)
-    {
+    for (unsigned long int index = 0; index < data.size(); index++) {
         yaxis.push_back(std::stod(data[index]));
         xaxis.push_back(index);
     }
