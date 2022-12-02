@@ -13,8 +13,7 @@ item_(QString::fromStdString(item)), forecastTime_(QString::fromStdString(foreca
     }
 }
 
-void jsonRoadConditionParser::getData()
-{
+void jsonRoadConditionParser::getData() {
     if (features_.size() == 0) {
         wantedValue_ = "noValue";
         return;

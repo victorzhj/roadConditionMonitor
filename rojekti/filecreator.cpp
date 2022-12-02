@@ -11,8 +11,7 @@ fileCreator::fileCreator()
 }
 
 //Gets the graph names from the files or preference names from preferences.txt
-QList<QString> fileCreator::loadNames(int i)
-{
+QList<QString> fileCreator::loadNames(int i) {
     QByteArray jsonFile_;
     QJsonDocument doc;
     QFile file("graphs.txt");
@@ -27,14 +26,13 @@ QList<QString> fileCreator::loadNames(int i)
 
     if(i == 1) {
         return doc.object().keys();
+    } else {
+    return getImageNames(doc.object().keys());
     }
-    else{
-    return getImageNames(doc.object().keys());}
 }
 
 //Writes the content to a file specified by i
-void fileCreator::writetoFiles(QJsonObject something, int i)
-{
+void fileCreator::writetoFiles(QJsonObject something, int i) {
     QFile file("graphs.txt");
     if(i == 1) {
         file.setFileName("preferences.txt");
@@ -47,8 +45,7 @@ void fileCreator::writetoFiles(QJsonObject something, int i)
 }
 
 //Gets the content from a while specified by i
-QJsonObject fileCreator::getGraphsfromfile(int i)
-{
+QJsonObject fileCreator::getGraphsfromfile(int i) {
     QFile file("graphs.txt");
     if(i == 1) {
         file.setFileName("preferences.txt");
@@ -63,14 +60,14 @@ QJsonObject fileCreator::getGraphsfromfile(int i)
 
 //Gets the names of the images in graphImages folder
 QList<QString> fileCreator::getImageNames(QList<QString> stuff) {
-
     std::filesystem::create_directory("graphImages");
     std::filesystem::path dir = std::filesystem::current_path().append("graphImages");
-   for (const auto & entry : std::filesystem::directory_iterator(dir))
-         {QDir directory = QDir(QString::fromStdString(entry.path().string()));
+    for (const auto & entry : std::filesystem::directory_iterator(dir)) {
+       QDir directory = QDir(QString::fromStdString(entry.path().string()));
        QString imagename = directory.dirName();
        imagename.remove(imagename.size()-4, 4);
-       stuff.append(imagename);}
+       stuff.append(imagename);
+    }
 
    return stuff;
 }

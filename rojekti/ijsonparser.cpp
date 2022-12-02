@@ -1,13 +1,11 @@
 #include "ijsonparser.h"
 
 
-std::string IjsonParser::getValue()
-{
+std::string IjsonParser::getValue() {
     return wantedValue_;
 }
 
-bool IjsonParser::createJsonObject(QString param)
-{
+bool IjsonParser::createJsonObject(QString param) {
     if (jsonFile_.isEmpty()) {
         return false;
     } else if (jsonFile_.isArray()) {

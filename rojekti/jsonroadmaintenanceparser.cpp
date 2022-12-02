@@ -1,7 +1,6 @@
 #include "jsonroadmaintenanceparser.h"
 
-jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file)
-{
+jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file) {
     jsonFile_ = QJsonDocument::fromJson(file.toUtf8());
 
     bool isObject = createJsonObject("features");
@@ -12,7 +11,6 @@ jsonRoadMaintenanceParser::jsonRoadMaintenanceParser(const QString file)
     }
 }
 
-void jsonRoadMaintenanceParser::getData()
-{
+void jsonRoadMaintenanceParser::getData() {
     wantedValue_ = std::to_string(features_.size());
 }

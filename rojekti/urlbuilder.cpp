@@ -1,12 +1,9 @@
 #include "urlbuilder.h"
 
-urlBuilder::urlBuilder()
-{
-
+urlBuilder::urlBuilder(){
 }
 
-QUrl urlBuilder::getRoadMaintenanceUrl(QString taskName, QVector<QString> coords, QString date)
-{
+QUrl urlBuilder::getRoadMaintenanceUrl(QString taskName, QVector<QString> coords, QString date) {
       QString url = digitrafficBase + "maintenance/v1/tracking/routes?endFrom="
                 + date + "T09%3A00%3A00Z&endBefore=" + date
                 + "T14%3A00%3A00Z&xMin=" + coords[0]
@@ -18,22 +15,19 @@ QUrl urlBuilder::getRoadMaintenanceUrl(QString taskName, QVector<QString> coords
       return QUrl(url);
 }
 
-QUrl urlBuilder::getRoadConditionUrl(QVector<QString> coords)
-{
+QUrl urlBuilder::getRoadConditionUrl(QVector<QString> coords) {
     QString url = digitrafficBase + "v3/data/road-conditions/"
                 + coords[0] + "/" + coords[1]
                 + "/" + coords[2] + "/" + coords[3];
     return QUrl(url);
 }
 
-QUrl urlBuilder::getTrafficMsgUrl(QString messageType)
-{
+QUrl urlBuilder::getTrafficMsgUrl(QString messageType) {
     QString url = digitrafficBase + "traffic-message/v1/messages?inactiveHours=0&includeAreaGeometry=false&situationType=" + messageType;
     return QUrl(url);
 }
 
-QUrl urlBuilder::getWeatherObservations(QVector<QString> coords, QString param)
-{
+QUrl urlBuilder::getWeatherObservations(QVector<QString> coords, QString param) {
     QString url = fmiBase + "observations::weather::simple&bbox="
             + coords[0] + ","  + coords[1]
             + "," + coords[2] + "," + coords[3]
@@ -41,8 +35,7 @@ QUrl urlBuilder::getWeatherObservations(QVector<QString> coords, QString param)
     return QUrl(url);
 }
 
-QUrl urlBuilder::getAveragegObservations(QString startDate, QString endDate, QVector<QString> coords, QString param)
-{
+QUrl urlBuilder::getAveragegObservations(QString startDate, QString endDate, QVector<QString> coords, QString param) {
     QString url = fmiBase + "observations::weather::hourly::simple&bbox="
             + coords[0] + ","  + coords[1]
             + "," + coords[2] + "," + coords[3]
@@ -53,8 +46,7 @@ QUrl urlBuilder::getAveragegObservations(QString startDate, QString endDate, QVe
     return QUrl(url);
 }
 
-QUrl urlBuilder::getWeatherForecast(QString start, QString end, QVector<QString> coords, QString param)
-{
+QUrl urlBuilder::getWeatherForecast(QString start, QString end, QVector<QString> coords, QString param) {
     QString url = fmiBase
             + "forecast::harmonie::surface::point::simple&latlon="
             + coords[1] + ","  + coords[0]
