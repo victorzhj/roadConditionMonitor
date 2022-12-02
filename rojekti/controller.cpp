@@ -216,16 +216,12 @@ void controller::deleteButtonClicked() {
 void controller::PreferenceButtonClicked(int roaddropdownindex, int grapdropdownindex, int roadmaintenancetypeindex, int forecastdropdownindex, int messagetypedropdownindex) {
     QJsonObject Writetofile = creator_->getGraphsfromfile(1);;
     QJsonObject preferences;
-    QJsonObject dates;
-    dates.insert("startdate", view_->getTimeRange().first.toString());
-    dates.insert("enddate", view_->getTimeRange().second.toString());
     preferences.insert("location", roaddropdownindex);
     preferences.insert("graphtype", grapdropdownindex);
     preferences.insert("radiobutton", view_->preferenceButton_);
     preferences.insert("type_pick", roadmaintenancetypeindex);
     preferences.insert("fhours", forecastdropdownindex);
     preferences.insert("messagetype", messagetypedropdownindex);
-    preferences.insert("dates", dates);
     Writetofile.insert(view_->preferenceName, preferences);
     creator_->writetoFiles(Writetofile, 1);
     view_->loadPreferences();
