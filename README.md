@@ -11,3 +11,4 @@ This is a QT-project so to use the application, Qt-library and Qt-creator are re
 - The user can **save the drawn graph** as a image or as data points with the *"Save graph"*-button. The user can give the saved graph a name and it can be viewed from the **compare dropdown**. This is how the user can compare different searchers.
   - The saved graph can be deleted by picking it from the dropdown and pressing *"Delete graph"*-button.
 - When user chooses **precipitation** option with forecast set to **0** it won't do anything.
+- The observed temperature, wind and cloudiness draws a graph for the last 12 hours in 1 hour intervals.
