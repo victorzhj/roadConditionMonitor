@@ -285,8 +285,8 @@ void MainWindow::on_preference_dropdown_activated(int index)
     ui->messagetype_pick->setCurrentIndex(preference["messagetype"].toInt());
     QRadioButton* button = findChild<QRadioButton*>(preference["radiobutton"].toString());
     button->setChecked(1);
-    ui->startTimeEdit->setDateTime(QDateTime::fromString(preference["dates"].toObject()["startdate"].toString()));
-    ui->endTimeEdit->setDateTime(QDateTime::fromString(preference["dates"].toObject()["enddate"].toString()));
+    ui->startTimeEdit->setDate(QDate::currentDate());
+    ui->endTimeEdit->setDateTime(QDateTime::currentDateTime());
     ui->GraphcomboBox->setCurrentIndex(preference["graphtype"].toInt());
     updateCurrentButton();
     emit graphButtonClicked();
