@@ -1,4 +1,4 @@
-This main branch includes a design document.
+The software is started by running main.cpp
 
 This is a QT-project so to use the application, Qt-library and Qt-creator are required. In Qt-creator all user needs to do is to open the pro file in rojekti folder and run the project. Note Qt version should be 6 or higher with QtCharts library downloaded (if it doesnt download automatically help is at https://stackoverflow.com/questions/42867557/how-to-install-qtcharts-on-windows). The recommended OS is windows as mac users might experience some problems (which stem from mac and not us)
 
