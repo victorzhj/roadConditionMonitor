@@ -93,9 +93,9 @@ public slots:
 
     void updateCurrentButton();
 
+    void on_graphButton_clicked();
 
 private slots:
-    void on_graphButton_clicked();
 
     void on_roadmaintenance_toggled(bool checked);
 
@@ -124,7 +124,7 @@ signals:
      * @brief sends a signal when the saveButton is Clicked
      * @param i is gotten from an inputdialog window which tells if we want to save as an image or as text
      */
-    void saveButtonClicked(int i);
+    void saveButtonClicked(int i, QString name);
 
     /**
      * @brief sends a signal when the comparedropdown is activated

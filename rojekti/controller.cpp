@@ -1,6 +1,6 @@
 #include "controller.h"
 #include "QObject"
-#include "qlayout.h"
+#include <QBoxLayout>
 #include <string>
 #include <sstream>
 #include <QFile>
@@ -63,7 +63,7 @@ void controller::GraphButtonClicked() {
     string endDate = view_->getTimeRange().first.toString().toStdString();
 
     std::pair<QDateTime, QDateTime> timeRange = view_->getTimeRange();
-    //model_->jsonGetData("maintenance","sijainti1");
+
     std::string location = view_->getLocation();
     MainWindow::Button selected = view_->getCurrentButton();
     if(selected == MainWindow::Button::RoadMaintenance) {
@@ -84,12 +84,15 @@ void controller::GraphButtonClicked() {
         displayLabel->setText(QString::fromStdString(tempstring));
         displayLabel->setObjectName(displayLabel->text());
 
+        saveButtonClicked(0, "Current");
         return;
     } else if (selected == MainWindow::Button::TrafficMessages) {
         view_->chartview->setLayout(layout);
         std::string messageType = view_->getCurrentMessage();
         displayLabel->setText(QString::fromStdString(model_->getTrafficMsg(messageType)));
         displayLabel->setObjectName(displayLabel->text());
+
+        saveButtonClicked(0, "Current");
         return;
     } else if (selected == MainWindow::Button::TemperatureHistory || selected == MainWindow::Button::ObservedWind || selected == MainWindow::Button::ObservedCloudiness) {
         QString selectedName;
@@ -119,29 +122,34 @@ void controller::GraphButtonClicked() {
         model_->getXmlAvgMinMaxTemp(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
     } else if (selected == MainWindow::Button::TemperatureForecast || selected == MainWindow::Button::PredictedWind) {
         QString selectedName;
-        endDate = view_->getTimeRange().second.toString().toStdString();
+        endDate = QDateTime::currentDateTime().toString().toStdString();
         typeoftime = "hours2";
-        // TODO
+
         if (selected == MainWindow::Button::TemperatureForecast) {
             selectedName = "temperature";
         } else if (selected == MainWindow::Button::PredictedWind) {
             selectedName = "windspeedms";
         }
-        // model_->getXmlWeatherForecast(timeRange.first, timeRange.second, selectedName, QString::fromStdString(location));
+
         model_->getXmlWeatherForecast(timeRange.second, selectedName, QString::fromStdString(location));
     }
 
     updateGraph(1, endDate);
+    saveButtonClicked(0, "Current");
 }
 
 //Saving to file called graphs.txt (initializing if there is none)
-void controller::saveButtonClicked(int i) {
+void controller::saveButtonClicked(int i, QString name) {
     if(i==0 && !view_->chartview->findChild<QBoxLayout*>("layoutwithlabel")){
    QJsonObject savedGraphs = creator_->getGraphsfromfile();
    QJsonObject myObject;
    myObject.insert("type", "normal");
    myObject.insert("typeoftime", QString::fromStdString(typeoftime));
-   myObject.insert("endDate", view_->getTimeRange().second.toString());
+   QString datestring = view_->getTimeRange().second.toString();
+   if(QDateTime::currentDateTime() < view_->getTimeRange().second){
+       datestring = QDateTime::currentDateTime().toString();
+   }
+   myObject.insert("endDate", datestring);
     QList<QPointF> temp = model_->getChart();
     QMap<QString, QVariant> myMap;
     for (int i = 0; i< temp.size(); i++)
@@ -151,7 +159,7 @@ void controller::saveButtonClicked(int i) {
         };
     QJsonValue graphpoints = QJsonValue::fromVariant(myMap);
     myObject.insert("points", graphpoints);
-    savedGraphs.insert(view_->placeholdername, myObject);
+    savedGraphs.insert(name, myObject);
     creator_->writetoFiles(savedGraphs);
     } else if (i  == 0){
        QJsonObject savedGraphs = creator_->getGraphsfromfile();
@@ -170,9 +178,6 @@ void controller::saveButtonClicked(int i) {
 
 //Draws the chart selected from the dropdown to the compare section
 void controller::compareDropdownActivated() {
-    if(view_->placeholdername == "Current") {
-        GraphButtonClicked(); model_->pointdata2_ = model_->getChart(); updateGraph(0); return;
-    }
     std::vector<double> xaxis;
     std::vector<double> yaxis;
     QString graphname = view_->placeholdername;
@@ -184,7 +189,7 @@ void controller::compareDropdownActivated() {
    }
     model_->pointdata2_ = pointdata;
     typeoftime = myObject["typeoftime"].toString().toStdString();
-    updateGraph(0, myObject["startDate"].toString().toStdString());
+    updateGraph(0, myObject["endDate"].toString().toStdString());
    } else {
        QBoxLayout* layout = new QBoxLayout(QBoxLayout::RightToLeft);
        QLabel* displayLabel = new QLabel();

@@ -1,7 +1,11 @@
 #include "model.h"
-#include "creategraph.cpp"
 #include <string>
 #include <sstream>
+#include "creategraph.cpp"
+#include "jsonroadmaintenanceparser.h"
+#include "jsonroadconditionparser.h"
+#include "jsontrafficmessageparser.h"
+#include "xmlparser.h"
 
 model::model() {
 }
@@ -35,7 +39,6 @@ void model::getRoadMaintenance(const QDateTime start, const QDateTime end, const
         QString json = networker_->getData(url);
         jsonRoadMaintenanceParser j(json);
         int final = stoi(j.getValue());
-        //xaxis.push_back(current.toString().toStdString()); jos haluaa timestampit graafiin
         xaxis.push_back(i);
         yaxis.push_back(final);
     }
@@ -90,7 +93,6 @@ void model::getXmlDataHelper(const QString xml, const QString param) {
     std::vector<std::string> data = xmlPar.getValues();
     std::vector<std::string> dateTime = xmlPar.getTimes();
 
-    // WHAT TO DO WITH NAN VALUES AND WHAT TO DO WITH DATES
     for (unsigned long int index = 0; index < data.size(); index++) {
         yaxis.push_back(std::stod(data[index]));
         xaxis.push_back(index);

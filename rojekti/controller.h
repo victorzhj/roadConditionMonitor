@@ -61,7 +61,7 @@ public slots:
      * @brief Saves the graph that is currently being displayed in the upper chart
      * @param i tells us
      */
-    void saveButtonClicked(int i);
+    void saveButtonClicked(int i, QString name);
 signals:
 
 };

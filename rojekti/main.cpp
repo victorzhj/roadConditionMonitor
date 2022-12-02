@@ -7,6 +7,7 @@ int main(int argc, char *argv[]) {
     MainWindow *w = new MainWindow();
     model *m = new model();
     controller* c = new controller(m, w);
+    (void)c;
     w->show();
     return a.exec();
 }

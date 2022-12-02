@@ -10,12 +10,7 @@
 #include <QList>
 #include <QPoint>
 #include <iostream>
-
-#include "jsonroadmaintenanceparser.h"
-#include "jsonroadconditionparser.h"
-#include "jsontrafficmessageparser.h"
 #include "networker.h"
-#include "xmlparser.h"
 
 #include <QMap>
 #include <QList>

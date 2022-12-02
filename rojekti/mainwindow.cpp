@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "qdir.h"
 #include "qjsonobject.h"
 #include "ui_mainwindow.h"
 
@@ -91,13 +90,13 @@ void MainWindow::on_saveButton_clicked() {
     int closedOrNot =window.exec();
     placeholdername = window.textValue();
     //Verifies user input
-    if(ui->CompareDropdown->findText(placeholdername) != -1 & closedOrNot !=0) {
+    if((ui->CompareDropdown->findText(placeholdername) != -1) & (closedOrNot !=0)) {
         QMessageBox::warning(this, "Error", "Name already used, delete previous one or use another name");
         return;
     }
     else if (closedOrNot == 1) {
-        emit saveButtonClicked(imageornormal);
         ui->CompareDropdown->addItem(placeholdername);
+        emit saveButtonClicked(imageornormal, placeholdername);
     }
 }
 
@@ -108,7 +107,7 @@ void MainWindow::on_CompareDropdown_activated(int index) {
      chartview2 = new QChartView();
     ui->horizontalLayout_5->removeWidget(imagelabel);
      imagelabel = new QLabel();
-    placeholdername = ui->CompareDropdown->currentText();
+    placeholdername = ui->CompareDropdown->itemText(index);
     QList<QString> emptylist = {};
     //If graph was saved as an image it copies it here
     if(creator_->getImageNames(emptylist).contains(placeholdername)) {
@@ -186,11 +185,9 @@ void MainWindow::on_deleteButton_clicked() {
 //loads previously saved graph names and adds them to the CompareDropdown
 void MainWindow::loadCompareItems() {
     ui->CompareDropdown->clear();
-    ui->CompareDropdown->addItem("Current");
     placeholdername = "Current";
     fileCreator* temp = new fileCreator;
     QList<QString> graphs = temp->loadNames();
-
    for(auto i : graphs) {
        ui->CompareDropdown->addItem(i);
    }
@@ -263,7 +260,7 @@ void MainWindow::on_savePreferenceButton_clicked() {
 
 
 void MainWindow::on_preference_dropdown_activated(int index) {
-    preferenceName = ui->preference_dropdown->currentText();
+    preferenceName = ui->preference_dropdown->itemText(index);
     if(preferenceName == ""){
         return;
     }

@@ -1,6 +1,5 @@
 #include "filecreator.h"
 #include "qjsonobject.h"
-#include "qpixmap.h"
 #include <QDir>
 #include <filesystem>
 #include <iostream>
@@ -47,14 +46,17 @@ void fileCreator::writetoFiles(QJsonObject something, int i) {
 //Gets the content from a while specified by i
 QJsonObject fileCreator::getGraphsfromfile(int i) {
     QFile file("graphs.txt");
+    QJsonDocument tempdoc;
     if(i == 1) {
         file.setFileName("preferences.txt");
     }
-
+    if(!QFileInfo::exists(file.fileName())){
+        return tempdoc.object();
+    }
     file.open(QIODevice::ReadOnly);
    QByteArray jsonFile_ = file.readAll();
    file.close();
-   QJsonDocument tempdoc = QJsonDocument::fromJson(jsonFile_);
+   tempdoc = QJsonDocument::fromJson(jsonFile_);
    return tempdoc.object();
 }
 

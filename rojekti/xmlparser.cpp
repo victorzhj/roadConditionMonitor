@@ -31,7 +31,6 @@ void xmlParser::parse() {
     QDomNodeList coordList = file_.elementsByTagName("gml:pos");
     QString coord = file_.elementsByTagName("gml:pos").at(0).toElement().text();
 
-    // QString helloWorld=list1.at(0).toElement().text();
     for (auto i = 0; i < timeList.size(); i++) {
         // Check if coords are right
         if (!(coordList.at(i).toElement().text().toStdString() == coord.toStdString())) {
