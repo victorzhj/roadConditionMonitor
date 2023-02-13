@@ -1,3 +1,10 @@
+This software is a project for Software Design COMP.SE.110 course.
+
+The software is used to monitor current, past or future road conditions depending on chosen choises.
+
+The parts of the software that I made were the Json and XML parsers. I also coded part of the model classes methods and helped with networker class. 
+
+
 The software is started by running main.cpp
 
 This is a QT-project so to use the application, Qt-library and Qt-creator are required. In Qt-creator all user needs to do is to open the pro file in rojekti folder and run the project. Note Qt version should be 6 or higher with QtCharts library downloaded (if it doesnt download automatically help is at https://stackoverflow.com/questions/42867557/how-to-install-qtcharts-on-windows). The recommended OS is windows as mac users might experience some problems. (which stem from mac and not us) Linux is not recommended as the software is not tested on the operating system.
